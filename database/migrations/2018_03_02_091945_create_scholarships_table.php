@@ -15,6 +15,12 @@ class CreateScholarshipsTable extends Migration
     {
         Schema::create('scholarships', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nama_beasiswa', 50);
+            $table->string('nama_instantsi', 50);
+            $table->integer('quota');
+            $table->text('konten');
+            $table->text('alamat_gambar');
+            $table->date('masa_berlaku');
             $table->timestamps();
         });
     }

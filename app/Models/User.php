@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -26,4 +26,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function facilitator($role){
+        if($role === 1)
+            return $this->hasOne('App\Models\Facilitator');
+        else 
+            return 0;
+    }
+
+    public function scholarship(){
+        return $this->belongsToMany('App\Models\Scholarship');
+    }
 }

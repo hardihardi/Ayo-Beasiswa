@@ -13,7 +13,7 @@ class CreateUsersBeasiswaTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_beasiswa', function (Blueprint $table) {
+        Schema::create('user_scholarship', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('scholarship_id')->unsigned();

@@ -24,6 +24,6 @@ class Scholarship extends Model
     }
 
     public function category(){
-        return $this->belongsToMany('App\Models\Category', 'beasiswa_category', 'category_id','scholarship_id');
+        return $this->belongsToMany('App\Models\Category', 'beasiswa_kategori', 'category_id','scholarship_id');
     }
 }

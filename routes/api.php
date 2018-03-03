@@ -21,4 +21,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'api'], function(){
 	Route::post('/signup', 'userController@signup');
 	Route::post('/signin', 'userController@signin');
+		Route::group(['middleware' => 'jwt.auth'], function(){
+			Route::get('/user', 'userController@index');
+			Route::get('/user/update/{id}', 'userController@update');
+			Route::get('/beasiswa', 'beasiswaController@show');
+			Route::get('/beasiswa/{id}', 'beasiswaController@single');
+		});
 });

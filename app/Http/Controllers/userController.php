@@ -12,8 +12,12 @@ use JWTAuth;
 class userController extends Controller
 {
     public function index(){
-    	$show = User::where('id',1)->first();
-    	dd($show->facilitator($show->role)->first()->deskripsi_instansi);
+    	$show = User::all();
+    	return $show;
+    }
+
+    public function update($id){
+        
     }
 
     public function signup(Request $request){

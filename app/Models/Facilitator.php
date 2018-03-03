@@ -13,9 +13,9 @@ class Facilitator extends Model
 
 
     public function User(){
-    	return $this->belongsTo('App\Models\User');
+    	return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
-    public function Scholarship(){
+    public function Scholarships(){
         return $this->hasMany('App\Models\Scholarship');
     }
 }

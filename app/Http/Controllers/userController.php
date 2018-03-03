@@ -28,18 +28,20 @@ class userController extends Controller
             'telp' => $request->telp, 
             'role' => $request->role
         ]);
-
-        dd($updated);
         return $updated;
     }
 
     public function createFacilitator(Request $request){
-        $facilitator = $request->user()->facilitator()->create([
+       if($request->user()->role == 1){
+         $facilitator = $request->user()->facilitator()->create([
             "nama_instansi" => $request->nama_instansi,
             "deskripsi_instansi"=> $request->deskripsi_instansi
         ]);
         
         return $facilitator;
+    }
+    return "Kamu tidak memiliki hak untuk ini";
+       
     }
 
     public function signup(Request $request){

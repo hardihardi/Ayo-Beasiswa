@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateScholarshipsTable extends Migration
+class CreateFacilitatorScholarship extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,14 @@ class CreateScholarshipsTable extends Migration
      */
     public function up()
     {
-        Schema::create('scholarships', function (Blueprint $table) {
+        Schema::create('facilitator_scholarship', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nama_beasiswa', 50);
-            $table->string('nama_instantsi', 50);
-            $table->integer('quota');
-            $table->text('konten');
-            $table->text('alamat_gambar');
-            $table->date('masa_berlaku');
             $table->integer('facilitator_id')->unsigned();
+            $table->integer('scholarship_id')->unsigned();
             $table->timestamps();
 
-            
             $table->foreign('facilitator_id')->references('id')->on('facilitators')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('scholarship_id')->references('id')->on('scholarships')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -36,6 +31,6 @@ class CreateScholarshipsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scholarships');
+        //
     }
 }

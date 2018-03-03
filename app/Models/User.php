@@ -28,7 +28,7 @@ class User extends Authenticatable
     ];
 
     public function facilitator(){
-            return $this->hasOne('App\Models\Facilitator');
+        return $this->hasOne('App\Models\Facilitator','user_id', 'id');
     }
 
     public function scholarship(){

@@ -177,6 +177,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        //API JWT
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+
+
     ],
 
     /*
@@ -225,6 +229,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        //API JWT
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
 
     ],
 

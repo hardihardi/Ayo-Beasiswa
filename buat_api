@@ -1,0 +1,20 @@
+-------tahapan buat api dengan laravel ---------
+
+1. buat migration buat database
+2. bikin modelsnya sesuai relasi 
+3. bikin controllernya buat menmgatur semuanya
+4. bikin route nya di api.php
+5. bikin yang register dulu pake crud biasa
+6. bikin login pake jwt-auth 
+	6.1 buka terminal composer required tympon/jwt-auth
+	6.2 'Tymon\JWTAuth\Providers\JWTAuthServiceProvider'
+		'JWTAuth' => 'Tymon\JWTAuth\Facades\JWTAuth'
+		Ditaro di app
+
+	6.3 php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\JWTAuthServiceProvider"
+		php artisan jwt:generate
+
+	6.4 'user' => 'App\Models\User',
+		'model' => App\Models\User::class, itu diubah sesuai direktori auth
+
+	6.5 copy configuration

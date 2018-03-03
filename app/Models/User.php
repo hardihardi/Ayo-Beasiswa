@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password',
+        'username', 'email', 'password', 'nama', 'alamat', 'telp', 'role', 'pendidikan',
     ];
 
     /**
@@ -27,11 +27,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function facilitator($role){
-        if($role === 1)
+    public function facilitator(){
             return $this->hasOne('App\Models\Facilitator');
-        else 
-            return 0;
     }
 
     public function scholarship(){

@@ -23,7 +23,8 @@ Route::group(['middleware' => 'api'], function(){
 	Route::post('/signin', 'userController@signin');
 		Route::group(['middleware' => 'jwt.auth'], function(){
 			Route::get('/user', 'userController@index');
-			Route::get('/user/update/{id}', 'userController@update');
+			Route::post('/user/facilitator/add', 'userController@createFacilitator');
+			Route::post('/user/update', 'userController@update');
 			Route::get('/beasiswa', 'beasiswaController@show');
 			Route::get('/beasiswa/{id}', 'beasiswaController@single');
 		});

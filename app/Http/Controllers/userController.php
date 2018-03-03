@@ -16,8 +16,30 @@ class userController extends Controller
     	return $show;
     }
 
-    public function update($id){
+    public function update(Request $request){         
+        $updated =$request->user();
+        // kalo mkodel dan table user
+        // $updated =JWTAuth::parseToken()->authenticate();
+        //kalo bukan user nama table dan modelnya pake yang ini
+        $updated->update([
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'pendidikan' => $request->pendidikan, 
+            'telp' => $request->telp, 
+            'role' => $request->role
+        ]);
+
+        dd($updated);
+        return $updated;
+    }
+
+    public function createFacilitator(Request $request){
+        $facilitator = $request->user()->facilitator()->create([
+            "nama_instansi" => $request->nama_instansi,
+            "deskripsi_instansi"=> $request->deskripsi_instansi
+        ]);
         
+        return $facilitator;
     }
 
     public function signup(Request $request){

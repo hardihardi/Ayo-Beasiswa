@@ -73,7 +73,7 @@ class userController extends Controller
         try {
             // attempt to verify the credentials and create a token for the user
             if (! $token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], 401);
+                return response()->json(['error' => 'Username dan Password tidak cocok'], 401);
             }
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
@@ -81,6 +81,10 @@ class userController extends Controller
         }
 
         // all good so return the token
-        return response()->json(compact('token'));
+        return response()->json([
+            "username" => $request->user()->username,
+            "email"    => $request->user()->email,
+            "token"    => $token
+        ]);
     }
 }

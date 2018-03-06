@@ -5,6 +5,8 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Response;
 
 class Handler extends ExceptionHandler
 {
@@ -32,7 +34,8 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
-        parent::report($exception);
+
+         parent::report($exception);
     }
 
     /**
@@ -44,6 +47,18 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+
+         if($request->expectsJson()){
+           if ($exception instanceof NotFoundHttpException) {
+                return response()->json([
+                    'error' => 'true',
+                    'error_log' => 'Data Not Found'
+                ], Response::HTTP_NOT_FOUND);   
+            }
+
+        }
+
+
         return parent::render($request, $exception);
     }
 

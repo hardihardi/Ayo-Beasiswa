@@ -27,7 +27,7 @@ Route::group(['middleware' => 'api'], function(){
 			Route::post('/user/update', 'userController@update');
 			Route::get('/beasiswa', 'beasiswaController@show');
 			Route::get('/beasiswa/{id}', 'beasiswaController@single');
-			Route::get('/category', 'beasiswaController@show');
-			Route::get('/category/{name}', 'categoryController@single');
+			Route::get('/kategori', 'categoryController@show');
+			Route::get('/kategori/{name}', 'categoryController@single');
 		// });
 });

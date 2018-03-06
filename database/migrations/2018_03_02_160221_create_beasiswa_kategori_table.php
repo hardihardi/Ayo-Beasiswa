@@ -19,8 +19,8 @@ class CreateBeasiswaKategoriTable extends Migration
             $table->integer('scholarship_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('scholarship_id')->references('id')->on('scholarships')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('category_id')->references('category_id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('scholarship_id')->references('scholarship_id')->on('scholarships')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

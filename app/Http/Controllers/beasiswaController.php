@@ -9,11 +9,11 @@ use App\Models\Scholarship;
 class beasiswaController extends Controller
 {
     public function show(){
-    	return Scholarship::all();
+    	return Scholarship::with(['user', 'facilitator', 'categories'])->get();
     }
 
     public function single($id){
-    	$single = Scholarship::with(['user', 'facilitator', 'category'])->where('id', $id)->first();
+    	$single = Scholarship::with(['user', 'facilitator', 'categories'])->where('id', $id)->first();
     	return $single;
     }
 }

@@ -16,6 +16,6 @@ class Facilitator extends Model
     	return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
     public function Scholarships(){
-        return $this->hasMany('App\Models\Scholarship');
+        return $this->hasMany('App\Models\Scholarship', 'beasiswa_kategori','scholarship_id' ,'category_id');
     }
 }

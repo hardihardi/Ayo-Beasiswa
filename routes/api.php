@@ -25,7 +25,8 @@ Route::group(['middleware' => 'api'], function(){
 			Route::get('/user', 'userController@index');
 			Route::post('/user/facilitator/add', 'userController@createFacilitator');
 			Route::post('/user/update', 'userController@update');
-			Route::get('/beasiswa', 'beasiswaController@show');
+			Route::get('/beasiswa', 'beasiswaController@show'); 
+			Route::get('/beasiswa/priority','beasiswaController@priority');
 			Route::get('/beasiswa/{id}', 'beasiswaController@single');
 			Route::get('/kategori', 'categoryController@show');
 			Route::get('/kategori/{name}', 'categoryController@single');

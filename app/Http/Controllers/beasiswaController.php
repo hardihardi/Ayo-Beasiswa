@@ -34,13 +34,14 @@ class beasiswaController extends Controller
     }
 
     public function search(Request $request){
-            
-        // dd($request->date);
-        $beasiswa  = Scholarship::search($request->search)->get()->load(['user','facilitator', 'categories']);
-         return fractal()
-            ->collection($beasiswa)
-            ->transformWith(new ScholarshipTransformer)
-            ->toArray();
+                $beasiswa  = Scholarship::search($request->search)->get()->load(['user','facilitator', 'categories']);
+             return fractal()
+                ->collection($beasiswa)
+                ->transformWith(new ScholarshipTransformer())
+                ->serializeWith(new \Spatie\Fractalistic\ArraySerializer())
+                ->toArray();
+
+        // ini kalo ga mau pake eager loading
          // $beasiswa  = Scholarship::search($request->search)->where('masa_berlaku', $request->date)->get();
         // return $beasiswa;
     }

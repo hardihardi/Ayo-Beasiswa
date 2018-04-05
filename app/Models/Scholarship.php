@@ -29,7 +29,7 @@ class Scholarship extends Model
 	}
 
 	public function user(){
-        return $this->belongsToMany('App\Models\User', 'user_scholarship', 'user_id','scholarship_id');
+        return $this->belongsToMany('App\Models\User', 'user_scholarship','scholarship_id', 'user_id');
     }
 
     public function categories(){

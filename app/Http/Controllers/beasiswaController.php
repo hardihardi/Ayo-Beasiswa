@@ -45,4 +45,13 @@ class beasiswaController extends Controller
          // $beasiswa  = Scholarship::search($request->search)->where('masa_berlaku', $request->date)->get();
         // return $beasiswa;
     }
+
+     public function create(Request $request){
+        $user =  $request->user();
+        $scholarship =  Scholarship::find(4);
+        if($scholarship == null)
+            return response()->json(['error' => 'data not found']);
+        $scholarship->user()->attach($user);
+        return $scholarship;
+    }
 }

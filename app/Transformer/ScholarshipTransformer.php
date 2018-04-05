@@ -27,7 +27,7 @@ class ScholarshipTransformer extends TransformerAbstract {
           'views'               =>  $beasiswa->views,
           'prioritas'           =>  $beasiswa->prioritas,
           'facilitator_id'      =>  $beasiswa->facilitator_id,
-          'created_at'          =>  $beasiswa->created_at,
+          'created_at'          =>  $beasiswa->created_at->diffForHumans(),
           'updated_at'          =>  $beasiswa->updated_at,
           'user'                =>  $beasiswa->user,
           'facilitator'         =>  $beasiswa->facilitator,

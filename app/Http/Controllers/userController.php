@@ -86,6 +86,9 @@ class userController extends Controller
             "error" => "false",
             "username" => $request->user()->username,
             "email"    => $request->user()->email,
+            "pendidikan"    => $request->user()->pendidikan,
+            "alamat"    => $request->user()->alamat,
+            "telp"    => $request->user()->telp,
             "token"    => $token
         ]);
     }

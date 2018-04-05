@@ -8,7 +8,8 @@ use App\Models\Scholarship;
 class historyController extends Controller
 {
     public function index(Request $request){
-    	return $request->user();
+
+    	$sholarship = Scholarship::all();
     }
 
 

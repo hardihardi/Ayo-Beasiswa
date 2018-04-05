@@ -48,7 +48,7 @@ class beasiswaController extends Controller
 
      public function create(Request $request){
         $user =  $request->user();
-        $scholarship =  Scholarship::find(4);
+        $scholarship =  Scholarship::find($request->id_beasiswa);
         if($scholarship == null)
             return response()->json(['error' => 'data not found']);
         $scholarship->user()->attach($user);

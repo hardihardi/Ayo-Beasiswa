@@ -10,6 +10,7 @@ class historyController extends Controller
     public function index(Request $request){
 
     	$sholarship = Scholarship::all();
+    	
     }
 
 

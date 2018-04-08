@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
+use Validator;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+
+use App\Mail\userRegistered;
+use Illuminate\Support\Facades\Mail;
 class RegisterController extends Controller
 {
     /*
@@ -27,7 +32,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = 'admin/dashboard';
 
     /**
      * Create a new controller instance.
@@ -60,12 +65,44 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        event(new Registered($user = $this->create($request->all())));
+        return redirect('/login');
+    }
+
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
+        $user =  User::create([
+            'username' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'token'   => str_random(20)
         ]);
+
+          //mengirim email
+        Mail::to($user->email)->send(new userRegistered($user));
     }
+
+       public function verify_register($token, $id)
+        {
+        $user = User::find($id);
+
+        if (!$user) {
+            return redirect('login')->with('warning', 'user tidak temukan');
+        }
+
+        if ($user->token != $token) {
+            return redirect('login')->with('warning', 'tokennya tidak cocok');
+        }
+
+        $user->status = 1;
+        $user->save();
+
+        $this->guard()->login($user);
+        return redirect('home');
+         }
+
 }

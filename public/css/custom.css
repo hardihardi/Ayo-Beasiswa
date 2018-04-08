@@ -1,0 +1,156 @@
+.clickarea {
+    display: block;
+    z-index: 50;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: .8;
+}
+
+.co1{
+	background: -webkit-linear-gradient(135deg, rgba(244, 208, 63, 0.4) 0%, #f27a35 100%);
+}
+
+.co2 {
+	background: -webkit-linear-gradient(135deg, rgba(215, 96, 183, 0.4) 0%, #3b78b4 100%);
+}
+
+
+.number {
+    width : 50px;
+    
+}
+
+.body-create {
+    width : 80%;
+}
+
+.body-create form input {
+    margin-top :20px;
+}
+
+.col-md-6 > .form-control {
+    margin-top :20px;
+}
+
+.header-create {
+  margin: 0;
+  width: 80%;
+    padding: 0;
+        border-bottom: 2px solid #48c3cf;
+}
+
+.header-create h1 {
+    display: inline;
+        margin-left: 20px;
+}
+
+.number {
+        background: #48c3cf;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 200px;
+    /* padding-top: 10px; */
+    padding-bottom: 0;
+    font-size: 50px;
+    color: #fff;
+    margin-bottom: 0;
+}
+
+.wrap-hide(){
+
+}
+
+.datetimepicker.datetimepicker-dropdown-bottom-right.dropdown-menu {
+    transform: none;
+    display: none;
+}
+
+.left-side {
+    float : left;
+    background-color: #fff;
+    height: 100%;
+    width: 30%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding-left : 30px;
+}
+
+.toolbar-menu {
+    margin-top :20px;
+}
+
+
+/* Style the tab */
+
+.tablinks {
+    width : 50%;
+    color : #48c3cf ;
+}
+.tab {
+    overflow: hidden;
+    background-color: #fff;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #edf7f9;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border-top: none;
+}
+
+.card .card-clean {
+    height: 600px;
+}
+
+.card-icon {
+    height: 250px;
+    text-align: center;
+}
+
+.card-icon + .card-content  {
+    margin-top : -70px;
+    background: #fff;
+    width: 92%;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: -70px;
+    border-radius: 10px;
+    padding: 0;
+    padding-bottom : 150px;
+     box-shadow:0.5px 0.5px 20px 1px #d7d9dd;  
+     height: 350px;
+}
+
+.img-icon {
+    height: 150px;
+}
+
+.btn-belizehole {
+    background-color: #6ec1cc ;
+}

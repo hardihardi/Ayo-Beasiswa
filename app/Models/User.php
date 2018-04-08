@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password', 'nama', 'alamat', 'telp', 'role', 'pendidikan',
+        'username', 'email', 'password', 'nama', 'alamat', 'telp', 'role', 'pendidikan','token', 'status'
     ];
 
     /**
@@ -33,5 +33,11 @@ class User extends Authenticatable
 
     public function scholarship(){
         return $this->belongsToMany('App\Models\Scholarship');
+    }
+
+     public function isAdmin(){
+        if($this->role == 2) return true;
+
+        return false;
     }
 }

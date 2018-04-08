@@ -6,7 +6,7 @@
             <div class="col-md-4 col-sm-8 col-md-offset-4 col-sm-offset-2">
                 <div class="card card-clean">
                     <div class="card-icon">
-                        <img class="img-icon" src="img/icon.png">
+                        <img class="img-icon" src="/img/icon.png">
                     </div>
                     <div class="card-content">
                      

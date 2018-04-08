@@ -26,7 +26,6 @@ Route::group(['middleware' => 'api'], function(){
 					Route::post('/beasiswa/create', 'beasiswaController@create');
 					Route::post('/logout', 'userController@logout');
 				});
-			
 			Route::get('/user', 'userController@index');
 			Route::post('/user/facilitator/add', 'userController@createFacilitator');
 			Route::post('/user/update', 'userController@update');

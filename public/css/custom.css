@@ -79,6 +79,17 @@
     padding-left : 30px;
 }
 
+.right-side {
+    float: right;
+    width: 70%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    overflow: hidden;
+    height: 100%;
+    bottom: 0;
+}
+
 .toolbar-menu {
     margin-top :20px;
 }
@@ -154,3 +165,79 @@
 .btn-belizehole {
     background-color: #6ec1cc ;
 }
+
+.card-header {
+    display: block;
+}
+
+.category p {
+    margin: 0 0 10px;
+    display: inline;
+    font-size: 13px;
+    background: #48c3cf;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+.card-content {
+    padding : 0;
+    border-radius: 0 0 10px 10px;
+}
+
+.card-content .row {
+    margin : 0;
+        
+}
+
+.card-content .row .col-md-4 {
+    padding-left : 0;
+    padding-right : 0;
+    color: #fff;
+}
+
+.card-content .row .col-md-4:nth-child(3) {
+background: rgb(207, 168, 72);
+}
+
+
+.card-content .row .col-md-4:nth-child(2) {
+      background-color: rgb(72, 207, 76);
+
+
+}
+
+.card-content .row .col-md-4:nth-child(1) {
+    background-color: rgb(72, 195, 207);
+}
+
+.card-content .row .col-md-4 p  {
+    padding-top : 5px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.content-inner .row .col-md-4 .card {
+        border-radius: 0 0 10px 10px;
+}
+
+
+.card-content .row .col-md-4 h6  {
+    text-align: center;
+}
+
+.card-header {
+    height: 150px;
+}
+
+.card-img-top {
+    height: 250px
+}
+
+  @media (max-width: 767px) {
+        .sidebar.active {
+            position: absolute;
+            left: 0
+        }
+    }
+

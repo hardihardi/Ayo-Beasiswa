@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Scholarship;
+use App\Models\User;
 
 class historyController extends Controller
 {
-    public function index(Request $request){
+    public function index($id){
 
-    	$sholarship = Scholarship::all();
+    	$user = User::with(['scholarship', 'scholarship.categories', 'scholarship.user'])->where('id', $id)->first();
+    	return response()->json($user->scholarship);
     	
     }
 

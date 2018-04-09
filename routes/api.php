@@ -21,11 +21,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'api'], function(){
 	Route::post('/signup', 'userController@signup');
 	Route::post('/signin', 'userController@signin');
-			Route::group(['middleware' => 'jwt.auth'], function(){
-					Route::get('/history', 'historyController@index'); 
+			// Route::group(['middleware' => 'jwt.auth'], function(){
+					Route::get('/history/{id}', 'historyController@index'); 
 					Route::post('/beasiswa/create', 'beasiswaController@create');
 					Route::post('/logout', 'userController@logout');
-				});
+				// });
 			Route::get('/user', 'userController@index');
 			Route::post('/user/facilitator/add', 'userController@createFacilitator');
 			Route::post('/user/update', 'userController@update');

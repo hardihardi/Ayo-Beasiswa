@@ -84,6 +84,7 @@ class userController extends Controller
         // all good so return the token
         return response()->json([
             "error" => "false",
+            "id"  =>
             "username" => $request->user()->username,
             "email"    => $request->user()->email,
             "pendidikan"    => $request->user()->pendidikan,

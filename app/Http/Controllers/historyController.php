@@ -9,7 +9,7 @@ class historyController extends Controller
 {
     public function index($id){
 
-    	$user = User::with(['scholarship', 'scholarship.categories', 'scholarship.user'])->where('id', $id)->first();
+    	$user = User::with(['scholarship', 'scholarship.categories', 'scholarship.user', 'scholarship.facilitator'])->where('id', $id)->first();
     	return response()->json($user->scholarship);
     	
     }

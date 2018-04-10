@@ -91,6 +91,15 @@ class userController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
 
+        $facilitator = $request->user()->facilitator;
+
+        if($facilitator== null ){
+            $facilitator = false;
+        }else {
+            $facilitator = true;
+        }
+
+        // dd($facilitator);
         // all good so return the token
         return response()->json([
             "error" => "false",
@@ -100,7 +109,8 @@ class userController extends Controller
             "pendidikan"    => $request->user()->pendidikan,
             "alamat"    => $request->user()->alamat,
             "telp"    => $request->user()->telp,
-            "token"    => $token
+            "token"    => $token,
+            "facilitator" => $facilitator
         ]);
     }
 

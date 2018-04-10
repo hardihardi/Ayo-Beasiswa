@@ -41,7 +41,7 @@ class profileController extends Controller
             $destinationPath = 'img/profile';
             $name = $request->username.".". $file->getClientOriginalExtension();
             $file->move($destinationPath,trim($name));
-            $user->img_url = "ayobeasiswa.me/img/profile/". trim($name);
+            $user->img_url = "http://ayobeasiswa.me/img/profile/". trim($name);
         }
        $user->save();
        $facilitator->nama_instansi = $request->nama_instansi;

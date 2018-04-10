@@ -40,7 +40,7 @@ class scholarshipController extends Controller
             $name = $request->beasiswa.".". $file->getClientOriginalExtension();
             $name = trim($name);
             $file->move($destinationPath,$name);
-            $beasiswa->alamat_gambar = "ayobeasiswa.me/img/img_ss/". trim($name);
+            $beasiswa->alamat_gambar = "http://ayobeasiswa.me/img/img_ss/". trim($name);
         }
     	$beasiswa->save();
         return view('admin.createScholarship');
@@ -71,7 +71,7 @@ class scholarshipController extends Controller
             $destinationPath = 'img/img_ss';
             $name = $request->beasiswa.".". $file->getClientOriginalExtension();
             $file->move($destinationPath,trim($name));
-            $beasiswa->alamat_gambar = "ayobeasiswa.me/img/img_ss/". trim($name);
+            $beasiswa->alamat_gambar = "http://ayobeasiswa.me/img/img_ss/". trim($name);
         }
        $beasiswa->save();
        return view('admin.singleScholarship', ["beasiswas" => $beasiswa]);   }

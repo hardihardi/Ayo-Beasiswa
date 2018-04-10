@@ -7,6 +7,15 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use JWTAuth;
 
+use App\Http\Controllers\Controller;
+
+use App\Models\Facilitator;
+
+use Validator;
+use Illuminate\Auth\Events\Registered;
+
+use App\Mail\userRegistered;
+use Illuminate\Support\Facades\Mail;
 
 
 class userController extends Controller
@@ -54,7 +63,8 @@ class userController extends Controller
     	$create = User::create([
     		 'username' => $request->username,
     		 'email' => $request->email,
-    		 'password' => bcrypt($request->password)
+    		 'password' => bcrypt($request->password),
+             'token'   => str_random(20)
     		]);
 
     	return $create;
@@ -93,6 +103,22 @@ class userController extends Controller
             "token"    => $token
         ]);
     }
+
+
+    public function aktivasi(Request $request){
+         if ($request->user()->status == 0) {
+                 if($request->user()->facilitator == null){
+                 $request->user()->facilitator()->create([
+                    'nama_instansi' => "",
+                    'deskripsi_instansi' => "",
+                    'token_facilitator'   => str_random(20)
+                ]);
+                               //mengirim email
+                   $mail =  Mail::to($request->user()->email)->send(new userRegistered($request->user()));
+                return response()->json(["Message" => "Please Check Your Email"]);
+                 }
+            }
+        }
 
      public function logout(Request $request)
     {

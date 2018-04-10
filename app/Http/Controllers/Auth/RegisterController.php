@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\Facilitator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -81,6 +82,15 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'token'   => str_random(20)
         ]);
+        if($user){
+                 $facilitator =  Facilitator::create([
+                'nama_instansi' => "",
+                'deskripsi_instansi' => "",
+                'user_id' => $user->id,
+                'token_facilitator'   => str_random(20)
+            ]);
+        }
+        
 
           //mengirim email
         Mail::to($user->email)->send(new userRegistered($user));

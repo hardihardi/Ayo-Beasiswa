@@ -35,6 +35,9 @@ class Handler extends ExceptionHandler
     public function report(Exception $exception)
     {
 
+      
+
+
          parent::report($exception);
     }
 
@@ -57,6 +60,10 @@ class Handler extends ExceptionHandler
             }
 
         }
+
+          if ($exception instanceof NotFoundHttpException) {
+                return response()->view('errors.notfound', [], 500);
+            }
 
 
         return parent::render($request, $exception);

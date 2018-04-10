@@ -52,6 +52,6 @@ class beasiswaController extends Controller
         if($scholarship == null)
             return response()->json(['error' => 'data not found']);
         $scholarship->user()->attach($user);
-        return $scholarship;
+        return $user ;
     }
 }

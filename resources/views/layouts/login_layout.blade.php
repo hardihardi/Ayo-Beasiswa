@@ -43,5 +43,4 @@
     <!-- Your Own Script -->
     <script type="text/javascript" src="/js/default.js"></script>
 </body>
-</body>
 </html>

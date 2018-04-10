@@ -9,7 +9,7 @@
                          <div class="hero-title">{{$beasiswas->nama_beasiswa}}</div>
                         <div class="hero-description">{{$beasiswas->konten}} </div>
                          <div class="toolbar-menu">
-                            <a href="" class="btn btn-success btn-outline btn-rounded"><i class="fa fa-edit"></i> Edit</a>
+                            <a href="{{ route('editList', ['id' => $beasiswas->id])}}" class="btn btn-success btn-outline btn-rounded"><i class="fa fa-edit"></i> Edit</a>
                             <a href="" class="btn btn-danger btn-outline btn-rounded"><i class="fa fa-trash"></i> Delete</a>
                         </div>
                     </div>
@@ -23,25 +23,37 @@
         </div>
 
         <div class="content-inner">
-            <table id="table-post" class="display" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Name</th>
-                        <th>Address</th>
-                        <th>Education</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th>Id</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Name</th>
-                        <th>Address</th>
-                        <th>Education</th>
+            <table id="table-post" class="display datatable table table-striped " cellspacing="0" width="100%">
+                         <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Nama</th>
+                    <th>Pendidikan </th>
+                    <th>Approved </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($beasiswas->user as $user)
+                <tr>
+                    <td>1</td>
+                    <td>{{$user->username}}</td>
+                    <td>{{$user->email}}</td>
+                    <td>{{$user->nama}}</td>
+                    <td>{{$user->pendidikan}}</td>
+                    <td>
+                    <a href="/admin/paket/{{}}">Approve</a>
+                </tr>
+                @endforeach     
+                  </tbody>
+                            <tr>
+                        <th>No</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Nama</th>
+                    <th>Pendidikan </th>
+                     <th>Approved </th>
                     </tr>
                 </tfoot>
             </table>

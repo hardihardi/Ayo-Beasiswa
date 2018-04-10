@@ -8,7 +8,9 @@ class Facilitator extends Model
 {
     protected $fillable = [
     	"nama_instansi",
-    	"deskripsi_instansi",
+        "deskripsi_instansi",
+        "user_id",
+    	"token_facilitator",
     ];
 
 

@@ -241,3 +241,13 @@ background: rgb(207, 168, 72);
         }
     }
 
+
+.img_preview {
+  width : 100%;
+  max-height: 300px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap : wrap;
+}

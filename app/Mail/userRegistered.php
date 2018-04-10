@@ -30,6 +30,8 @@ class userRegistered extends Mailable
      */
     public function build()
     {
-        return $this->view('email.register');
+        return $this->view('email.register')->with([
+                    'name' => 'Admin Ayobeasiswa'
+                    ]);
     }
 }

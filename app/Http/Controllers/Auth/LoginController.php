@@ -8,6 +8,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 
+use App\Models\User;
+use App\Models\Facilitator;
+
+use Validator;
+use Illuminate\Auth\Events\Registered;
+
+use App\Mail\userRegistered;
+use Illuminate\Support\Facades\Mail;
+
+
 class LoginController extends Controller
 {
     /*
@@ -59,13 +69,27 @@ class LoginController extends Controller
         }
 
         $credentials = $this->credentials($request);
-
+        // var_dump($credentials);
+        // dd($this->guard()->attempt($credentials, $request->has('remember')));
         if ($this->guard()->attempt($credentials, $request->has('remember'))) {
-            
+            $info = 'akun belum aktif';
+            // dd($credentials);
             if (Auth::user()->status == 0) {
+                 if(Auth::user()->facilitator == null){
+                 Auth::user()->facilitator()->create([
+                    'nama_instansi' => "",
+                    'deskripsi_instansi' => "",
+                    'token_facilitator'   => str_random(20)
+                ]);
+                               //mengirim email
+                    Mail::to(Auth::user()->email)->send(new userRegistered(Auth::user()));
+                    $info ="silahkan lihat email anda";
+                    }
                 Auth::logout();
-                return redirect('/login')->with('warning', 'akun belum aktif');
+                return redirect('/login')->with('warning', $info );
             }
+
+           
 
             return $this->sendLoginResponse($request);
         }

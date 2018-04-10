@@ -76,4 +76,11 @@ class scholarshipController extends Controller
        $beasiswa->save();
        return view('admin.singleScholarship', ["beasiswas" => $beasiswa]);   }
 
+        public function delete($id){
+       $beasiswa = Scholarship::find($id);
+        $beasiswa->delete();
+       $beasiswa = Scholarship::with(['user', 'facilitator', 'categories'])->get();
+          return view('admin.listScholarship', ["beasiswas" => $beasiswa]);
+    }
+
 }

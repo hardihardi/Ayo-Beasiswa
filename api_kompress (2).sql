@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 03, 2018 at 12:13 PM
+-- Generation Time: Apr 10, 2018 at 10:14 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -36,14 +36,6 @@ CREATE TABLE `beasiswa_kategori` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `beasiswa_kategori`
---
-
-INSERT INTO `beasiswa_kategori` (`id`, `category_id`, `scholarship_id`, `created_at`, `updated_at`) VALUES
-(1, 2, 1, NULL, NULL),
-(2, 1, 1, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -64,7 +56,9 @@ CREATE TABLE `categories` (
 
 INSERT INTO `categories` (`id`, `judul`, `konten`, `created_at`, `updated_at`) VALUES
 (1, 'komputer', 'beasiswa komputer', NULL, NULL),
-(2, 'luar negeri', 'beasiswa luar negeri', NULL, NULL);
+(2, 'luar negeri', 'beasiswa luar negeri', NULL, NULL),
+(3, 'hulas12', 'asdas', NULL, NULL),
+(4, 'hul', 'asdas', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -77,6 +71,7 @@ CREATE TABLE `facilitators` (
   `nama_instansi` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `deskripsi_instansi` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
+  `token_facilitator` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -85,9 +80,8 @@ CREATE TABLE `facilitators` (
 -- Dumping data for table `facilitators`
 --
 
-INSERT INTO `facilitators` (`id`, `nama_instansi`, `deskripsi_instansi`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'hacktiv', 'hacktiv belajar', 1, NULL, NULL),
-(2, 'hacktiv8', 'bergerak dibidang komputer', 3, '2018-03-03 04:07:50', '2018-03-03 04:07:50');
+INSERT INTO `facilitators` (`id`, `nama_instansi`, `deskripsi_instansi`, `user_id`, `token_facilitator`, `created_at`, `updated_at`) VALUES
+(23, 'Hacktiv8', 'Bekerja sama', 35, 'pX2wNWaB9uo5xWoSaSgo', '2018-04-10 00:14:56', '2018-04-10 00:49:42');
 
 -- --------------------------------------------------------
 
@@ -112,7 +106,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (4, '2018_03_02_092026_create_categories_table', 1),
 (5, '2018_03_02_160221_create_beasiswa_kategori_table', 1),
 (6, '2018_03_02_163024_create_facilitator_table', 1),
-(7, '2018_03_02_160132_create_users_beasiswa_table', 2);
+(7, '2018_03_02_160132_create_users_beasiswa_table', 2),
+(8, '2018_03_03_121800_create_facilitator_scholarship', 3);
 
 -- --------------------------------------------------------
 
@@ -137,21 +132,15 @@ CREATE TABLE `scholarships` (
   `nama_beasiswa` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama_instantsi` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `quota` int(11) NOT NULL,
-  `konten` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alamat_gambar` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `konten` text COLLATE utf8mb4_unicode_ci,
+  `alamat_gambar` text COLLATE utf8mb4_unicode_ci,
   `masa_berlaku` date NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
+  `views` int(11) NOT NULL DEFAULT '0',
+  `prioritas` tinyint(1) NOT NULL DEFAULT '0',
+  `facilitator_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `scholarships`
---
-
-INSERT INTO `scholarships` (`id`, `nama_beasiswa`, `nama_instantsi`, `quota`, `konten`, `alamat_gambar`, `masa_berlaku`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'beasiswa menjadi', 'hacktiv', 100, 'lalalal', 'lalalala', '2018-03-15', 1, NULL, NULL),
-(2, 'beasiswa menjadi 2', 'hackvtiv', 12, 'lalala', 'lalala', '2018-03-01', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -169,6 +158,9 @@ CREATE TABLE `users` (
   `pendidikan` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `telp` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `role` int(11) NOT NULL DEFAULT '2',
+  `status` int(11) NOT NULL DEFAULT '0',
+  `img_url` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `token` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -178,10 +170,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `nama`, `alamat`, `pendidikan`, `telp`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'ariaelhamidy', 'aria@gmail.com', 'qwerty123', 'aria samudera', 'depok', 'sam', '0989', 1, NULL, NULL, NULL),
-(2, 'ariaelhamidy2', 'aria2@gmail.com', '$2y$10$OxOTc8.6w1utKcs/e6W02uDF7H0gGhB0ktRI3GCYet8oJKukXUi8S', NULL, NULL, NULL, NULL, 2, NULL, '2018-03-02 21:55:26', '2018-03-02 21:55:26'),
-(3, 'ariaganteng', 'aria1@gmail.com', '$2y$10$zKtvuQE3k0yD5czJSGGE0.ItPQMPeQsnydBJHkTe/DyjJBsra.HIK', 'aria samudera', 'depook', 'sma', '089634555083', 1, NULL, '2018-03-03 01:36:43', '2018-03-03 02:13:55');
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `nama`, `alamat`, `pendidikan`, `telp`, `role`, `status`, `img_url`, `token`, `remember_token`, `created_at`, `updated_at`) VALUES
+(24, 'lolitrack', 'lolitrack97@gmail.com', '$2y$10$hXF4mOa1G.6c/4IuIZgHm.5cXUt9TDoGy3giBoVSCwwnss3dq.Mb.', 'aria', 'depok', 's1', '08963455095', 2, 1, '/img/profile/lolitrack.jpg', 'C6VTJ55LmE3f3NnC2QEv', 'sE7kigjJGyxZaVplysdDOzWoZgaYDgPoU7FwvGxXda404aFOF3UgmQNclnAE', '2018-04-09 12:56:23', '2018-04-09 21:46:36'),
+(35, 'ariaelhamidy', 'ariaelhamidy@gmail.com', '$2y$10$gVDCQJXa4UPyvuJ8taaijuhetO29UHHbkJifVo8PivG0EpXIfR.NO', 'aria samudera elhamidy', 'sssss', 'gundarma university', '08963455095', 2, 1, '/img/profile/ariaelhamidy.jpg', 'KTjhE3KB9B1CEJ5eWISe', '4bTN6ZAVBgxtH0KyPPKoz9xNE4LuPOycIvGL2ApVPyuh4uD10QD3PKQra7vN', '2018-04-09 20:45:36', '2018-04-10 01:14:21');
 
 -- --------------------------------------------------------
 
@@ -193,16 +184,10 @@ CREATE TABLE `user_scholarship` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `scholarship_id` int(10) UNSIGNED NOT NULL,
+  `berkas` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `user_scholarship`
---
-
-INSERT INTO `user_scholarship` (`id`, `user_id`, `scholarship_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -246,7 +231,7 @@ ALTER TABLE `password_resets`
 --
 ALTER TABLE `scholarships`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `scholarships_user_id_foreign` (`user_id`);
+  ADD KEY `scholarships_facilitator_id_foreign` (`facilitator_id`);
 
 --
 -- Indexes for table `users`
@@ -271,43 +256,43 @@ ALTER TABLE `user_scholarship`
 -- AUTO_INCREMENT for table `beasiswa_kategori`
 --
 ALTER TABLE `beasiswa_kategori`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `facilitators`
 --
 ALTER TABLE `facilitators`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `scholarships`
 --
 ALTER TABLE `scholarships`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `user_scholarship`
 --
 ALTER TABLE `user_scholarship`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables
@@ -330,7 +315,7 @@ ALTER TABLE `facilitators`
 -- Constraints for table `scholarships`
 --
 ALTER TABLE `scholarships`
-  ADD CONSTRAINT `scholarships_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `scholarships_facilitator_id_foreign` FOREIGN KEY (`facilitator_id`) REFERENCES `facilitators` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user_scholarship`

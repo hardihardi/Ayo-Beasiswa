@@ -30,6 +30,7 @@ Route::prefix('admin')->group(function () {
 			Route::get('/list', 'AdminController\scholarshipController@index')->name('scholarshipList');
 			Route::get('/list/{id}', 'AdminController\scholarshipController@show')->name('singleList');
 			Route::get('/list/update/{id}', 'AdminController\scholarshipController@edit')->name('editList');
+			Route::get('/list/delete/{id}', 'AdminController\scholarshipController@delete')->name('deleteList');
 			Route::put('/list/update/{id}', 'AdminController\scholarshipController@update')->name('updateList');
 			Route::get('/create', 'AdminController\scholarshipController@create')->name('scholarshipCreate');
 			Route::post('/create', 'AdminController\scholarshipController@store')->name('createScholarship');

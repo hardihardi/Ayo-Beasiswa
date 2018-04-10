@@ -11,7 +11,7 @@ class historyController extends Controller
 
     	$user = User::with(['facilitator', 'scholarship','scholarship.categories','scholarship.facilitator'])->where('id', $id)->get();
     	// dd($user);
-    	return response()->json($user);
+    	return response()->json($user->scholarship);
     	
     }
 

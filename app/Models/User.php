@@ -32,7 +32,7 @@ class User extends Authenticatable
     }
 
     public function scholarship(){
-        return $this->belongsToMany('App\Models\Scholarship','user_scholarship','scholarship_id', 'user_id');
+        return $this->belongsToMany('App\Models\Scholarship','user_scholarship', 'user_id','scholarship_id');
     }
 
      public function isAdmin(){

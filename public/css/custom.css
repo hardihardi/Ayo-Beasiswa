@@ -251,3 +251,8 @@ background: rgb(207, 168, 72);
   justify-content: center;
   flex-wrap : wrap;
 }
+
+input-lg, .form-control-lg {
+
+    margin-bottom: 20px;
+}

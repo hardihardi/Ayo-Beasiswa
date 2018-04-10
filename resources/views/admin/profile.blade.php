@@ -7,38 +7,37 @@
             <div class="hero-overlay">
                 <div class="hero-inner">
                     <div class="hero-avatar">
-                        <img src="" alt="">
+                        <img src="{{$user->img_url}}" alt="">
                     </div>
-                    <div class="hero-title">Aria Samudera Elhamidy</div>
+                    <div class="hero-title">{{$user->nama}}</div>
                     <div class="hero-description"></div>
                 </div>
             </div>
         </div>
 
         <div class="col-md-12 ">
-            <form action="#" method="POST">
-                <div class="col-md-6">
-                    <input type="text" class="form-control form-control-lg" id="exampleInput4" placeholder="username">
-                    <input type="text" class="form-control form-control-lg" id="exampleInput4" placeholder="Email">
-                    <input type="text" class="form-control form-control-lg" id="exampleInput4" placeholder="Password">
-                    <input type="text" class="form-control form-control-lg" id="exampleInput4" placeholder="Nama">
-                </div>
-                <div class="col-md-6">
-                    <input type="text" class="form-control form-control-lg" id="exampleInput4" placeholder="Alamat">
-                    <input type="text" class="form-control form-control-lg" id="exampleInput4" placeholder="Pendidikan">
-                    <input type="text" class="form-control form-control-lg" id="exampleInput4" placeholder="Telp">
+           <form action="{{ route('updateProfile')}}" method="POST" enctype="multipart/form-data">
+              {{ csrf_field() }}
+                 <input type="hidden" name="_method" value="PUT">
+                <div class="col-md-12">
+                    <input type="text" class="form-control form-control-lg" id="username" placeholder="username" name="username" value="{{$user->username}}">
+                    <input type="text" class="form-control form-control-lg" id="email" placeholder="Email" name="email" value="{{$user->email}}"
+                    >
+                    <input type="password" class="form-control form-control-lg" id="password" placeholder="Password" name="password" value="{{$user->password}}"  >
+                    <input type="text" class="form-control form-control-lg" id="exampleInput4" placeholder="Nama" name="nama" value="{{$user->nama}}">
+ 
+                    <input type="text" class="form-control form-control-lg" id="alamat" placeholder="Alamat" name="alamat" value="{{$user->alamat}}">
+                    <input type="text" class="form-control form-control-lg" id="pendidikan" placeholder="Pendidikan" name="pendidikan" value="{{$user->pendidikan}}">
+                    <input type="text" class="form-control form-control-lg" id="telp" placeholder="Telp" name="telp" value="{{$user->telp}}">
                     <p> Upload Yout Profile </p>
-                    <input name="brand_logo" onchange="preview_image_logo()" id="preview_image" type="file"  >
-                    <div id="image_preview" class="img_preview"><img src=""></div>
+                    <input name="logo" onchange="preview_image_logo()" id="preview_image" type="file"  >
+                    <div id="image_preview" class="img_preview"><img src="{{$user->img_url}}"></div>
                 </div>
+                            <button type="submit" class="btn btn-info">Submit Data</button>
+                <button type="button" class="btn btn-default btn-outline">Cancel</button>
             </form>
         </div>
-        <div class="col-md-12">
-        <div class="form-group" style="margin-left: 25px;">
-                <button type="submit" class="btn btn-info">Submit Data</button>
-                <button type="button" class="btn btn-default btn-outline">Cancel</button>
-            </div>
-        </div>
+
     </section>
 
 @endsection

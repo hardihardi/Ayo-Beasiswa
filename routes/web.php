@@ -25,6 +25,7 @@ Route::prefix('admin')->group(function () {
 		Route::group(["middleware" => "admin"], function(){
 			Route::get('/dashboard', 'AdminController\adminController@index')->name('dashboard');
 			Route::get('/profile', 'AdminController\profileController@index')->name('profile');
+			Route::put('/profile/update/', 'AdminController\profileController@update')->name('updateProfile');
 			Route::get('/organizer', 'AdminController\profileController@organizer')->name('organizer');
 			Route::get('/list', 'AdminController\scholarshipController@index')->name('scholarshipList');
 			Route::get('/list/{id}', 'AdminController\scholarshipController@show')->name('singleList');

@@ -10,7 +10,7 @@
 
    
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/logo.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/icon2.png">
     <link rel="manifest" href="img/favicon/manifest.json">
     <meta name="theme-color" content="#ffffff">
     <!-- Vendor Style -->

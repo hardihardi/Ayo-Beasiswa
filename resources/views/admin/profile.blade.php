@@ -17,6 +17,10 @@
 
         <div class="col-md-12 ">
            <form action="{{ route('updateProfile')}}" method="POST" enctype="multipart/form-data">
+            <div class="header-create"  style="margin-bottom : 10px;">
+            <span class="number">1</span>
+            <h1>User Details </h1>
+        </div>
               {{ csrf_field() }}
                  <input type="hidden" name="_method" value="PUT">
                 <div class="col-md-12">
@@ -33,6 +37,16 @@
                     <input name="logo" onchange="preview_image_logo()" id="preview_image" type="file"  >
                     <div id="image_preview" class="img_preview"><img src="{{$user->img_url}}"></div>
                 </div>
+
+                 <div class="header-create" style="margin-bottom : 10px;">
+            <span class="number">2</span>
+            <h1>Organization Details </h1>
+        </div>
+                
+                    <input type="text" class="form-control form-control-lg" id="nama_instansi" placeholder="Nama Instansi" name="nama_instansi" value="{{$facilitator->nama_instansi}}"
+                    >
+                    <input type="text" class="form-control form-control-lg" id="deskripsi" placeholder="Agency Description" name="deskripsi_instansi" value="{{$facilitator->deskripsi_instansi}}">
+
                             <button type="submit" class="btn btn-info">Submit Data</button>
                 <button type="button" class="btn btn-default btn-outline">Cancel</button>
             </form>

@@ -71,7 +71,7 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
         event(new Registered($user = $this->create($request->all())));
-        return redirect('/login');
+        return redirect('/login')->with('warning', 'Please Check Your Email Address');
     }
 
     protected function create(array $data)
@@ -101,11 +101,11 @@ class RegisterController extends Controller
         $user = User::find($id);
 
         if (!$user) {
-            return redirect('login')->with('warning', 'user tidak temukan');
+            return redirect('login')->with('warning', 'user not found');
         }
 
         if ($user->token != $token) {
-            return redirect('login')->with('warning', 'tokennya tidak cocok');
+            return redirect('login')->with('warning', 'tokennya not match');
         }
 
         $user->status = 1;

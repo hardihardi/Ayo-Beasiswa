@@ -110,6 +110,7 @@ class userController extends Controller
             "alamat"    => $request->user()->alamat,
             "telp"    => $request->user()->telp,
             "token"    => $token,
+            "alamat_gambar"    => $request->user()->img_url,
             "facilitator" => $facilitator
         ]);
     }

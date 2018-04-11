@@ -26,6 +26,42 @@
                 <input name="logo" onchange="preview_image_logo()" id="preview_image" type="file" >
                 <div id="image_preview" class="img_preview"><img src=""></div>
                  <Textarea style="height:300px"class="form-control form-control-lg" id="Description" name="Description" placeholder="Description"></Textarea>
+                 <h4>Category </h4>
+                     @foreach( $kategoris as $kategori )
+                        <label >
+                            <input type="checkbox" name="kategori[]" value="{{ $kategori->judul }}"/>{{$kategori->judul}}
+                        </label>
+                    @endforeach`   
+              <!--    <label>
+                    <input type="checkbox" name="kategori[]" value="komputer">Komputer
+                 </label>
+                  <label>
+                    <input type="checkbox" name="kategori[]" value="luar negeri">luar negeri
+                 </label>
+                  <label>
+                    <input type="checkbox" name="kategori[]" value="mahasiswa">mahasiswa
+                 </label>
+                  <label>
+                    <input type="checkbox" name="kategori[]" value="yayasan">yayasan
+                 </label>
+                  <label>
+                    <input type="checkbox" name="kategori[]" value="bantuan">bantuan
+                 </label>
+                  <label>
+                    <input type="checkbox" name="kategori[]" value="penghargaan">penghargaan
+                 </label>
+                  <label>
+                    <input type="checkbox" name="kategori[]" value="penelitian">penelitian
+                 </label>
+                  <label>
+                    <input type="checkbox" name="kategori[]" value="olahraga">olahraga
+                 </label>
+                  <label>
+                    <input type="checkbox" name="kategori[]" value="swasta">swasta
+                 </label>
+                  <label>
+                    <input type="checkbox" name="kategori[]" value="dalam negeri">dalam negeri
+                 </label> -->
             </div>
                 
                    <!-- Content -->

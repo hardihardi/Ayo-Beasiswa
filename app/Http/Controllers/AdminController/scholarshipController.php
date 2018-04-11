@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Scholarship;
 use App\Models\Facilitator;
 use App\Http\Requests;
+use App\Models\Category;
 
 
 class scholarshipController extends Controller
@@ -19,8 +20,8 @@ class scholarshipController extends Controller
     }
 
     public function create(){
-
-    	return view('admin.createScholarship');
+          $kategori = Category::all();
+    	return view('admin.createScholarship',["kategoris" => $kategori]);
     }
 
      public function store(Request $request){
@@ -43,19 +44,40 @@ class scholarshipController extends Controller
             $beasiswa->alamat_gambar = "http://ayobeasiswa.me/img/img_ss/". trim($name);
         }
     	$beasiswa->save();
-        return view('admin.createScholarship');
+
+        if($request->kategori != []){
+            foreach ($request->kategori as $kategori) {
+                if($beasiswa == null)
+                    return response()->json(['error' => 'data not found']);
+
+                $kategori = Category::where('judul', $kategori)->first();
+                // dd($beasiswa->id);
+                $beasiswa->categories()->attach($kategori);
+            }
+        }
+        $beasiswa = Scholarship::with(['user', 'facilitator', 'categories'])->get();
+        return view('admin.listScholarship', ["beasiswas" => $beasiswa]);
     }
 
     public function show($id){
     	$beasiswa = Scholarship::with(['user', 'facilitator', 'categories'])->where('id', $id)->first();
+      
+
     	// dd($beasiswa);
     	
     	return view('admin.singleScholarship', ["beasiswas" => $beasiswa]);
     }
 
       public function edit($id){
-       $beasiswa = Scholarship::with(['user', 'facilitator', 'categories'])->where('id', $id)->first();
-        return view('admin.updateScholarship', ["beasiswas" => $beasiswa]);
+         $kategori_array = [];
+         $beasiswa = Scholarship::with(['user', 'facilitator', 'categories'])->where('id', $id)->first();
+         $kategori = $beasiswa->categories;
+         foreach ($kategori as $kategori) {
+             array_push($kategori_array, $kategori->judul);
+         }
+         $kategori = Category::all();
+        // dd($kategori_array);
+        return view('admin.updateScholarship', ["beasiswas" => $beasiswa,"kategoris" => $kategori, 'kategori_array' => $kategori_array]);
     }
 
     public function update(request $request, $id){
@@ -74,6 +96,19 @@ class scholarshipController extends Controller
             $beasiswa->alamat_gambar = "http://ayobeasiswa.me/img/img_ss/". trim($name);
         }
        $beasiswa->save();
+        $beasiswa->categories()->detach();
+        if($request->kategori != []){
+
+            foreach ($request->kategori as $kategori) {
+                if($beasiswa == null)
+                    return response()->json(['error' => 'data not found']);
+
+                $kategori = Category::where('judul', $kategori)->first();
+                // dd($beasiswa->id);
+
+                $beasiswa->categories()->attach($kategori);
+            }
+        }
        return view('admin.singleScholarship', ["beasiswas" => $beasiswa]);   }
 
         public function delete($id){

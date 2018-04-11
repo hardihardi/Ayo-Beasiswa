@@ -27,6 +27,16 @@
                 <input name="logo" onchange="preview_image_logo()" id="preview_image" type="file" >
                 <div id="image_preview" class="img_preview"><img src="{{$beasiswas->alamat_gambar}}"></div></br>
                  <Textarea style="height:300px"class="form-control form-control-lg" id="Description" name="Description" placeholder="Description">{{$beasiswas->konten}}</Textarea>
+<h4>Category </h4>
+                  @foreach( $kategoris as $kategori )
+                        <label >
+                            <input type="checkbox" name="kategori[]" value="{{ $kategori->judul }}" 
+                                 {{in_array($kategori->judul,$kategori_array) ? "checked" : ""}}
+                             />{{$kategori->judul}}
+                        </label>
+                    @endforeach
+
+               
             </div>
                 
                    <!-- Content -->

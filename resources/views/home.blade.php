@@ -123,7 +123,7 @@ use Carbon\Carbon;
               <div class="navigation post" style="border-bottom:2px solid #edeff2">
                     <div class="row">
                         <div class="col-md-1 col-sm-1 category">
-                            <img src="/img/icon-white/liber.png" class="category_icon">
+                            <img src="/img/icon-white/Liber.png" class="category_icon">
                             <p class="huhu">Luar Negeri</p>
                         </div>
                         <div class="col-md-1 col-sm-1 category">

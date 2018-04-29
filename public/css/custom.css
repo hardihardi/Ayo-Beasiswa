@@ -234,10 +234,18 @@ background: rgb(207, 168, 72);
     height: 250px
 }
 
+
   @media (max-width: 767px) {
         .sidebar.active {
             position: absolute;
             left: 0
+        }
+        .login-container {
+            width:100%;padding-left: 0;padding-right: 0;
+        }
+
+        .login-container > .row {
+            padding:0;margin:0;
         }
     }
 

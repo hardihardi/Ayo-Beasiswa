@@ -91,8 +91,6 @@
             <li><a href="#" class="item item-side active" data-target="first-menu"><i class="ion-university"></i></a></li>
             <li><a href="#" class="item item-side" data-target="second-menu"><i class="ion-android-person"></i></a></li>
             <li><a href="#" class="item item-side" data-target="third-menu"><i class="ion-cube"></i></a></li>
-    <!--         <li><a href="#" class="item item-side" data-target="fourth-menu"><i class="ion-levels"></i></a></li>
-            <li><a href="#" class="item item-side" data-target="fifth-menu"><i class="ion-bug"></i></a></li> -->
         </ul>
     </div>
 

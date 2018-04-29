@@ -1,8 +1,8 @@
 @extends('layouts.login_layout')
 @section('content')
  <!-- Login Card -->
-    <div class="container">
-        <div class="row">
+    <div class="container login-container" >
+        <div class="row" style="">
             <div class="col-md-4 col-sm-8 col-md-offset-4 col-sm-offset-2">
                 <div class="card card-clean">
                     <div class="card-icon">
@@ -15,7 +15,7 @@
                           <button class="tablinks" onclick="openTab(event, 'Register')">Register</button>
                         </div>
                         <div id="Login" class="tabcontent" style="display : block">
-                         <form class="" method="POST" action="{{ route('login') }}">
+                         <form style="margin:0;" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
                          @if(session('warning'))
                             <div class="alert alert-warning">

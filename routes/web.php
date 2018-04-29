@@ -11,15 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
 
 Route::get('/verify/{token}/{id}', 'Auth\RegisterController@verify_register');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
 
 Route::prefix('admin')->group(function () {
 		Route::group(["middleware" => "admin"], function(){

@@ -74,8 +74,8 @@ $.when(new ldBar(".loading-bar", {
 				cursorwidth: '2px'
 			});
 
-			dynamicMenu();
-			preventCaching();
+			// dynamicMenu();
+			// preventCaching();
 	});
 		$('.content-loading').hide();
 	}, 5000);

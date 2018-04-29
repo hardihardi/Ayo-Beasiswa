@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Scholarship;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        Carbon::setLocale('id');
+        $beasiswa = Scholarship::with(['user', 'facilitator', 'categories'])->orderby('created_at', 'asc')->take(3)->get();
+        return view('home', ["beasiswas"=> $beasiswa]);
     }
+
 }

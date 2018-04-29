@@ -32,37 +32,7 @@
                             <input type="checkbox" name="kategori[]" value="{{ $kategori->judul }}"/>{{$kategori->judul}}
                         </label>
                     @endforeach`   
-              <!--    <label>
-                    <input type="checkbox" name="kategori[]" value="komputer">Komputer
-                 </label>
-                  <label>
-                    <input type="checkbox" name="kategori[]" value="luar negeri">luar negeri
-                 </label>
-                  <label>
-                    <input type="checkbox" name="kategori[]" value="mahasiswa">mahasiswa
-                 </label>
-                  <label>
-                    <input type="checkbox" name="kategori[]" value="yayasan">yayasan
-                 </label>
-                  <label>
-                    <input type="checkbox" name="kategori[]" value="bantuan">bantuan
-                 </label>
-                  <label>
-                    <input type="checkbox" name="kategori[]" value="penghargaan">penghargaan
-                 </label>
-                  <label>
-                    <input type="checkbox" name="kategori[]" value="penelitian">penelitian
-                 </label>
-                  <label>
-                    <input type="checkbox" name="kategori[]" value="olahraga">olahraga
-                 </label>
-                  <label>
-                    <input type="checkbox" name="kategori[]" value="swasta">swasta
-                 </label>
-                  <label>
-                    <input type="checkbox" name="kategori[]" value="dalam negeri">dalam negeri
-                 </label> -->
-            </div>
+                 </div>
                 
                    <!-- Content -->
                    <!--   <div class="title-pages">Description</div>

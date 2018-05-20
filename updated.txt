@@ -1,0 +1,35 @@
+15 may 2018 -> update login dan register diubah dulu ke menu kalo abis login dan verifikasi baru bisa apply 
+15 may 2018 10:43 AM -> coba update registrasi dulu
+15 may 2018 10:45 AM -> update table dulu 
+   if($user){
+                 $facilitator =  Facilitator::create([
+                'nama_instansi' => "",
+                'deskripsi_instansi' => "",
+                'user_id' => $user->id,
+                'token_facilitator'   => str_random(20)
+            ]);
+        }
+
+
+hasil pindanhan login
+   // if (Auth::user()->status == 0) {
+ //  if(Auth::user()->facilitator == null){
+                //  Auth::user()->facilitator()->create([
+                //     'nama_instansi' => "",
+                //     'deskripsi_instansi' => "",
+                //     'token_facilitator'   => str_random(20)
+                // ]);
+                //                //mengirim email
+                //     Mail::to(Auth::user()->email)->send(new userRegistered(Auth::user()));
+                //     $info ="silahkan lihat email anda";
+                //     }
+
+15 may 2018 10:45 AM -> udah kelar update login dan registernya, jadi ada beberapa yang ditambahin dibeberapa bagian
+karna ini pake visual studio code jadi semuanya kerecord
+16 may 2018 10:24 AM -> ganti stuktur table dari users, udah ganti slug tapi kepikira buat slugnya itu ditaronya dipake buat nama, nama itu diambil abis dia registrasi nanti di direct ke halaman lainnya buat ngisi struktur namanya dia alamat dan kawan kawannnya 
+
+16 may 2018 10:35 AM -> update profile user dulu
+16 may 2018 11:04 AM -> buat halaman user settings dulu
+16 may 2018 12:54 AM -> fix single daftar
+17 -18 ma 2018 -> membuat provinsi dan kota 
+19 may 2018 10:40 AM -> update fitur upload menjadi beberapa file

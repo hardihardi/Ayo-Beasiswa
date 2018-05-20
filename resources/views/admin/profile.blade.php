@@ -28,8 +28,7 @@
                     <input type="text" class="form-control form-control-lg" id="email" placeholder="Email" name="email" value="{{$user->email}}"
                     >
                     <input type="password" class="form-control form-control-lg" id="password" placeholder="Password" name="password" value="{{$user->password}}"  >
-                    <input type="text" class="form-control form-control-lg" id="exampleInput4" placeholder="Nama" name="nama" value="{{$user->nama}}">
- 
+                 
                     <input type="text" class="form-control form-control-lg" id="alamat" placeholder="Alamat" name="alamat" value="{{$user->alamat}}">
                     <input type="text" class="form-control form-control-lg" id="pendidikan" placeholder="Pendidikan" name="pendidikan" value="{{$user->pendidikan}}">
                     <input type="text" class="form-control form-control-lg" id="telp" placeholder="Telp" name="telp" value="{{$user->telp}}">

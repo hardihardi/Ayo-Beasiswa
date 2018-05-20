@@ -2992,6 +2992,10 @@ input[type="button"].btn-block {
   content: "\e157";
 }
 
+.glyphicon-education:before {
+    content: "\e233";
+}
+
 .glyphicon-expand:before {
   content: "\e158";
 }

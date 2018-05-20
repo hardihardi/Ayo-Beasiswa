@@ -38,7 +38,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'admin/dashboard';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -75,16 +75,16 @@ class LoginController extends Controller
             $info = 'akun belum aktif';
             // dd($credentials);
             if (Auth::user()->status == 0) {
-                 if(Auth::user()->facilitator == null){
-                 Auth::user()->facilitator()->create([
-                    'nama_instansi' => "",
-                    'deskripsi_instansi' => "",
-                    'token_facilitator'   => str_random(20)
-                ]);
-                               //mengirim email
-                    Mail::to(Auth::user()->email)->send(new userRegistered(Auth::user()));
-                    $info ="silahkan lihat email anda";
-                    }
+                //  if(Auth::user()->facilitator == null){
+                //  Auth::user()->facilitator()->create([
+                //     'nama_instansi' => "",
+                //     'deskripsi_instansi' => "",
+                //     'token_facilitator'   => str_random(20)
+                // ]);
+                //                //mengirim email
+                //     Mail::to(Auth::user()->email)->send(new userRegistered(Auth::user()));
+                //     $info ="silahkan lihat email anda";
+                //     }
                 Auth::logout();
                 return redirect('/login')->with('warning', $info );
             }

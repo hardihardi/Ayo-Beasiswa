@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Scholarship;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -26,8 +27,13 @@ class HomeController extends Controller
     public function index()
     {
         Carbon::setLocale('id');
-        $beasiswa = Scholarship::with(['user', 'facilitator', 'categories'])->orderby('created_at', 'asc')->take(3)->get();
+        $beasiswa = Scholarship::with(['user', 'facilitator', 'categories', 'facilitator.User'])->orderby('created_at', 'desc')->take(3)->get();
         return view('home', ["beasiswas"=> $beasiswa]);
+    }
+
+    public function single($name){
+        $beasiswa = Scholarship::with(['user','facilitator','categories'])->where('str_slug', $name)->first();
+        return view('single', ["beasiswa" => $beasiswa]);
     }
 
 }

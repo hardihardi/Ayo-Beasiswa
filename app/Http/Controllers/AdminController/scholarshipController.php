@@ -34,6 +34,7 @@ class scholarshipController extends Controller
     	$beasiswa->masa_berlaku = $request->date;
     	$beasiswa->konten = $request->Description;
     	$beasiswa->facilitator_id = $facilitator->id;
+    	$beasiswa->str_slug = str_slug($request->beasiswa);
     	 if($request->file('logo')){
     	 	
             $file = $request->file('logo');   
@@ -87,6 +88,7 @@ class scholarshipController extends Controller
         $beasiswa->quota = $request->quota;
         $beasiswa->masa_berlaku = $request->date;
         $beasiswa->konten = $request->Description;
+        $beasiswa->str_slug = str_slug($request->beasiswa);
          if($request->file('logo')){
             
             $file = $request->file('logo');   

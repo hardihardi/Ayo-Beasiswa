@@ -26,7 +26,7 @@
                                 <input type="text" class="form-control" placeholder="E-mail" value="{{ old('email') }}" id="email" required autofocus name="email" type="email">
                                  @if ($errors->has('email'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>Kesalahan Email atau Password tidak cocok</strong>
                                     </span>
                                 @endif
                             </div>

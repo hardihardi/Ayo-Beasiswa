@@ -273,7 +273,7 @@
                                                             <td> <div class="container">
                                                                       <center>
                                                                      <h1>Register AyoBeasiswa</h1>
-        <a href="http://ayobeasiswa.me/verify/{{$user->token}}/{{$user->id}}"> Klik untuk mengaktifkan akun</a>
+        <a href="localhost:8000/verify/{{$user->token}}/{{$user->id}}"> Klik untuk mengaktifkan akun</a>
                                                                   <p>Semoga Akun Anda akan bermanfaat! <br> Terimakasih telah terhubung dengan kami!</p></center>
                                                                 </div>
                                                             </td>

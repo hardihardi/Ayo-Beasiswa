@@ -20,9 +20,11 @@ $.when(new ldBar(".loading-bar", {
 			$triggerSidebar   = $('.trigger-sidebar');
 			$triggerNavbar    = $('.trigger-navbar');
 
-					// Prevent navbar & sidebar when content triggered
+			// Prevent navbar & sidebar when content triggered
 			$content.bind('click', function(e) {
+				$sidebar.removeClass('active');
 				$navbarResponsive.removeClass('active');
+				$sidebarMenu.removeClass('active');
 				$content.removeClass('active');
 
 				if (window.innerWidth > 767 && window.innerWidth <= 1024) {
@@ -30,7 +32,15 @@ $.when(new ldBar(".loading-bar", {
 				}
 			});
 
-		
+			// Trigger sidebar at mobile
+			$triggerSidebar.bind('click', function(e) {
+				e.preventDefault();
+
+				$sidebar.toggleClass('active');
+				$sidebarMenu.toggleClass('active');
+				$content.toggleClass('active');
+			});
+
 			// Trigger navbar at mobile
 			$triggerNavbar.bind('click', function(e) {
 				e.preventDefault();
@@ -42,7 +52,7 @@ $.when(new ldBar(".loading-bar", {
 			$('body, .content').niceScroll({
 				cursorwidth: '2px'
 			});
-
+			
 			    $(document).ready(function(){
 			        $('.post').addClass("hideit").viewportChecker({
 			            classToAdd: 'showit animated flipInX', // Class to add to the elements when they are visible
@@ -57,25 +67,3 @@ $.when(new ldBar(".loading-bar", {
 	}, 5000);
 });
 
-
-
-
-$(document).ready(function() {
-	$('.counter').countUp({
-		'time': 5000,
-	    'delay': 20
-	});
-    $(window).scroll(function () {
-    	// console.log($(window).scrollTop())
-	    if ($(window).scrollTop() < 10) {
-	      	$('.navbar-fixed-top').addClass('navbar-scroll');
-	      	$('.profile-toogle').addClass('item-scroll');
-	    }
-	    if ($(window).scrollTop() > 10) {
-	      	$('.navbar-fixed-top').removeClass('navbar-scroll');
-	   		$('.profile-toogle').removeClass('item-scroll');
-	   	 }
- 	});
-
- 	
-});

@@ -11,8 +11,11 @@ use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 
-use App\Mail\userRegistered;
+
+
 use Illuminate\Support\Facades\Mail;
+use App\Mail\mailRegis;
+
 class RegisterController extends Controller
 {
     /*
@@ -82,18 +85,8 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'token'   => str_random(20)
         ]);
-        if($user){
-                 $facilitator =  Facilitator::create([
-                'nama_instansi' => "",
-                'deskripsi_instansi' => "",
-                'user_id' => $user->id,
-                'token_facilitator'   => str_random(20)
-            ]);
-        }
-        
-
-          //mengirim email
-        Mail::to($user->email)->send(new userRegistered($user));
+         //mengirim email
+        Mail::to($user->email)->send(new mailRegis($user));
     }
 
        public function verify_register($token, $id)
@@ -105,14 +98,14 @@ class RegisterController extends Controller
         }
 
         if ($user->token != $token) {
-            return redirect('login')->with('warning', 'tokennya not match');
+            return redirect('login')->with('warning', 'token not match');
         }
 
         $user->status = 1;
         $user->save();
 
         $this->guard()->login($user);
-        return redirect('home');
+        return redirect('setting/'. $user->username);
          }
 
 }

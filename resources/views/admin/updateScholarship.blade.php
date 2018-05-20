@@ -2,7 +2,7 @@
 
 @section('your_css')
     <link href="/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-   <!--  <link rel="stylesheet" href="/wysiwyg/summernote.css"> -->
+    <link rel="stylesheet" href="/wysiwyg/summernote.css">
 @endsection
 
 @section('content')
@@ -26,8 +26,8 @@
                 <p> Upload Yout Image </p>
                 <input name="logo" onchange="preview_image_logo()" id="preview_image" type="file" >
                 <div id="image_preview" class="img_preview"><img src="{{$beasiswas->alamat_gambar}}"></div></br>
-                 <Textarea style="height:300px"class="form-control form-control-lg" id="Description" name="Description" placeholder="Description">{{$beasiswas->konten}}</Textarea>
-<h4>Category </h4>
+               <!--   <Textarea style="height:300px"class="form-control form-control-lg" id="Description" name="Description" placeholder="Description">{{$beasiswas->konten}}</Textarea> -->
+              <h4>Category </h4>
                   @foreach( $kategoris as $kategori )
                         <label >
                             <input type="checkbox" name="kategori[]" value="{{ $kategori->judul }}" 
@@ -40,8 +40,8 @@
             </div>
                 
                    <!-- Content -->
-                   <!--   <div class="title-pages">Description</div>
-                    <div id="summernote"><p>Your Description About The Scholarship</p></div> -->
+                     <div class="title-pages">Description</div>
+                     <textarea id="summernote" name="Description">{{$beasiswas->konten}}</textarea>
             <button type="submit" class="btn btn-info">Save Data</button>
             </form>
         </div>
@@ -53,9 +53,11 @@
 
 @section('your_js')
  <script type="text/javascript" src="/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-    <script type="text/javascript" src="/js/bootstrap-datetimepicker.id.js" charset="UTF-8"></script>
- <script type="text/javascript" src="/js/prism.js"></script>
-   <!--  <script type="text/javascript" src="/wysiwyg/summernote.min.js"></script> -->
+  <script type="text/javascript" src="/js/bootstrap-datetimepicker.id.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="/js/prism.js"></script>
+  <script type="text/javascript" src="/wysiwyg/summernote.min.js"></script>
+  <script type="text/javascript" src="/js/editor.js"></script>
+
  <script type="text/javascript">
     $('.form_date').datetimepicker({
         language:  'fr',
@@ -69,8 +71,5 @@
 
     });
     </script>
-<!--  <script type="text/javascript" src="/js/editor.js"></script> -->
-
-
 
 @endsection

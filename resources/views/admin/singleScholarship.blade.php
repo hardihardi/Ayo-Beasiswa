@@ -7,7 +7,7 @@
                     <div class="left-side">
                         <img src="" alt="">
                          <div class="hero-title">{{$beasiswas->nama_beasiswa}}</div>
-                        <div class="hero-description">{{$beasiswas->konten}} </div>
+<!--                         <div class="hero-description">{{$beasiswas->konten}} </div> -->
                          <div class="toolbar-menu">
                             <a href="{{ route('editList', ['id' => $beasiswas->id])}}" class="btn btn-success btn-outline btn-rounded"><i class="fa fa-edit"></i> Edit</a>
                             <a href="{{ route('deleteList', ['id' => $beasiswas->id])}}" class="btn btn-danger btn-outline btn-rounded"><i class="fa fa-trash"></i> Delete</a>

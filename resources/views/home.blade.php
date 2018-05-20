@@ -1,90 +1,6 @@
-<?php
-use Carbon\Carbon;
-?>
-<!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.web')
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-<title>Ayobeasiswa.me </title>
-
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="120x120" href="img/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="img/icon2.png">
-    <link rel="manifest" href="img/favicon/manifest.json">
-    <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Vendor Style -->
-    <link rel="stylesheet" href="/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/animate.min.css">
-    <link rel="stylesheet" href="/css/loading-bar.css">
-    <link rel="stylesheet" href="/css/prism.css">
-    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
-
-    <link rel="stylesheet" href="/css/home.css">
-    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
-    <!--  <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
-</head>
-<body>
-
-          <!-- Loading -->
-    <div class="content-loading">
-        <div data-type="fill" class="loading-bar ldBar"></div>
-    </div>
-    <!-- Partials Navbar -->
-      <!-- Navbar -->
-    <div class="navbar navbar-default navbar-fixed-top navbar-scroll">
-        <div class="container">
-            <!-- Left Navbar Menu -->
-            <div class="navbar-header">
-                <a href="{{ route('dashboard') }}" class="navbar-brand"><img src="/img/logo.png" alt=""></a>
-                <a href="#" class="navbar-brand visible-xs trigger-navbar"><i class="fa fa-ellipsis-v"></i></a>
-            </div>
-
-            <!-- Middle Navbar Menu -->
-            <ul class="navbar-nav nav">
-                <li><a href="{{ route('dashboard') }}" class="item"><i class="fa fa-home"></i> Beranda</a></li>
-                <li><a href="" class="item"><i class="fa fa-graduation-cap" aria-hidden="true"></i></i> Beasiswa</a></li>
-                <li><a href="{{ route('home') }}" class="item"><i class="fa fa-search"></i> Cari Beasiswa</a></li>
-                   @if (Auth::guest())
-                        <a href="{{ route('login') }}" class="item profile-toogle item-scroll" style="border-left : 1px solid #becfdd;color:#6ed2de;font-weight: bold;">Masuk / Daftar</a>
-                         </ul>
-           
-                        @else
-                         </ul>
-                         <ul class="navbar-nav navbar-right nav">
-                              <li><a class="dropdown-toggle profile item-scroll" data-toggle="dropdown" role="button" aria-expanded="false" class="item btn btn-info item"><i class="fa fa-user"></i> Profile</a>
-
-                            <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();" class="item" style="color : #6ed2de;">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-
-                            </li>
-                        </ul>
-                        @endif
-
-            <!-- Right Navbar Menu -->
-           
-        </div>
-    </div>
-
-    <!-- Navbar Responsive -->
-    <div class="navbar-responsive visible-xs"></div>
-    
+@section('content')
     <section class="content-home">
         <div class="wrap">
             <header>
@@ -103,8 +19,9 @@ use Carbon\Carbon;
                             <form action="" method="post">
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-lg" id="search" name="search" placeholder="Nama Beasiswa" style="margin-top : 15px">
-                                    <div class="input-group date form_date " data-date="2017-09-16T05:25:07Z" data-link-field="dtp_input1" style="margin-top : 15px;width : 49%;display:inline-table;">
-                                          <input class="form-control form-control-lg""  style="margin-top:0" size="16" type="text" value="" readonly name="date"  placeholder="Date End" ><span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                                    <div class="input-group date form_date" data-date="2017-09-16T05:25:07Z" data-link-field="dtp_input1" style="margin-top : 15px;width : 49%;display:inline-table;">
+                                          <input class="form-control form-control-lg"
+                                            style="margin-top:0" size="16" type="text" value="" readonly name="date"  placeholder="Date End" ><span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                                     </div>
                                      <select class="form-control" id="kategori" name="kategori" style="width:49%;display: inline;">
                                         <option>Luar Negeri</option>
@@ -120,7 +37,8 @@ use Carbon\Carbon;
                 </div>
 
               </header>
-              <div class="navigation post" style="border-bottom:2px solid #edeff2">
+
+           <!--    <div class="navigation post" style="border-bottom:2px solid #edeff2">
                     <div class="row">
                         <div class="col-md-1 col-sm-1 category">
                             <img src="/img/icon-white/Liber.png" class="category_icon">
@@ -163,7 +81,7 @@ use Carbon\Carbon;
                             <p class="huhu">Penelitian</p>
                         </div>
                     </div>
-              </div>
+              </div> -->
               <div class="content-new">
                 <div class="container post">
                      <div class="header-create post">
@@ -174,23 +92,34 @@ use Carbon\Carbon;
                         <div class="row ">
                             @foreach($beasiswas as $beasiswa) 
                                 <div class="col-sm-6 col-md-4 col-lg-4 post">
+                                    <a href="{{route('single', ['name' => $beasiswa->str_slug ])}}" class="clickarea"></a>
                                     <div class="card">
-                                        <img class="card-img-top" src="http://success-at-work.com/wp-content/uploads/2015/04/free-stock-photos.gif">
+                                         <figure class="name"><p>
+                                                {{$beasiswa->facilitator->nama_instansi}}
+                                            </p>
+                                            </figure>   
+                                        <img class="card-img-top" src="{{$beasiswa->alamat_gambar}}">
                                         <div class="card-block">
-                                            <figure class="profile">
-                                                <img src="http://success-at-work.com/wp-content/uploads/2015/04/free-stock-photos.gif" class="profile-avatar" alt="">
+                                           
+                                            <figure class="profile-img">
+                                                <img src="{{$beasiswa->facilitator->user->img_url}}" class="profile-avatar" alt="">
                                             </figure>
                                             <div class="meta">
                                                 <a></a>
                                             </div>
-                                            <h4 class="card-title mt-3">{{ $beasiswa->nama_beasiswa}}</h4>
-                                            <div class="card-text">
-                                               Berlaku Sampai {{$beasiswa->masa_berlaku}}
-                                            </div>
+                                            <h3 class="card-title mt-3">{{ $beasiswa->nama_beasiswa}}</h3>
+                                         
                                         </div>
                                         <div class="card-footer">
-                                           
-                                            <small> {{ \Carbon\Carbon::parse($beasiswa->created_at)->diffForHumans()}}</small>
+                                           <div class="card-text">
+                                               Berlaku Sampai {{$beasiswa->masa_berlaku}}
+                                            </div>
+                                          <!--  <div class="indicator">
+                                                <span><i class="glyphicon glyphicon-eye-open"></i>101</span>
+                                                <span><i class="glyphicon glyphicon-list-alt"></i>200</span>
+                                                <span><i class="glyphicon glyphicon-pushpin"></i>5</span>
+                                            </div> -->
+                                               <p> {{ \Carbon\Carbon::parse($beasiswa->created_at)->diffForHumans()}}</p>
                                         </div>
                                      </div>
                                 </div>
@@ -266,7 +195,7 @@ use Carbon\Carbon;
                         </div>
                 </div>
                 <div class="container-fluid subscribe post">
-                   <div class="row my-dark-blue  ">
+                   <div class="row my-dark-blue  " style="margin:0;">
                          <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-1 ">
                         <h5> Ingin Berita Terupdate?<br>Subscribe ayobeasiswa</h5>
                     </div>
@@ -283,23 +212,7 @@ use Carbon\Carbon;
                     </div>
                     </div>
                 </div>
-                <footer>
-                    <div class="container-fluid">
-                       <div class="row">
-                        <div class="col-md-6 col-sm-6 col-xs-12"> 
-                           <img src="/img/logo.png" alt="">
-                           <p> Penghubung antara penyedia beaasiswa dan pencari beasiswa, baik pendidikan formal maupun informal </p>
-
-                           <p style="font-weight: bold">Download Aplikasi</p>
-                        </div>
-                        <div class="col-md-6  col-sm-6 col-xs-12">
-                            <p style="font-weight: bold;">Tentang Beasiswa</p>
-                            <p><a href="#">Cara Mendaftar</a></p>
-                           <p><a href="#">Hubungi Kami</a></p>
-                        </div>
-                       </div>
-                    </div>
-                </footer>
+            
               </div>
         </div>
     </section>
@@ -309,33 +222,26 @@ use Carbon\Carbon;
     </div>
 
 
-<script type="text/javascript" src="/js/jquery-1.11.3.js"></script>
-<script type="text/javascript" src="/js/jquery.viewportchecker.js"></script>   
-<script type="text/javascript" src="/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/js/nicescroll.min.js"></script>
-<script type="text/javascript" src="/js/loading-bar.js"></script>
-<script type="text/javascript" src="/js/prism.js"></script>
-<script type="text/javascript" src="/js/waypoints.min.js"></script>
-<script type="text/javascript" src="/js/jquery.countup.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-<script type="text/javascript" src="/js/bootstrap-datetimepicker.id.js" charset="UTF-8"></script>
+@endsection
+
+@section('js')
 <script type="text/javascript">
-$('.form_date').datetimepicker({
-    language:  'fr',
-    weekStart: 1,
-    todayBtn:  1,
-    autoclose: 1,
-    todayHighlight: 1,
-    startView: 2,
-    minView: 2,
-    forceParse: 0
-
-});
+   $(document).ready(function() {
+        $('.counter').countUp({
+            'time': 5000,
+            'delay': 20
+        });
+        $(window).scroll(function () {
+            // console.log($(window).scrollTop())
+            if ($(window).scrollTop() < 10) {
+                $('.navbar-fixed-top').addClass('navbar-scroll');
+                $('.profile-toogle').addClass('item-scroll');
+            }
+            if ($(window).scrollTop() > 10) {
+                $('.navbar-fixed-top').removeClass('navbar-scroll');
+                $('.profile-toogle').removeClass('item-scroll');
+             }
+        });
+    });
 </script>
-    <!-- Component Script -->
-
-
-    <!-- Your Own Script -->
-    <script type="text/javascript" src="/js/home.js"></script>
-</body>
-</html>
+@endsection

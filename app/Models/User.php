@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password', 'nama', 'alamat', 'telp', 'role', 'pendidikan','token', 'status'
+        'username', 'email', 'password', 'nama','slug', 'alamat', 'telp', 'role', 'pendidikan','token', 'status'
     ];
 
     /**
@@ -37,6 +37,16 @@ class User extends Authenticatable
 
      public function isAdmin(){
         if($this->role == 2) return true;
+
+        return false;
+    }
+
+    public function file(){
+        return $this->hasOne('App\Models\File', 'user_id', 'id');
+    }
+
+    public function isUser(){
+        if($this->role == 1) return true;
 
         return false;
     }

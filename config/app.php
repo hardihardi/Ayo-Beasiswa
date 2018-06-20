@@ -38,7 +38,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => env('APP_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -177,11 +177,16 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\UploadServiceProvider::class,
+
 
         //API JWT
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
 
         Laravel\Scout\ScoutServiceProvider::class,
+
+        //Intervention
+        Intervention\Image\ImageServiceProvider::class,
 
 
     ],
@@ -233,10 +238,14 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Fractal' => Spatie\Fractal\FractalFacade::class,
+        'BHelper' => App\Http\Helper\Upload::class,
 
         //API JWT
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
 
+
+        //Intervention
+        'Image' => Intervention\Image\Facades\Image::class
     ],
 
 ];

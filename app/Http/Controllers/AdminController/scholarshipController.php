@@ -8,12 +8,14 @@ use App\Models\Scholarship;
 use App\Models\Facilitator;
 use App\Http\Requests;
 use App\Models\Category;
-
+use Illuminate\Support\Facades\Auth;
+use App\Http\Helper\Upload;
+use Validator;
 
 class scholarshipController extends Controller
 {
     public function index(){
-    	$beasiswa = Scholarship::with(['user', 'facilitator', 'categories'])->get();
+        $beasiswa = Auth::user()->facilitator->Scholarships()->with(['user', 'facilitator', 'categories'])->get();
     	// dd($beasiswa);
     	// return view('admin.list', ["beasiswas" => $beasiswa]);
          return view('admin.listScholarship', ["beasiswas" => $beasiswa]);
@@ -61,7 +63,7 @@ class scholarshipController extends Controller
     }
 
     public function show($id){
-    	$beasiswa = Scholarship::with(['user', 'facilitator', 'categories'])->where('id', $id)->first();
+    	$beasiswa = Scholarship::with(['user', 'facilitator', 'categories'])->where('str_slug', $id)->first();
       
 
     	// dd($beasiswa);
@@ -83,21 +85,22 @@ class scholarshipController extends Controller
 
     public function update(request $request, $id){
        $beasiswa = Scholarship::find($id);
+    //    dd($beasiswa->facilitator);
         $beasiswa->nama_beasiswa = $request->beasiswa;
         $beasiswa->nama_instantsi = $request->instusi;
         $beasiswa->quota = $request->quota;
         $beasiswa->masa_berlaku = $request->date;
         $beasiswa->konten = $request->Description;
         $beasiswa->str_slug = str_slug($request->beasiswa);
-         if($request->file('logo')){
-            
-            $file = $request->file('logo');   
-            $destinationPath = 'img/img_ss';
-            $name = $request->beasiswa.".". $file->getClientOriginalExtension();
-            $file->move($destinationPath,trim($name));
-            $beasiswa->alamat_gambar = "http://ayobeasiswa.me/img/img_ss/". trim($name);
+        $logo = $request->image_data; 
+        if($logo !== null){
+          $name = str_slug($request->beasiswa).".jpg";
+          $logo = Upload::changeBase64($request->image_data, 'public/facilitators/'.$beasiswa->facilitator->token_facilitator.'/'.$beasiswa->id , $name); 
+          $beasiswa->alamat_gambar =  $logo;
         }
-       $beasiswa->save();
+      
+        $beasiswa->status = ($request->status == "on")? 1 : 0;
+        $beasiswa->save();
         $beasiswa->categories()->detach();
         if($request->kategori != []){
 
@@ -111,13 +114,14 @@ class scholarshipController extends Controller
                 $beasiswa->categories()->attach($kategori);
             }
         }
-       return view('admin.singleScholarship', ["beasiswas" => $beasiswa]);   }
+       return view('admin.singleScholarship', ["beasiswas" => $beasiswa]);   
+    }
 
-        public function delete($id){
-       $beasiswa = Scholarship::find($id);
+    public function delete($id){
+        $beasiswa = Scholarship::find($id);
         $beasiswa->delete();
-       $beasiswa = Scholarship::with(['user', 'facilitator', 'categories'])->get();
-          return view('admin.listScholarship', ["beasiswas" => $beasiswa]);
+        $beasiswa = Scholarship::with(['user', 'facilitator', 'categories'])->get();
+        return view('admin.listScholarship', ["beasiswas" => $beasiswa]);
     }
 
 }

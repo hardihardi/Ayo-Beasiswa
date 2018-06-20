@@ -1,5 +1,9 @@
 @extends('layouts.web')
 
+@section('css')
+<link rel="stylesheet" href="/css/croppit.css">
+@endsection
+
 @section('content')
     <div class="wrap single-profile">
         <div class="container">
@@ -262,25 +266,34 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-lg-12" style="margin: 0;padding: 0;margin-top: 10px;">
                         <button class="form-control bg-white-color" data-toggle="modal" data-target="#myModal" > <a href="#" class="grey-color"> <span class="fa fa-key"></span> Ubah Kata Sandi</a></button>
-                        <div style="margin-top :10px;padding-bottom : 20px;">
-                            <p style="color:#cccccc;font-weight:500;">Anda ingin menjadi superhero ? dan membantu sesama ?</p>
-                            <button  id="sandi" class="form-control bg-blue-color"> <a href="#" class="white-color"> Saya Ingin</a></button>
-                            <a href="#"><p style="color:#7FDEEA;font-weight:300;font-size:12px;margin-top :4px;">Ingin penjelasan mengenai detail menjadi penyedia ? silahkan klik disini</p></a>
-                        </div>
+                        @if (Auth::user()->isAdmin())
+                            <div style="margin-top :10px;padding-bottom : 20px;">
+                                <button   id="sandi" class="form-control bg-blue-color"> <a href="/setting/dashboard" class="white-color"> Dashboard</a></button>
+                               
+                            </div>
+                        @elseif(Auth::user()->facilitator->status == 0)
+                        <a href="#"><p style="color:#7FDEEA;font-weight:300;font-size:12px;margin-top :4px;">Terima kasih telah bersedia menjadi penyedia, silhkan cek email anda untuk mengaktifkan akun facilitator anda  ^_^</p></a>
+                        @else
+                            <div style="margin-top :10px;padding-bottom : 20px;">
+                                <p style="color:#cccccc;font-weight:500;">Anda ingin menjadi superhero ? dan membantu sesama ?</p>
+                                <button  id="sandi" class="form-control bg-blue-color" data-toggle="modal" data-target="#myFac"> <a href="#" class="white-color"> Saya Ingin</a></button>
+                                <a href="#"><p style="color:#7FDEEA;font-weight:300;font-size:12px;margin-top :4px;">Ingin penjelasan mengenai detail menjadi penyedia ? silahkan klik disini</p></a>
+                            </div>
+                        @endif
                         <div id="myModal" class="modal fade" role="dialog">
                             <form action="#" method="put">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <div class="modal-header">
+                                        <div class="modal-header" style="padding :19px 40px">
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             <h4 class="modal-title">Ubah Password Anda</h4>
                                         </div>
-                                        <div class="modal-body">
+                                        <div class="modal-body" style="padding: 20px 40px">
                                             <div class="form-group">                                 
                                                 <label for="exampleinput4">Password Lama</label>
                                                 <input  type="text" class="form-control form-control-lg " id="telp" placeholder="0219123432" name="password_lama">                                 
                                             </div>
-                                            <div class="form-group">                                 
+                                            <div class="form-group" >                                 
                                                 <label for="exampleinput4">Password Baru</label>
                                                 <input  type="text" class="form-control form-control-lg " id="telp" placeholder="0219123432" name="password">                                 
                                             </div>
@@ -289,13 +302,63 @@
                                                 <input  type="text" class="form-control form-control-lg " id="telp" placeholder="0219123432" name="password_confirmation">                                 
                                             </div>
                                         </div>
-                                        <div class="modal-footer">
-                                            <input type="submit" class="bg-green-color form-control" value="ubah">
+                                        <div class="modal-footer " style="padding :20px 40px">
+                                            <input type="submit" class="bg-green-color form-control" style="border:0;color:#fff;" value="ubah">
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
+                        <div id="myFac" class="modal fade" role="dialog">
+                                <form action="{{route('profile_create')}}" method="POST" enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header" style="padding :19px 40px">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Menjadi Facilitator</h4>
+                                            </div>
+                                            <div class="modal-body" style="padding: 20px 40px">
+                                                    <div class="form-group">                                
+                                                            <label for="nama_instansi">Nama Instansi</label></label>   
+                                                            <input type="text" class="form-control form-control-lg" id="nama_instansi" placeholder="Nama Instansi" name="nama_instansi" >                        
+                                                        </div>   
+                                                        <div class="form-group">                                
+                                                            <label for="deskripsi">Deskripsi</label></label>   
+                                                            <input type="text" class="form-control form-control-lg" id="deskripsi" placeholder="Agency Description" name="deskripsi_instansi" >                      
+                                                        </div> 
+                                                        <div class="form-group">                                
+                                                            <label for="kategori">kategori</label></label>   
+                                                            <select name="kategori" class="form-control form-control-lg " id="kategori" >
+                                                                    <option value="1">Perorangan</option>    
+                                                                    <option value="2">Kelompok</option>    
+                                                            </select>                         
+                                                        </div> 
+                                                        <div class="form-group">                                
+                                                            <label for="berkas">Upload Berkas Pendukung <b> *Berkas dengan format kompress file (RAR/ZIP/TAR/GTZ)</b></label>
+                                                            <input name="berkas" id="berkas" type="file"  > 
+                                                        </div>
+                                                        <div class="form-group">                                
+                                                            <label for="preview_image">Upload Foto Profil</label></label>  
+                                                            <div class="image-editor">
+                                                                <input type="file" class="cropit-image-input">
+                                                                <div class="cropit-preview"></div>
+                                                                {{-- <div id="image_preview" class="img_preview"><img src="{{Storage::url($facilitator->img_url)}}"></div> --}}
+                                                                <div class="image-size-label">
+                                                                    Resize image
+                                                                </div>
+                                                                <input type="range" class="cropit-image-zoom-input">
+                                                                <input type="hidden" name="image_data" class="hidden-image-data" />
+                                                            </div>
+                                                        </div>
+                                            </div>
+                                            <div class="modal-footer " style="padding :20px 40px">
+                                                <input type="submit" class="bg-green-color form-control" style="border:0;color:#fff;" value="Daftar">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -304,7 +367,20 @@
 @endsection
 
 @section('js')
+<script type="text/javascript" src="/js/jquery.cropit.js"></script>
+<script>
+$(function() {
+    $('.image-editor').cropit({
+    allowDragNDrop: false
+});
 
+    $('form').submit(function() {
+        // Move cropped image data to hidden input
+        var imageData = $('.image-editor').cropit('export');
+        $('.hidden-image-data').val(imageData);
+    });
+});
+</script>
 <script type="text/javascript">
     $(document).ready(function() {
             $('body').css("background-color", "#f6f7f8");

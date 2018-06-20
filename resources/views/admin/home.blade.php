@@ -2,6 +2,11 @@
 
 @section('content')
     <section class="content">
+        @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}  <a href="/setting/profile/">Disini</a> 
+        </div>
+        @endif
         <div class="title-pages">Dashboard</div>
         <div class="row small-gutter">
             <div class="col-md-4">

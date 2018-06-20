@@ -6,7 +6,7 @@
         <div class="col-lg-8 post-single">
 	           <div class="post-image-single">
 					<a href="" title="{{$beasiswa->nama_beasiswa}}" >
-						<img width="500" height="282" src="{{$beasiswa->alamat_gambar}}" class="img-single-post " alt=""/>                            
+						<img width="500" height="282" src="{{Storage::url($beasiswa->alamat_gambar)}}" class="img-single-post " alt=""/>                            
 					</a>
 				</div><!-- end of post-image -->
 

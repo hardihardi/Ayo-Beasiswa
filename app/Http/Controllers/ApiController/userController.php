@@ -125,7 +125,7 @@ class userController extends Controller
                     'token_facilitator'   => str_random(20)
                 ]);
                                //mengirim email
-                   $mail =  Mail::to($request->user()->email)->send(new userRegistered($request->user()));
+                   $mail =  Mail::to($request->user()->email)->send(new mailRegister($request->user()));
                 return response()->json(["Message" => "Please Check Your Email"]);
                  }
             }

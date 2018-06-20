@@ -14,7 +14,7 @@
                         </div>
                     </div>
                     <div class="right-side">
-                        <img src="{{$beasiswas->alamat_gambar}}" class="img-single" style="width:100%;">
+                        <img src="{{Storage::url($beasiswas->alamat_gambar)}}" class="img-single" style="width:100%;">
                     </div>
             </div>
         </div>

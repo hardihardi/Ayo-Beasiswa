@@ -15,8 +15,8 @@
                 @foreach($beasiswas as $beasiswa) 
                     <div class="col-md-4 col-sm-6" id="1">
                         <div class="card">
-                            <a href="{{route('singleList', ['id' => $beasiswa->id ])}}" class="clickarea"></a>
-                            <img class="card-img-top" src="{{$beasiswa->alamat_gambar}}" alt="image" style="width:100%">
+                            <a href="{{route('singleList', ['id' => $beasiswa->str_slug ])}}" class="clickarea"></a>
+                            <img class="card-img-top" src="{{Storage::url($beasiswa->alamat_gambar)}}" alt="image" style="width:100%">
                             <div class="card-header">
 
                                 @if($beasiswa->created_at->diffForHumans())
@@ -37,18 +37,7 @@
                                
                             </div>
                             <div class="card-content">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <p>Views</p>
-                                        <h6>1</h6>
-                                    </div>
-                                    <div class="col-md-4">
-                                     <p>Applyment</p>
-                                        <h6>1</h6></div>
-                                    <div class="col-md-4">
-                                    <p>Notification</p>
-                                        <h6>1</h6></div>
-                                </div>
+                               
                             </div>
                         </div>
                     </div>

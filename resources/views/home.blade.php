@@ -4,17 +4,11 @@
     <section class="content-home">
         <div class="wrap">
             <header>
-                <div class="backhome shadow">
-                    <img src="/img/home.jpg" class="img-home">
-                </div>
                 <div class="form-search">
-                    <div class="row post">
-                        <div class="col-md-8 col-sm-4 header-title">            
-                             <h1 > JANGAN RAGU <BR> &nbsp&nbsp&nbsp UNTUK SEKOLAH ! </h1>
-                             <h4 > Kemudahan Mencari Beasiswa Ada Di Tangan Anda </h4>
-                        </div>
-                        <div class="col-xs-1 visible-xs"></div>
-                        <div class="col-md-3 col-sm-8 col-xs-10 col-md-offset-0 col-sm-offset-2 post ">
+                    <div class="row ">
+                      
+                        <div class="col-xs-1 visible-xs "></div>                      
+                        <div class="col-md-3 col-sm-8 col-xs-10 col-md-offset-2 col-sm-offset-2 postri ">
                             <h4> Cari Beasiswa <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Sesuai Keinginanmu!!! </h4>
                             <form action="" method="post">
                                 <div class="form-group">
@@ -33,186 +27,209 @@
                                 </div>
                             </form>
                         </div>
+
+                        <div class="col-md-6 col-sm-4  col-md-offset-1  header-title postup">            
+                            <h1 > JANGAN RAGU <BR> &nbsp&nbsp&nbsp UNTUK SEKOLAH ! </h1>
+                            <h4 > Kemudahan Mencari Beasiswa Ada Di Tangan Anda </h4>
+                       </div>
                     </div>
                 </div>
 
               </header>
-
-           <!--    <div class="navigation post" style="border-bottom:2px solid #edeff2">
-                    <div class="row">
-                        <div class="col-md-1 col-sm-1 category">
-                            <img src="/img/icon-white/Liber.png" class="category_icon">
-                            <p class="huhu">Luar Negeri</p>
-                        </div>
-                        <div class="col-md-1 col-sm-1 category">
-                            <img src="/img/icon-white/Computer.png" class="category_icon">
-                            <p class="huhu">Komputer</p>
-                        </div>
-                        <div class="col-md-1 col-sm-1 category">
-                            <img src="/img/icon-white/World_Cup.png" class="category_icon">
-                            <p class="huhu">Olahraga</p>
-                        </div>
-                        <div class="col-md-1 col-sm-1 category">
-                            <img src="/img/icon-white/User_Groups.png" class="category_icon">
-                            <p class="huhu">Yayasan</p>
-                        </div>
-                        <div class="col-md-1 col-sm-1 category">
-                            <img src="/img/icon-white/Student.png" class="category_icon">
-                            <p class="huhu">Mahasiswa</p>
-                        </div>
-                        <div class="col-md-1 col-sm-1 category">
-                            <img src="/img/icon-white/Department.png" class="category_icon">
-                            <p class="huhu">Swasta</p>
-                        </div>
-                        <div class="col-md-1 col-sm-1 category" >
-                            <img src="/img/icon-white/Parliament.png" class="category_icon">
-                            <p class="huhu">Dalam Negeri</p>
-                        </div>
-                        <div class="col-md-1 col-sm-1 category">
-                            <img src="/img/icon-white/Gold_Medal.png" class="category_icon">
-                            <p class="huhu">Penghargaan</p>
-                        </div>
-                        <div class="col-md-1 col-sm-1 category">
-                            <img src="/img/icon-white/Home.png" class="category_icon">
-                            <p class="huhu">Bantuan</p>
-                        </div>
-                        <div class="col-md-1 col-sm-1 category">
-                            <img src="/img/icon-white/Microscope.png" class="category_icon">
-                            <p class="huhu">Penelitian</p>
+            <div class=" container navigation ">
+                <h1> Kategori</h1>
+                <hr class="border_bottom">
+                <img class="pattern_left" src="/img/aa.png">
+                <img class="pattern_right" src="/img/aa.png">
+                <div class="category postb">
+                    <div class="col-md-3 grid-item">
+                        <img src="img/cat/award.jpeg" alt="award">
+                        <div class="grid-overlay">
+                            <a href="#" class="btn btn-outline-info">Penghargaan</a>
                         </div>
                     </div>
-              </div> -->
-              <div class="content-new">
-                <div class="container post">
-                     <div class="header-create post">
-                        <span class="number">New</span>
-                        <h1>Beasiswa Terbaru </h1>
-                     </div>
-                    <div class="content-data">
-                        <div class="row ">
-                            @foreach($beasiswas as $beasiswa) 
-                                <div class="col-sm-6 col-md-4 col-lg-4 post">
-                                    <a href="{{route('single', ['name' => $beasiswa->str_slug ])}}" class="clickarea"></a>
-                                    <div class="card">
-                                         <figure class="name"><p>
-                                                {{$beasiswa->facilitator->nama_instansi}}
-                                            </p>
-                                            </figure>   
-                                        <img class="card-img-top" src="{{$beasiswa->alamat_gambar}}">
-                                        <div class="card-block">
-                                           
-                                            <figure class="profile-img">
-                                                <img src="{{$beasiswa->facilitator->user->img_url}}" class="profile-avatar" alt="">
-                                            </figure>
-                                            <div class="meta">
-                                                <a></a>
-                                            </div>
-                                            <h3 class="card-title mt-3">{{ $beasiswa->nama_beasiswa}}</h3>
-                                         
-                                        </div>
-                                        <div class="card-footer">
-                                           <div class="card-text">
-                                               Berlaku Sampai {{$beasiswa->masa_berlaku}}
-                                            </div>
-                                          <!--  <div class="indicator">
-                                                <span><i class="glyphicon glyphicon-eye-open"></i>101</span>
-                                                <span><i class="glyphicon glyphicon-list-alt"></i>200</span>
-                                                <span><i class="glyphicon glyphicon-pushpin"></i>5</span>
-                                            </div> -->
-                                               <p> {{ \Carbon\Carbon::parse($beasiswa->created_at)->diffForHumans()}}</p>
-                                        </div>
-                                     </div>
-                                </div>
-                            @endforeach
-                        </div>
-                        <button class="etc" href="#">Lainnya</button>
+                    <div class="col-md-3 grid-item">
+                            <img src="img/cat/olharaga.jpg" alt="award">
+                            <div class="grid-overlay">
+                                <a href="#" class="btn btn-outline-info">Olahraga</a>
+                            </div>
+                    </div>
+                    <div class="col-md-3 grid-item">
+                            <img src="img/cat/penelitian.jpeg" alt="Penelitian">
+                            <div class="grid-overlay">
+                                <a href="#" class="btn btn-outline-info">Penelitian</a>
+                            </div>
+                    </div>
+                    <div class="col-md-3 grid-item">
+                            <img src="img/cat/yayasan.jpg" alt="Yayasan">
+                            <div class="grid-overlay">
+                                <a href="#" class="btn btn-outline-info">Yayasan</a>
+                            </div>
+                    </div>
+                    <div class="col-md-3 grid-item" style="height : 420px;">
+                            <img src="img/cat/luar.jpeg" alt="Luar Negeri">
+                            <div class="grid-overlay">
+                                <a href="#" class="btn btn-outline-info">Luar Negeri</a>
+                            </div>
+                    </div>
+                    <div class="col-md-3 grid-item">
+                            <img src="img/cat/swasta.jpeg" alt="Swasta">
+                            <div class="grid-overlay">
+                                <a href="#" class="btn btn-outline-info">Swasta</a>
+                            </div>
+                    </div>
+                    <div class="col-md-3 grid-item">
+                            <img src="img/cat/help.jpeg" alt="Bantuan">
+                            <div class="grid-overlay">
+                                <a href="#" class="btn btn-outline-info">Bantuan</a>
+                            </div>
+                    </div>
+                    <div class="col-md-3 grid-item">
+                            <img src="img/cat/computer.jpeg" alt="Komputer">
+                            <div class="grid-overlay">
+                                <a href="#" class="btn btn-outline-info">Komputer</a>
+                            </div>
+                    </div>
+                    <div class="col-md-3 grid-item">
+                            <img src="img/cat/studeng.jpeg" alt="Mahasiswa">
+                            <div class="grid-overlay">
+                                <a href="#" class="btn btn-outline-info">Mahasiswa</a>
+                            </div>
+                    </div>
+                    <div class="col-md-6 grid-item">
+                            <img src="img/cat/dalam.jpg" alt="Dalam Negeri">
+                            <div class="grid-overlay">
+                                <a href="#" class="btn btn-outline-info">Dalam Negeri</a>
+                            </div>
                     </div>
                 </div>
-                <div class="container-fluid ">
-                    <div class="content-data" style="margin-top : 150px;">
-                        <div class="asymmetric" id="">
+            </div>
+
+              <div class="content-new">
+                <div class="container-fluid data-post">
+                    <div class="container">
+                        <div class="header-create postdw ">
+                            <h1>Terbaru </h1>
+                            <h1>Beasiswa Terbaru </h1>
+                         </div>
+                        <div class="content-data">
+                            <div class="row ">
+                                @foreach($beasiswas as $key =>  $beasiswa) 
+                                    @if ($key == 2) 
+                                        <div class="col-sm-11 col-md-4 col-lg-4 postle">
+                                    @else 
+                                        <div class="col-sm-6 col-md-4 col-lg-4 postle">
+                                    @endif
+                                 
+                                        <a href="{{route('single', ['name' => $beasiswa->str_slug ])}}" class="clickarea"></a>
+                                        <div class="card-overlay">
+                                           <img src="/img/search.svg" style="width: 100px;">
+                                           <h3 class="btn-outline-info"> Selengkapnya</h3>
+                                        </div>
+                                        <div class="card">
+                                             <figure class="name"><p>
+                                                    {{$beasiswa->facilitator->nama_instansi}}
+                                                </p>
+                                                </figure>   
+                                            <div class="card-header">
+                                                    <img class="card-img-top" src="{{Storage::url($beasiswa->alamat_gambar)}}">
+                                            </div>
+                                            <div class="card-block">
+                                               
+                                                <figure class="profile-img">
+                                                    <img src="{{$beasiswa->facilitator->user->img_url}}" class="profile-avatar" alt="">
+                                                </figure>
+                                                <div class="meta">
+                                                    <a></a>
+                                                </div>
+                                                <h3 class="card-title mt-3">{{ $beasiswa->nama_beasiswa}}</h3>
+                                             
+                                            </div>
+                                            <div class="card-footer">
+                                               <div class="card-text">
+                                                   Berlaku Sampai {{$beasiswa->masa_berlaku}}
+                                                </div>
+                                              <!--  <div class="indicator">
+                                                    <span><i class="glyphicon glyphicon-eye-open"></i>101</span>
+                                                    <span><i class="glyphicon glyphicon-list-alt"></i>200</span>
+                                                    <span><i class="glyphicon glyphicon-pushpin"></i>5</span>
+                                                </div> -->
+                                                   <p> {{ \Carbon\Carbon::parse($beasiswa->created_at)->diffForHumans()}}</p>
+                                            </div>
+                                         </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <button class="etc" href="#">Lainnya</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid info-count">
+                    <div class="content-data" >
                         <div class="row " style="text-align:center;">
                             <div class="col s12 m12 l12 transparent center-align huhu ">
-                                <div class="col-md-4 col-sm-4 col-xs-12 post">
+                                <div class="col-md-4 col-sm-4 col-xs-12 postup">
                                     <img src="/img/scholar.png" class="counter-img">
                                     <h3 class="counter-font"><span class="counter">100</span>&nbsp&nbspBeasiswa</h3>
                                 </div>
-                                <div class="col-md-4 col-sm-4 col-xs-12 post">
+                                <div class="col-md-4 col-sm-4 col-xs-12 postle">
                                     <img src="/img/apply.png" class="counter-img">
                                     <h3 class="counter-font"><span class="counter">20</span>&nbspPenyedia</h3>
                                 </div>
-                                <div class="col-md-4 col-sm-4 col-xs-12 post">
-                                      <img src="/img/student.png" class="counter-img">
+                                <div class="col-md-4 col-sm-4 col-xs-12 postri">
+                                    <img src="/img/student.png" class="counter-img">
                                     <h3 class="counter-font"><span class="counter">209</span>&nbsp&nbspPencari</h3>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                     </div>
                 </div>
-                <div class="container guide " style="margin-top : 100px;">
-                        <div class="col-md-12 col-sm-12 col-xs-12 post" style="text-align: center">
+                <div class="container guide jackInTheBox ">
+                        <div class="col-md-12 col-sm-12 col-xs-12 postb" style="text-align: center">
                             <h1 style="font-weight: bold;text-align: center;"> Kemudahan AyoBeasiswa</h1>
                             <hr class="garis">
                         </div>
-                        <div class="row">
-                            <div class="col-md-4 col-sm-4 col-xs-12 style-right post">
+                        <div class="row postle">
+                            <div class="col-md-4 col-sm-4 col-xs-12 style-right ">
                                 <img src="/img/guide/1.png" class="img-guide">
                             </div>
-                            <div class="col-md-8 col-sm-8 col-xs-12 style-left post">
+                            <div class="col-md-8 col-sm-8 col-xs-12 style-left">
                                 <h3><b> Login & Register </b></h3>
                                 <h4> Membuat akun untuk mendaftar beasiswa</h4>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-8 col-sm-8 col-xs-12 style-right post">
+                        <div class="row postri">
+                            <div class="col-md-8 col-sm-8 col-xs-12 style-right ">
                                 <h3><b> Upload Berkas </b></h3>
                                 <h4> Upload Berkas beasiswa pada profile anda</h4>
                             </div>
-                             <div class="col-md-4 col-sm-4 col-xs-12 style-left post">
+                             <div class="col-md-4 col-sm-4 col-xs-12 style-left ">
                                 <img src="/img/guide/2.png" class="img-guide">
                             </div>
                         </div>
 
-                           <div class="row">
-                            <div class="col-md-4 col-sm-4 col-xs-12 style-right post">
+                           <div class="row postle">
+                            <div class="col-md-4 col-sm-4 col-xs-12 style-right ">
                                 <img src="/img/guide/3.png" class="img-guide">
                             </div>
-                            <div class="col-md-8 col-sm-8 col-xs-12 style-left post">
+                            <div class="col-md-8 col-sm-8 col-xs-12 style-left ">
                                 <h3><b> Mencari Beasiswa </b></h3>
                                 <h4> Cari beasiswa yang sesuai dengan keinginan anda</h4>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-8 col-sm-8 col-xs-12 style-right post">
+                        <div class="row postri">
+                            <div class="col-md-8 col-sm-8 col-xs-12 style-right ">
                                 <h3><b> Mendaftar Beasiswa </b></h3>
                                 <h4> Mendaftar beasiswa hanya dengan 1 kali klik apply</h4>
                             </div>
-                             <div class="col-md-4 col-sm-4 col-xs-12 style-left post">
+                             <div class="col-md-4 col-sm-4 col-xs-12 style-left ">
                                 <img src="/img/guide/5.png" class="img-guide">
                             </div>
                         </div>
                 </div>
-                <div class="container-fluid subscribe post">
-                   <div class="row my-dark-blue  " style="margin:0;">
-                         <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-1 ">
-                        <h5> Ingin Berita Terupdate?<br>Subscribe ayobeasiswa</h5>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-xs-9 ">
-                        <div class="col-md-10  col-sm-10 no-pad-mar">
-                          <div class="input-group" >
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                            <input id="email" type="text" class="form-control" name="email" placeholder="Email">
-                          </div>
-                        </div>
-                        <div class="col-md-2 col-sm-2 no-pad-mar">
-                           <input type="submit" value="Subscribe" class="btn form-control light-blue">
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            
+                </div> 
               </div>
         </div>
     </section>

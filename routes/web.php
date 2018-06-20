@@ -15,16 +15,16 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
 
+Route::get('hh', function(){
+	return BHelper::create_dir("asda");
+});
 
 Route::get('/verify/{token}/{id}', 'Auth\RegisterController@verify_register');
+Route::get('/verify_facilitator/{token}/{id}', 'AdminController\profileController@verify_facilitator');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/beasiswa/{name}', 'HomeController@single')->name('single');
 Route::get('/daftar/{id}', 'HomeController@daftar')->name('daftar');
-
-
-
-
 
 Route::prefix('setting')->group(function () {
 		Route::group(["middleware" => "admin"], function(){
@@ -32,16 +32,19 @@ Route::prefix('setting')->group(function () {
 			Route::get('/profile', 'AdminController\profileController@index')->name('profile');
 			Route::put('/profile/update/', 'AdminController\profileController@update')->name('updateProfile');
 			Route::get('/organizer', 'AdminController\profileController@organizer')->name('organizer');
-			Route::get('/list', 'AdminController\scholarshipController@index')->name('scholarshipList');
-			Route::get('/list/{id}', 'AdminController\scholarshipController@show')->name('singleList');
-			Route::get('/list/update/{id}', 'AdminController\scholarshipController@edit')->name('editList');
-			Route::get('/list/delete/{id}', 'AdminController\scholarshipController@delete')->name('deleteList');
-			Route::put('/list/update/{id}', 'AdminController\scholarshipController@update')->name('updateList');
-			Route::get('/create', 'AdminController\scholarshipController@create')->name('scholarshipCreate');
-			Route::post('/create', 'AdminController\scholarshipController@store')->name('createScholarship');
+			Route::group(["middleware" => "facilitator"], function(){
+				Route::get('/list', 'AdminController\scholarshipController@index')->name('scholarshipList');
+				Route::get('/list/{id}', 'AdminController\scholarshipController@show')->name('singleList');
+				Route::get('/list/update/{id}', 'AdminController\scholarshipController@edit')->name('editList');
+				Route::get('/list/delete/{id}', 'AdminController\scholarshipController@delete')->name('deleteList');
+				Route::put('/list/update/{id}', 'AdminController\scholarshipController@update')->name('updateList');
+				Route::get('/create', 'AdminController\scholarshipController@create')->name('scholarshipCreate');
+				Route::post('/create', 'AdminController\scholarshipController@store')->name('createScholarship');
+			});
 		});		
 });
 
 Route::group(["middleware" => "user"], function(){
 	Route::get('/user/{username}', 'singleUserController\singleUserController@index')->name('single-user');
+	Route::post('/profile/create', 'AdminController\profileController@create')->name('profile_create');
 });

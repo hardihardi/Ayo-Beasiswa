@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password', 'nama','slug', 'alamat', 'telp', 'role', 'pendidikan','token', 'status'
+        'username', 'email', 'password', 'nama','slug', 'alamat', 'telp', 'role', 'pendidikan','token', 'status','str_slug'
     ];
 
     /**
@@ -46,7 +46,7 @@ class User extends Authenticatable
     }
 
     public function isUser(){
-        if($this->role == 1) return true;
+        if($this->role == 1 || $this->role == 2) return true;
 
         return false;
     }

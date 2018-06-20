@@ -23,7 +23,10 @@
     <link rel="stylesheet" href="/css/default.css">
     <link rel="stylesheet" href="/css/custom.css">
     <link rel="stylesheet" href="/css/auth.css">
-     @yield('your_css')
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700" rel="stylesheet">
+    @yield('your_css')
 
 
    <!--  <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
@@ -59,6 +62,25 @@
                               <li><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" class="item btn btn-info item"><i class="fa fa-user"></i> Profile</a>
 
                             <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                            <p>Profil</p>
+                                            <p>Aria Samudera Elhamidy</p>
+                                        </li>
+                                    <li>
+                                            @if (Auth::user()->isAdmin())
+                                            <a class="item" href="{{route('dashboard')}}">
+                                                Dashboard
+                                            </a>
+                                            <a class="item" href="{{route('single-user' , ["user" => Auth::user()->str_slug])}}">
+                                                Pengaturan
+                                            </a>
+                                            @elseif(Auth::user()->isUser())
+                                       
+                                            <a class="item" href="{{route('single-user' , ["user" => Auth::user()->str_slug])}}">
+                                                Pengaturan
+                                            </a>
+                                            @endif
+                                        </li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -126,6 +148,7 @@
     <!-- Your Own Script -->
     <script type="text/javascript" src="/js/load.js"></script>
     <script type="text/javascript" src="/js/default.js"></script>
-      @yield('your_js')
+
+    @yield('your_js')
 </body>
 </html>

@@ -22,7 +22,10 @@ class Scholarship extends Model
 	'konten',
 	'alamat_gambar',
 	'masa_berlaku',
-	'user_id'];
+	'user_id',
+	'status',
+	'views'
+];
 
 	public function facilitator(){
 		return $this->belongsTo('App\Models\Facilitator');

@@ -53,12 +53,28 @@ $.when(new ldBar(".loading-bar", {
 				cursorwidth: '2px'
 			});
 			
-			    $(document).ready(function(){
-			        $('.post').addClass("hideit").viewportChecker({
-			            classToAdd: 'showit animated flipInX', // Class to add to the elements when they are visible
-			            offset: 100    
-			        });   
-			    });
+			$(document).ready(function(){
+				$('.postle').addClass("hideit").viewportChecker({
+					classToAdd: 'showit animated bounceInLeft ', // Class to add to the elements when they are visible
+					offset: 100    
+				});   
+				$('.postri').addClass("hideit").viewportChecker({
+					classToAdd: 'showit animated bounceInRight ', // Class to add to the elements when they are visible
+					offset: 100    
+				});   
+				$('.postb').addClass("hideit").viewportChecker({
+					classToAdd: 'showit animated wobble ', // Class to add to the elements when they are visible
+					offset: 100    
+				});   
+				$('.postup').addClass("hideit").viewportChecker({
+					classToAdd: 'showit animated bounceInUp ', // Class to add to the elements when they are visible
+					offset: 100    
+				});   
+				$('.postdw').addClass("hideit").viewportChecker({
+					classToAdd: 'showit animated bounceInDown ', // Class to add to the elements when they are visible
+					offset: 100    
+				});  
+			});
 
 			// dynamicMenu();
 			// preventCaching();

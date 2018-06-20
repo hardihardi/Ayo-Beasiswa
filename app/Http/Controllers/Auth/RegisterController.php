@@ -10,9 +10,6 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
-
-
-
 use Illuminate\Support\Facades\Mail;
 use App\Mail\mailRegis;
 
@@ -56,12 +53,13 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
+        $validator =  Validator::make($data, [
+            'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
-    }
+        
+   }
 
     /**
      * Create a new user instance after a valid registration.
@@ -83,7 +81,8 @@ class RegisterController extends Controller
             'username' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'token'   => str_random(20)
+            'token'   => str_random(20),
+            'str_slug' =>  str_slug($data['name'], '-')
         ]);
          //mengirim email
         Mail::to($user->email)->send(new mailRegis($user));
@@ -105,7 +104,7 @@ class RegisterController extends Controller
         $user->save();
 
         $this->guard()->login($user);
-        return redirect('setting/'. $user->username);
+        return redirect('user/'. $user->username);
          }
 
 }

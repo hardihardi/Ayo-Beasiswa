@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function index()
     {
         Carbon::setLocale('id');
-        $beasiswa = Scholarship::with(['user', 'facilitator', 'categories', 'facilitator.User'])->orderby('created_at', 'desc')->take(3)->get();
+        $beasiswa = Scholarship::with(['user', 'facilitator', 'categories', 'facilitator.User'])->where('status', 1)->orderby('created_at', 'desc')->take(3)->get();
         return view('home', ["beasiswas"=> $beasiswa]);
     }
 

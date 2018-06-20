@@ -10,7 +10,10 @@ class Facilitator extends Model
     	"nama_instansi",
         "deskripsi_instansi",
         "user_id",
-    	"token_facilitator",
+        "token_facilitator",
+        "img_url",
+        "berkas_pendukung",
+        "kategori"
     ];
 
 
@@ -18,6 +21,11 @@ class Facilitator extends Model
     	return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
     public function Scholarships(){
-        return $this->hasMany('App\Models\Scholarship', 'beasiswa_kategori','scholarship_id' ,'category_id');
+        return $this->hasMany('App\Models\Scholarship');
+    }
+
+    public function statusF(){
+        if($this->status) return true;
+        return false;
     }
 }

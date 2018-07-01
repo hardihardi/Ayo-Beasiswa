@@ -55,7 +55,7 @@
                         <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                 </div>
                 <div class="form-group">                                
-                        <label for="preview_image">Upload Foto Profil</label></label>  
+                        <label for="preview_image">Upload Foto Basiswa</label></label>  
                         <div class="image-editor" class="width:780px;height:500px">
                             <input type="file" class="cropit-image-input">
                             <div class="cropit-preview"></div>
@@ -122,4 +122,5 @@
         });
     });
     </script>
+    
 @endsection

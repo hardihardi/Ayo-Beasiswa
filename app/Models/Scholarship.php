@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Scholarship extends Model
 {
 
-	use Searchable;
+	// use Searchable;
 
-	public function searchableAs()
-    {
-        return 'dev_beasiswa';
-    } 
+	// public function searchableAs()
+    // {
+    //     return 'dev_beasiswa';
+    // } 
     
     protected $fillable = [
     'nama_beasiswa',

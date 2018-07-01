@@ -3,6 +3,7 @@
 @section('your_css')
     <link href="/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="/wysiwyg/summernote.css">
+    <link rel="stylesheet" href="/css/croppit.css"> 
 @endsection
 
 @section('content')
@@ -22,10 +23,19 @@
                     <input class="form-control form-control-lg"  style="margin-top:0" size="16" type="text" value="" readonly name="date"  placeholder="Date End" >
                     <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                 </div>
-                <p> Upload Yout Image </p>
-                <input name="logo" onchange="preview_image_logo()" id="preview_image" type="file" >
-                <div id="image_preview" class="img_preview"><img src=""></div>
-                 <!-- Textarea style="height:300px"class="form-control form-control-lg" id="Description" name="Description" placeholder="Description"></Textarea> -->
+                <div class="form-group">                                
+                    <label for="preview_image">Upload Foto Profil</label></label>  
+                    <div class="image-editor">
+                        <input type="file" class="cropit-image-input">
+                        <div class="cropit-preview"></div>
+                        {{-- <div id="image_preview" class="img_preview"><img src="{{Storage::url($facilitator->img_url)}}"></div> --}}
+                        <div class="image-size-label">
+                            Resize image
+                        </div>
+                        <input type="range" class="cropit-image-zoom-input">
+                        <input type="hidden" name="image_data" class="hidden-image-data" />
+                    </div>
+                </div>
                  <h4>Category </h4>
                      @foreach( $kategoris as $kategori )
                         <label >
@@ -37,11 +47,57 @@
                    <!-- Content -->
                      <div class="title-pages">Description</div>
                    <textarea id="summernote" name="description">Your Description About The Scholarship</textarea>
+        </div>
+        <div class="header-create">
+            <span class="number">2</span>
+            <h1>Persyaratan</h1>
+        </div>
+        <div class="body-create">
+            <div class="switch-control">
+                <p>Berkas data diri (ex : KTP, KTM, KHS dan/atau KRS)</p>
+                <label class="switch">
+                     <input type="checkbox" name="status" >
+                     <span class="slider round"></span>
+               </label>
+            </div>
+            <div class="switch-control">
+                <p>Ijazah dan Transkip NIlai terakhir</p>
+                <label class="switch">
+                     <input type="checkbox" name="status" >
+                     <span class="slider round"></span>
+               </label>
+            </div>
+            <div class="switch-control">
+                <p>Surat Keterangan AKtif Organisasi / sertifikat prestasi</p>
+                <label class="switch">
+                     <input type="checkbox" name="status" >
+                     <span class="slider round"></span>
+               </label>
+            </div>
+            <div class="switch-control">
+                <p>Surat pernyataan sedang tidak menerima beasiswa dari tempat lain </p>
+                <label class="switch">
+                     <input type="checkbox" name="status" >
+                     <span class="slider round"></span>
+               </label>
+            </div>
+            <div class="switch-control">
+                <p>Berkas keluarga (Foto-copy orang tua, kk, pbb) </p>
+                <label class="switch">
+                     <input type="checkbox" name="status" >
+                     <span class="slider round"></span>
+               </label>
+            </div>
+            <div class="switch-control">
+                <p>Berkas Lain nya sebagai pendukung</p>
+                <label class="switch">
+                     <input type="checkbox" name="status" >
+                     <span class="slider round"></span>
+               </label>
+            </div>
             <button type="submit" class="btn btn-info">Save Data</button>
             </form>
         </div>
-       
-
     </section>
 
 @endsection
@@ -65,7 +121,20 @@
     });
     </script>
  <script type="text/javascript" src="/js/editor.js"></script>
-
+ <script type="text/javascript" src="/js/jquery.cropit.js"></script>
+ <script>
+ $(function() {
+     $('.image-editor').cropit({
+     allowDragNDrop: false
+ });
+ 
+     $('form').submit(function() {
+         // Move cropped image data to hidden input
+         var imageData = $('.image-editor').cropit('export');
+         $('.hidden-image-data').val(imageData);
+     });
+ });
+ </script>
 
 
 @endsection

@@ -203,7 +203,7 @@ top: 8px
                                         {{ method_field('put') }}
                                         <p>Surat Keterangan AKtif Organisasi / sertifikat prestasi</p>
                                         <div class="input-group">
-                                            <input readonly type="file"  name="file"  name="organisasi" style="display:none" id="berkas3"  class="berkas" >
+                                            <input readonly type="file"  name="file"  style="display:none" id="berkas3"  class="berkas" >
                                             <input readonly type="text" class="form-control" style="color:#222;" placeholder="Berkas Belum Diupload" name="foto" readonly value="{{$user->organisasi}}">
                                             <input type="submit" style="display:none" class="btn btn-success"  name="" value="simpan">
                                             <div class="progress">
@@ -301,7 +301,7 @@ top: 8px
                         <div id="beasiswa" class="tabcontent" style="overflow:auto">
                             @foreach($user->scholarship as $beasiswa)
                             <div class="col-md-4 col-sm-6 col-lg-5">
-                                <a href="#" class="clickarea"></a>
+                                <a href="{{route('user-status', [$beasiswa->id])}}" class="clickarea"></a>
                                 <div class="card-profile">
                                     <div class="card-icon">
                                         <img src="{{Storage::url($beasiswa->alamat_gambar)}}">
@@ -365,14 +365,14 @@ top: 8px
                             <div class="col-md-12 col-sm-12 col-lg-12" style="margin: 0;padding: 0;margin-top: 10px;">
                                 <button class="form-control bg-white-color" data-toggle="modal" data-target="#myModal" > <a href="#" class="grey-color"> <span class="fa fa-key"></span> Ubah Kata Sandi</a></button>
                                 @if (isset(Auth::user()->facilitator->status))
-                                @if(Auth::user()->isAdmin())
-                                <div style="margin-top :10px;padding-bottom : 20px;">
-                                    <button   id="sandi" class="form-control bg-blue-color"> <a href="/setting/dashboard" class="white-color"> Dashboard</a></button>
-                                    
-                                </div>
-                                @else
-                                <a href="#"><p style="color:#7FDEEA;font-weight:300;font-size:12px;margin-top :4px;">Terima kasih telah bersedia menjadi penyedia, silhkan cek email anda untuk mengaktifkan akun facilitator anda  ^_^</p></a>
-                                @endif
+                                    @if(Auth::user()->isAdmin())
+                                    <div style="margin-top :10px;padding-bottom : 20px;">
+                                        <button   id="sandi" class="form-control bg-blue-color"> <a href="/setting/dashboard" class="white-color"> Dashboard</a></button>
+                                        
+                                    </div>
+                                    @else
+                                    <a href="#"><p style="color:#7FDEEA;font-weight:300;font-size:12px;margin-top :4px;">Terima kasih telah bersedia menjadi penyedia, silhkan cek email anda untuk mengaktifkan akun facilitator anda  ^_^</p></a>
+                                    @endif
                                 
                                 @else
                                 <div style="margin-top :10px;padding-bottom : 20px;">

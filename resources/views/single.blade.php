@@ -54,8 +54,13 @@
 							<a href="{{route('login')}}" class="btn btn-login">Masuk / Daftar</a>
 						@else
 							@if(!(Auth::user()->facilitator == $beasiswa->facilitator))
-							<h5> Daftar Beasiswa </h5><br>
-								<a data-toggle="modal" data-target="#myModal" class="btn btn-daftar">Daftar</a>
+									@if(Auth::user()->scholarship()->where('scholarship_id', $beasiswa->id)->first() == null)
+										<h5> Daftar Beasiswa </h5><br>
+										<a data-toggle="modal" data-target="#myModal" class="btn btn-daftar">Daftar</a>
+									@else
+										<h5> Anda sudah mendaftar pada beasiswa ini, mau cek status beasiswa anda ? </h5><br>
+										<a href="{{route('user-status', [$beasiswa->id])}}" class="btn btn-daftar">Cek Status</a>
+									@endif
 							@else 
 							<h5> Hey {{$beasiswa->facilitator->user->username}} , Mau Update Beasiswa ? </h5><br>
 								<a href="{{route('editList', ['id' => $beasiswa->id])}}" class="btn btn-edit">Edit</a>
@@ -87,10 +92,10 @@
 	    background: transparent;
 	}
 </style>
+@if(!Auth::guest())
 <div id="myModal" class="modal fade" role="dialog">
-    <form action="{{route('updatePass')}}" method="POST">
-        <input type="hidden" name="_method" value="PUT">
-           {{ csrf_field() }}
+	<form action="{{route('addScholar', [$beasiswa->id])}}" method="POST" enctype="multipart/form-data">
+	{{ csrf_field() }}
         <div class="modal-dialog modal-register">
             <div class="modal-content">
                 <div class="modal-header" >
@@ -98,15 +103,141 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body" style="padding: 20px 40px">
-                 
+                 	<h4 style="background: #fff;position: absolute;top: -200px;padding: 30px 20px;width: 85%;border-radius: 20px;text-align: center;color: #6ED2DE;"> <b>Terima kasih telah berniat untuk mendaftarkan diri anda pada program beasiswa {{$beasiswa->nama_beasiswa}} </b></h4>
+                 	<p> Berikut ini berkas yang wajib anda lampirkan untuk mendaftar beasiswa : </p>
+                 	<table class="table">
+                
+					    <thead>
+					      <tr>
+					        <th>Berkas</th>
+					        <th>Gunakan Berkas Profil</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					      @if($beasiswa->berkas_diri != 0)
+					      	 <tr>
+						        <td><p>Berkas data diri (ex : KTP, KTM, KHS dan/atau KRS)</p></td>
+						        <td>
+					        	  	@if(Auth::user()->berkas_diri != null)
+					        	  	<div class="switch-control">
+						                <label class="switch">
+						                     <input type="checkbox" name="berkas[]" value="berkas_diri" >
+						                     <span class="slider round"></span>
+						               </label>
+						            </div>
+						            @else
+						            <p>Anda Belum Memiliki berkas ini dalam profil anda<p>
+					        	  	@endif
+						        </td>
+						   
+						      </tr>
+					      @endif
+					        @if($beasiswa->ijazah != 0)
+					      	 <tr>
+						        <td><p>Ijazah dan Transkip NIlai terakhir</p></td>
+						        <td>
+						        		@if(Auth::user()->ijazah != null)
+					        	 <div class="switch-control">
+						                <label class="switch">
+						                     <input type="checkbox" name="berkas[]" value="ijazah" >
+						                     <span class="slider round"></span>
+						               </label>
+						            </div>
+						            @else
+						            <p>Anda Belum Memiliki berkas ini dalam profil anda<p>
+					        	  	@endif
+					        	  
+						        </td>
+						   
+						      </tr>
+					      @endif
+					        @if($beasiswa->organisasi != 0)
+					      	 <tr>
+						        <td><p>Surat pernyataan sedang tidak menerima beasiswa dari tempat lain</p></td>
+						        <td>
+
+						        		@if(Auth::user()->organisasi != null)
+					           <div class="switch-control">
+						                <label class="switch">
+						                     <input type="checkbox" name="berkas[]" value="organisasi" >
+						                     <span class="slider round"></span>
+						               </label>
+						            </div>
+						            @else
+						            <p>Anda Belum Memiliki berkas ini dalam profil anda<p>
+					        	  	@endif
+					        	
+						        </td>
+						   
+						      </tr>
+					      @endif
+					        @if($beasiswa->sp_beasiswa != 0)
+					      	 <tr>
+						        <td><p>Surat pernyataan sedang tidak menerima beasiswa dari tempat lain</p></td>
+						        <td>
+						        		@if(Auth::user()->sp_beasiswa != null)
+					            <div class="switch-control">
+						                <label class="switch">
+						                     <input type="checkbox" name="berkas[]" value="sp_beasiswa" >
+						                     <span class="slider round"></span>
+						               </label>
+						            </div>
+						            @else
+						            <p>Anda Belum Memiliki berkas ini dalam profil anda<p>
+					        	  	@endif
+					        	 
+						        </td>
+						   
+						      </tr>
+					      @endif
+					        @if($beasiswa->berkas_keluarga != 0)
+					      	 <tr>
+						        <td><p>Berkas keluarga (Foto-copy orang tua, kk, pbb)</p></td>
+						        <td>
+						        	 		@if(Auth::user()->berkas_keluarga != null)
+					          	   <div class="switch-control">
+						                <label class="switch">
+						                     <input type="checkbox" name="berkas[]" value="berkas_keluarga" >
+						                     <span class="slider round"></span>
+						               </label>
+						            </div>
+						            @else
+						            <p>Anda Belum Memiliki berkas ini dalam profil anda<p>
+					        	  	@endif
+					        
+						        </td>
+						   
+						      </tr>
+					      @endif
+					        @if($beasiswa->berkas_lain != "0")
+					      	 <tr>
+
+					      	 	@php
+
+					      	 		$data = json_decode($beasiswa->berkas_lain);
+					      	 		  foreach($data as $key => $val) {
+									       $kunci=  $key;
+									       $isi = $val;
+									    }
+					      	 	@endphp
+
+						        <td><p>{{$kunci}} <b>*ungga berkas dalam format Kompress (ZIP/RAR/GTZ)</b></p>
+						        		<input type="file" name="file" id="berkas_lain">
+						        </td>
+						      </tr>
+					      @endif
+					    </tbody>
+					   
+  				</table>
                 </div>
                 <div class="modal-footer " style="padding :20px 40px">
                     <input type="submit" class="bg-green-color form-control" style="border:0;color:#fff;" value="Daftar">
                 </div>
             </div>
         </div>
-    </form>
+        </form>
 </div>
+@endif
 @endsection
 
 @section('js')

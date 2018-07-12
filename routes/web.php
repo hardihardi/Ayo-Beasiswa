@@ -50,8 +50,13 @@ Route::prefix('setting')->group(function () {
 Route::group(["middleware" => "user"], function(){
 	Route::get('/user/{username}', 'UserController\userProfileController@index')->name('single-user');
 	Route::put('/user/update', 'UserController\userProfileController@update')->name('update-user');
+	Route::get('/user/status/{id}', 'UserController\userProfileController@status')->name('user-status');
+	Route::get('/user/cancel/{id}', 'UserController\userProfileController@cancelSchola')->name('cancel-schola');
 	Route::put('/user/updatepass', 'UserController\userProfileController@updatepass')->name('updatePass');
-	Route::post('/profile/create', 'AdminController\profileController@create')->name('profile_create');
-	Route::post('/user/update', 'AdminController\profileController@update_user')->name('user_update');
+	Route::put('/user/{id}/updateScholar', 'UserController\userProfileController@updateScholar')->name('updateScholar');
 	Route::put('/user/upload_file/{file}', 'UserController\userProfileController@updatefile')->name('upload_file');
+	Route::post('/profile/create', 'AdminController\profileController@create')->name('profile_create');
+	Route::post('/user/update', 'AdminController\profileController@update')->name('user_update');
+	Route::post('/user/{id}/addscholar', 'AdminController\profileController@addScholar')->name('addScholar');
+
 });

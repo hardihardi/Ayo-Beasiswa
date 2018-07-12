@@ -13,7 +13,7 @@
             <div class="row">
 
                 @foreach($beasiswas as $beasiswa) 
-                    <div class="col-md-4 col-sm-6" id="1">
+                    <div class="col-md-10 col-sm-10 col-md-offset-1 col-sm-offset-1" id="1" style="margin-bottom:50px;">
                         <div class="card">
                             <a href="{{route('singleList', ['id' => $beasiswa->str_slug ])}}" class="clickarea"></a>
                             <img class="card-img-top" src="{{Storage::url($beasiswa->alamat_gambar)}}" alt="image" style="width:100%">

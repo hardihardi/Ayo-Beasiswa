@@ -32,7 +32,7 @@ class User extends Authenticatable
     }
 
     public function scholarship(){
-        return $this->belongsToMany('App\Models\Scholarship','user_scholarship', 'user_id','scholarship_id')->withPivot('status');
+        return $this->belongsToMany('App\Models\Scholarship','user_scholarship', 'user_id','scholarship_id')->withPivot('berkas_diri', 'ijazah','organisasi','sp_beasiswa','berkas_keluarga','berkas_lain','status');
     }
 
      public function isAdmin(){

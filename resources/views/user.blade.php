@@ -21,15 +21,15 @@
                             
                         </div>
                     </div>
-                    <div class="row">
-                         <div class="col-md-12 col-sm-12 col-lg-12 yf" style="margin-top:40px;">
+                    <div class="row" style="margin-top:50px;">
+                         <div class="col-md-12 col-sm-12 col-lg-12 yf" >
                             <h4>&nbsp Beasiswa yang didaftarkan </h4>
                             <hr style="background:#48C3CF;height:2px;width:40%;border-radius:2px;margin-top:-5px;float:left;margin-left:8px;">
                             <div class="clear"></div>
                          </div>
                         @foreach($user->scholarship as $beasiswa)
                             <div class="col-md-12 col-sm-12 col-lg-12">
-                                <a href="#" class="clickarea"></a>
+                                <a href="/beasiswa/{{$beasiswa->str_slug}}" class="clickarea"></a>
                                 <div class="card-profile">
                                     <figure class="name" style="z-index:150"><p>
                                             {{$beasiswa->facilitator->nama_instansi}}
@@ -60,7 +60,7 @@
                                     @else 
                                          <div class="col-md-4 col-sm-6 col-lg-4">
                                     @endif
-                                            <a href="#" class="clickarea"></a>
+                                            <a href="/beasiswa/{{$beasiswa->str_slug}}" class="clickarea"></a>
                                         <div class="card-profile">
                                             <div class="card-icon">
                                                 <img src="{{Storage::url($beasiswa->alamat_gambar)}}">

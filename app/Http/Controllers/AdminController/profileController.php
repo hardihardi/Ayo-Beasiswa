@@ -12,6 +12,7 @@ use App\Http\Helper\Upload;
 use App\Mail\mailFacilitator;
 use App\Http\Requests;
 use App\Models\User;
+use Carbon\Carbon;
 use Validator;
 
 
@@ -143,5 +144,38 @@ class profileController extends Controller
       $user->save();
       return redirect('setting/dashboard');
      }
+
+     public function addScholar($id, request $request){
+        Carbon::setLocale('id');
+        $user = Auth::user();
+        $array = [];
+        $array['created_at'] = Carbon::now();
+        $array['updated_at'] = Carbon::now();
+        if(isset($request->berkas)){
+            foreach($request->berkas as $berkas){
+              $array[$berkas] = $user->$berkas;
+            }
+            $array['created_at'] = Carbon::now();
+            $array['updated_at'] = Carbon::now();
+            if($user->scholarship->where('id_scholarship', $id)->first() == null){
+                $success = $user->scholarship()->attach($id,$array);
+                return redirect()
+                    ->back()
+                    ->withSuccess(sprintf('File %s has been uploaded.', "success"));
+            }else {
+                  redirect()
+                  ->back()
+                  ->withErrors(sprintf('File %s has been uploaded.', "Anda Sudah mendaftar"));
+            }
+        }
+        else {
+          $success = $user->scholarship()->attach($id,$array);
+           return redirect()
+                    ->back()
+                    ->withSuccess(sprintf('File %s has been uploaded.', "success"));  
+        }
+     }
+
+   
 
 }

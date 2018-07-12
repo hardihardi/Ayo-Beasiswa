@@ -31,10 +31,9 @@ class scholarshipController extends Controller
      	// dd($facilitator->id);
     	$beasiswa = new Scholarship;
     	$beasiswa->nama_beasiswa = $request->beasiswa;
-    	$beasiswa->nama_instantsi = $request->instusi;
     	$beasiswa->quota = $request->quota;
     	$beasiswa->masa_berlaku = $request->date;
-    	$beasiswa->konten = $request->Description;
+    	$beasiswa->konten = $request->description;
     	$beasiswa->facilitator_id = $facilitator->id;
         $beasiswa->str_slug = str_slug($request->beasiswa);
          $logo = $request->image_data;
@@ -46,17 +45,19 @@ class scholarshipController extends Controller
             $logo = Upload::changeBase64($request->image_data, 'public/facilitators/'.$facilitator->token_facilitator. "/beasiswa" , $name); 
             $beasiswa->alamat_gambar  =  $logo;
           }
-   
-    	//  if($request->file('logo')){
-    	 	
-        //     $file = $request->file('logo');   
-        //     $destinationPath = 'img/img_ss';
-        //     $name = $request->beasiswa.".". $file->getClientOriginalExtension();
-        //     $name = trim($name);
-        //     $file->move($destinationPath,$name);
-        //     $beasiswa->alamat_gambar = "http://ayobeasiswa.me/img/img_ss/". trim($name);
-        // }
-    	$beasiswa->save();
+
+
+        if($request->berkas != [] ){
+            foreach ($request->berkas as $berkas) {
+                if( $berkas == "berkas_lain"){
+                        $data_lain[$request->berkas_lain] = 1;
+                        $beasiswa->$berkas = json_encode($data_lain);
+                    }else
+                        $beasiswa->$berkas = 1;
+            }
+        }
+
+       	$beasiswa->save();
 
         if($request->kategori != []){
             foreach ($request->kategori as $kategori) {
@@ -68,6 +69,9 @@ class scholarshipController extends Controller
                 $beasiswa->categories()->attach($kategori);
             }
         }
+
+
+     
         return redirect('setting/list');
     }
 
@@ -96,7 +100,6 @@ class scholarshipController extends Controller
        $beasiswa = Scholarship::find($id);
     //    dd($beasiswa->facilitator);
         $beasiswa->nama_beasiswa = $request->beasiswa;
-        $beasiswa->nama_instantsi = $request->instusi;
         $beasiswa->quota = $request->quota;
         $beasiswa->masa_berlaku = $request->date;
         $beasiswa->konten = $request->Description;
@@ -106,8 +109,21 @@ class scholarshipController extends Controller
           $name = str_slug($request->beasiswa).".jpg";
           $logo = Upload::changeBase64($request->image_data, 'public/facilitators/'.$beasiswa->facilitator->token_facilitator.'/beasiswa', $name); 
         }
-      
+        $data_lain = [];
         $beasiswa->status = ($request->status == "on")? 1 : 0;
+         $berkas_array = ["berkas_diri", "ijazah", "organisasi","sp_beasiswa","berkas_keluarga","berkas_lain"];
+         if($request->berkas != [] ){
+            foreach ($berkas_array as $berkas) {
+                if(in_array($berkas, $request->berkas)){
+                    if( $berkas == "berkas_lain"){
+                        $data_lain[$request->berkas_lain] = 1;
+                        $beasiswa->$berkas = json_encode($data_lain);
+                    }else
+                        $beasiswa->$berkas = 1;
+                }else 
+                    $beasiswa->$berkas = 0;
+            }
+        }
         $beasiswa->save();
         $beasiswa->categories()->detach();
         if($request->kategori != []){

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 use Validator;
+use App\Http\Helper\Upload;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Mail;
@@ -70,10 +71,11 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        $this->validator($request->all())->validate();
+        $this->validator($request->all());
         event(new Registered($user = $this->create($request->all())));
         return redirect('/login')->with('warning', 'Please Check Your Email Address');
     }
+
 
     protected function create(array $data)
     {
@@ -102,7 +104,7 @@ class RegisterController extends Controller
 
         $user->status = 1;
         $user->save();
-
+        Upload::create_dir('public/users/'.$user->token);
         $this->guard()->login($user);
         return redirect('user/'. $user->username);
          }

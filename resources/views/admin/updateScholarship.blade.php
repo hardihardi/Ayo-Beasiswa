@@ -78,11 +78,80 @@
                     @endforeach
             </div>
                 
-                   <!-- Content -->
-                     <div class="title-pages">Description</div>
-                     <textarea id="summernote" name="Description">{{$beasiswas->konten}}</textarea>
+        <!-- Content -->
+        <div class="title-pages">Description</div>
+        <textarea id="summernote" name="Description">{{$beasiswas->konten}}</textarea>
+        <div class="header-create">
+            <span class="number">2</span>
+            <h1>Persyaratan</h1>
+        </div>
+        <div class="body-create">
+            <div class="switch-control">
+                <p>Berkas data diri (ex : KTP, KTM, KHS dan/atau KRS)</p>
+                <label class="switch">
+                     <input type="checkbox" name="berkas[]"  value="berkas_diri" {{ ($beasiswas->berkas_diri == 1) ? "checked" : ""}}>
+                     <span class="slider round"></span>
+               </label>
+            </div>
+            <div class="switch-control">
+                <p>Ijazah dan Transkip Nilai terakhir</p>
+                <label class="switch">
+                     <input type="checkbox" name="berkas[]" value="ijazah" {{ ($beasiswas->ijazah == 1) ? "checked" : ""}}>
+                     <span class="slider round"></span>
+               </label>
+            </div>
+            <div class="switch-control">
+                <p>Surat Keterangan AKtif Organisasi / sertifikat prestasi</p>
+                <label class="switch">
+                     <input type="checkbox" name="berkas[]" value="organisasi" {{ ($beasiswas->organisasi == 1) ? "checked" : ""}}>
+                     <span class="slider round"></span>
+               </label>
+            </div>
+            <div class="switch-control">
+                <p>Surat pernyataan sedang tidak menerima beasiswa dari tempat lain </p>
+                <label class="switch">
+                     <input type="checkbox" name="berkas[]" value="sp_beasiswa" {{ ($beasiswas->sp_beasiswa == 1) ? "checked" : ""}}>
+                     <span class="slider round"></span>
+               </label>
+            </div>
+            <div class="switch-control">
+                <p>Berkas keluarga (Foto-copy orang tua, kk, pbb) </p>
+                <label class="switch">
+                     <input type="checkbox" name="berkas[]" value="berkas_keluarga" {{ ($beasiswas->berkas_keluarga == 1) ? "checked" : ""}}>
+                     <span class="slider round"></span>
+               </label>
+            </div>
+            @php
+                $data = json_decode($beasiswas->berkas_lain);
+                if($data != null)
+                     $key = key($data);
+            @endphp
+            @if(isset($key)))
+                  <div class="switch-control">
+                    <p>Berkas Lain nya sebagai pendukung</p>
+
+                    <label class="switch">
+                         <input type="checkbox" name="berkas[]" value="berkas_lain" checked id="berkas_lain">
+                         <span class="slider round"></span>
+                   </label>
+                  </div>
+
+                <input type="text" name="berkas_lain" id="berkas_des" value="{{$key}}"  placeholder="Deskripsi berkas yang dibutuhkan" style="width:75%">
+            @else 
+                <div class="switch-control">
+                    <p>Berkas Lain nya sebagai pendukung</p>
+
+                    <label class="switch">
+                         <input type="checkbox" name="berkas[]" value="berkas_lain" checked id="berkas_lain">
+                         <span class="slider round"></span>
+                   </label>
+                  </div>
+                <input type="hidden" name="berkas_lain" id="berkas_des" placeholder="Deskripsi berkas yang dibutuhkan" style="width:75%">
+            @endif
+
             <button type="submit" class="btn btn-info">Save Data</button>
             </form>
+        </div>
         </div>
 </section>
 
@@ -96,9 +165,19 @@
   <script type="text/javascript" src="/js/editor.js"></script>
   <script type="text/javascript" src="/js/jquery.cropit.js"></script>
  <script type="text/javascript">
+
+   $('#berkas_lain').change(function(){
+        console.log("HALO")
+        if(this.checked){
+            $('#berkas_des').prop('type', 'text')
+        }else {
+            $('#berkas_des').prop('type', 'hidden')
+        }
+    })
+
     $('.form_date').datetimepicker({
         language:  'fr',
-        weekStart: 1,
+        weeksrt: 1,
         todayBtn:  1,
         autoclose: 1,
         todayHighlight: 1,

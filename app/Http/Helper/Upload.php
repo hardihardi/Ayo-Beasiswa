@@ -10,21 +10,16 @@ class Upload {
      * @return string
      */
 
-        public static function create_dir($uploadDirectory, $newDirectory,$name = null) {
-        $target = join(DIRECTORY_SEPARATOR, array($uploadDirectory, $newDirectory,$name));
-     
-        if ($target){
-            if (!is_dir(dirname($target))){
-                // dd($target);
-                mkdir($target, 0777,true);
-                // dd("kebuat");
-            }
-            return $target;
-        }
+        public static function create_dir($directory, $name = "") {
+            $path = $directory. "/";
+            // dd($path);
+            $data = Storage::makeDirectory($path, 0777);
 
-        return array('error'=> 'Could not save uploaded file.' .
-            'The upload was cancelled, or server error encountered');
-        }
+            if($data)
+                return $data;
+            return array('error'=> 'Could not save uploaded file.' .
+                'The upload was cancelled, or server error encountered');
+            }
         
 
 
@@ -43,6 +38,8 @@ class Upload {
             unlink($path_tmb);
             return $path;
         }
+
+        // public static function upload 
 
         public function removeDirectory($dir){
             foreach (scandir($dir) as $item){

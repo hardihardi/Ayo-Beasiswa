@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password', 'nama','slug', 'alamat', 'telp', 'role', 'pendidikan','token', 'status','str_slug'
+        'username', 'email', 'password', 'nama','slug', 'alamat', 'telp', 'role', 'pendidikan','token', 'status','str_slug','nama_depan','nama_belakang','nama_panggilan','telp_hp','telp','alamat_1','alamat_2','provinsi','kota','kode_pos', 'jenis_kelamin', 'aktifitas_terakhir', 'berkas_diri', 'ijazah', 'organisasi', 'sp_beasiswa', 'berkas_keluarga', 'berkas_lain'
     ];
 
     /**
@@ -32,7 +32,7 @@ class User extends Authenticatable
     }
 
     public function scholarship(){
-        return $this->belongsToMany('App\Models\Scholarship','user_scholarship', 'user_id','scholarship_id');
+        return $this->belongsToMany('App\Models\Scholarship','user_scholarship', 'user_id','scholarship_id')->withPivot('status');
     }
 
      public function isAdmin(){

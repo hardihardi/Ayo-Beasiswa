@@ -10,7 +10,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use App\Models\User;
 use App\Models\Facilitator;
-
+use Carbon\Carbon;
 use Validator;
 use Illuminate\Auth\Events\Registered;
 
@@ -90,6 +90,9 @@ class LoginController extends Controller
             }
 
            
+          Auth::user()->update([
+            "aktifitas_terakhir" => Carbon::now('Asia/Jakarta')
+          ]);
 
             return $this->sendLoginResponse($request);
         }

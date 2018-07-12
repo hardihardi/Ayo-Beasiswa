@@ -45,61 +45,61 @@
                     <div class="col-md-3 grid-item">
                         <img src="img/cat/award.jpeg" alt="award">
                         <div class="grid-overlay">
-                            <a href="#" class="btn btn-outline-info">Penghargaan</a>
+                            <a href="{{route('kategori', ['penghargaan'])}}" class="btn btn-outline-info">Penghargaan</a>
                         </div>
                     </div>
                     <div class="col-md-3 grid-item">
                             <img src="img/cat/olharaga.jpg" alt="award">
                             <div class="grid-overlay">
-                                <a href="#" class="btn btn-outline-info">Olahraga</a>
+                                <a href="{{route('kategori', ['olahraga'])}}" class="btn btn-outline-info">Olahraga</a>
                             </div>
                     </div>
                     <div class="col-md-3 grid-item">
                             <img src="img/cat/penelitian.jpeg" alt="Penelitian">
                             <div class="grid-overlay">
-                                <a href="#" class="btn btn-outline-info">Penelitian</a>
+                                <a href="{{route('kategori', ['penelitian'])}}" class="btn btn-outline-info">Penelitian</a>
                             </div>
                     </div>
                     <div class="col-md-3 grid-item">
                             <img src="img/cat/yayasan.jpg" alt="Yayasan">
                             <div class="grid-overlay">
-                                <a href="#" class="btn btn-outline-info">Yayasan</a>
+                                <a href="{{route('kategori', ['yayasan'])}}" class="btn btn-outline-info">Yayasan</a>
                             </div>
                     </div>
                     <div class="col-md-3 grid-item" style="height : 420px;">
                             <img src="img/cat/luar.jpeg" alt="Luar Negeri">
                             <div class="grid-overlay">
-                                <a href="#" class="btn btn-outline-info">Luar Negeri</a>
+                                <a href="{{route('kategori', ['luar negeri'])}}" class="btn btn-outline-info">Luar Negeri</a>
                             </div>
                     </div>
                     <div class="col-md-3 grid-item">
                             <img src="img/cat/swasta.jpeg" alt="Swasta">
                             <div class="grid-overlay">
-                                <a href="#" class="btn btn-outline-info">Swasta</a>
+                                <a href="{{route('kategori', ['swasta'])}}" class="btn btn-outline-info">Swasta</a>
                             </div>
                     </div>
                     <div class="col-md-3 grid-item">
                             <img src="img/cat/help.jpeg" alt="Bantuan">
                             <div class="grid-overlay">
-                                <a href="#" class="btn btn-outline-info">Bantuan</a>
+                                <a href="{{route('kategori', ['bantuan'])}}" class="btn btn-outline-info">Bantuan</a>
                             </div>
                     </div>
                     <div class="col-md-3 grid-item">
                             <img src="img/cat/computer.jpeg" alt="Komputer">
                             <div class="grid-overlay">
-                                <a href="#" class="btn btn-outline-info">Komputer</a>
+                                <a href="{{route('kategori', ['komputer'])}}" class="btn btn-outline-info">Komputer</a>
                             </div>
                     </div>
                     <div class="col-md-3 grid-item">
                             <img src="img/cat/studeng.jpeg" alt="Mahasiswa">
                             <div class="grid-overlay">
-                                <a href="#" class="btn btn-outline-info">Mahasiswa</a>
+                                <a href="{{route('kategori', ['mahasiswa'])}}" class="btn btn-outline-info">Mahasiswa</a>
                             </div>
                     </div>
                     <div class="col-md-6 grid-item">
                             <img src="img/cat/dalam.jpg" alt="Dalam Negeri">
                             <div class="grid-overlay">
-                                <a href="#" class="btn btn-outline-info">Dalam Negeri</a>
+                                <a href="{{route('kategori', ['dalam negeri'])}}" class="btn btn-outline-info">Dalam Negeri</a>
                             </div>
                     </div>
                 </div>

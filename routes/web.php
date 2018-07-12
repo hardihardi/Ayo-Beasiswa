@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('root');
 
 Auth::routes();
 
@@ -23,7 +23,10 @@ Route::get('/verify/{token}/{id}', 'Auth\RegisterController@verify_register');
 Route::get('/verify_facilitator/{token}/{id}', 'AdminController\profileController@verify_facilitator');
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/beasiswa', 'HomeController@show')->name('beasiswa');
 Route::get('/beasiswa/{name}', 'HomeController@single')->name('single');
+Route::get('/kategori/{kategori}', 'HomeController@kategori')->name('kategori');
+Route::get('/beasiswa/', 'HomeController@getAll')->name('beasiswa');
 Route::get('/daftar/{id}', 'HomeController@daftar')->name('daftar');
 
 Route::prefix('setting')->group(function () {
@@ -45,6 +48,10 @@ Route::prefix('setting')->group(function () {
 });
 
 Route::group(["middleware" => "user"], function(){
-	Route::get('/user/{username}', 'singleUserController\singleUserController@index')->name('single-user');
+	Route::get('/user/{username}', 'UserController\userProfileController@index')->name('single-user');
+	Route::put('/user/update', 'UserController\userProfileController@update')->name('update-user');
+	Route::put('/user/updatepass', 'UserController\userProfileController@updatepass')->name('updatePass');
 	Route::post('/profile/create', 'AdminController\profileController@create')->name('profile_create');
+	Route::post('/user/update', 'AdminController\profileController@update_user')->name('user_update');
+	Route::put('/user/upload_file/{file}', 'UserController\userProfileController@updatefile')->name('upload_file');
 });

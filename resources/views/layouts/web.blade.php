@@ -1,4 +1,4 @@
-<?php
+    <?php
 use Carbon\Carbon;
 ?>
 <!DOCTYPE html>
@@ -42,14 +42,14 @@ use Carbon\Carbon;
         <div class="container">
             <!-- Left Navbar Menu -->
             <div class="navbar-header">
-                <a href="{{ route('dashboard') }}" class="navbar-brand"><img src="/img/icon.png" alt="">&nbsp AyoBeasiswa</a>
+                <a href="{{ route('root') }}" class="navbar-brand"><img src="/img/icon.png" alt="">&nbsp AyoBeasiswa</a>
                 <a href="#" class="navbar-brand visible-xs trigger-navbar"><i style="color:#fff" class="fa fa-ellipsis-v"></i></a>
             </div>
 
             <!-- Middle Navbar Menu -->
             <ul class="navbar-nav nav">
-                <li><a href="{{ route('home') }}" class="item"><i class="fa fa-home"></i> Beranda</a></li>
-                <li><a href="" class="item"><i class="fa fa-graduation-cap" aria-hidden="true"></i></i> Beasiswa</a></li>
+                <li><a href="{{ route('root') }}" class="item"><i class="fa fa-home"></i> Beranda</a></li>
+                <li><a href="{{ route('beasiswa') }}" class="item"><i class="fa fa-graduation-cap" aria-hidden="true"></i></i> Beasiswa</a></li>
                 <li><a href="{{ route('home') }}" class="item"><i class="fa fa-search"></i> Cari Beasiswa</a></li>
                    @if (Auth::guest())
                         <a href="{{ route('login') }}" class="item profile-toogle item-scroll" style="color: #2DD6D9;
@@ -65,7 +65,7 @@ use Carbon\Carbon;
                                 <ul class="dropdown-menu" role="menu" >
                                     <li>
                                         <p>Profil</p>
-                                        <p>Aria Samudera Elhamidy</p>
+                                        <p>{{ Auth::user()->nama_depan . " " .Auth::user()->nama_belakang}}</p>
                                     </li>
                                     <li>
                                         @if (Auth::user()->isAdmin())
@@ -182,7 +182,11 @@ $('ul.nav li.dropdown').hover(function() {
 });
 </script>
     <!-- Component Script -->
-
+  <script>
+        $('body, .content').niceScroll({
+                cursorwidth: '2px'
+            });
+            </script>
 
     <!-- Your Own Script -->
 <script type="text/javascript" src="/js/home.js"></script>

@@ -10,33 +10,33 @@
 <section class="content">
         <div class="header-create">
             <span class="number">1</span>
-            <h1>Scholarship Details </h1>
+            <h1>Detail Beasiswa </h1>
         </div>
         <div class="body-create">
             <form action="{{ route('createScholarship')}}" method="POST" enctype="multipart/form-data">
                  {{ csrf_field() }}
-                <input type="text" class="form-control form-control-lg" id="beasiswa" name="beasiswa" placeholder="Scholarship Name">
-                <input type="text" class="form-control form-control-lg" id="instusi" name="instusi" placeholder="Institute Name">
-                <input type="text" class="form-control form-control-lg" id="quote" name="quota" placeholder="Quota">
+                <input type="text" class="form-control form-control-lg" id="beasiswa" name="beasiswa" placeholder="Nama Beasiswa">
+                <input type="hidden" class="form-control form-control-lg" id="instusi" name="instusi" placeholder="Nama Institusi" value="">
+                <input type="text" class="form-control form-control-lg" id="quote" name="quota" placeholder="Kuota">
                    <div class="form-group">
                 <div class="input-group date form_date " data-date="2017-09-16T05:25:07Z" data-link-field="dtp_input1" style="margin-top : 20px">
-                    <input class="form-control form-control-lg"  style="margin-top:0" size="16" type="text" value="" readonly name="date"  placeholder="Date End" >
+                    <input class="form-control form-control-lg"  style="margin-top:0" size="16" type="text" value="" readonly name="date"  placeholder="Tanggal Akhir" >
                     <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                 </div>
                 <div class="form-group">                                
-                    <label for="preview_image">Upload Foto Profil</label></label>  
+                    <label for="preview_image">Unggah Foto Profil</label></label>  
                     <div class="image-editor">
                         <input type="file" class="cropit-image-input">
                         <div class="cropit-preview"></div>
                         {{-- <div id="image_preview" class="img_preview"><img src="{{Storage::url($facilitator->img_url)}}"></div> --}}
                         <div class="image-size-label">
-                            Resize image
+                            Atur ulang ukuran gambar
                         </div>
                         <input type="range" class="cropit-image-zoom-input">
                         <input type="hidden" name="image_data" class="hidden-image-data" />
                     </div>
                 </div>
-                 <h4>Category </h4>
+                 <h4>Kategori </h4>
                      @foreach( $kategoris as $kategori )
                         <label >
                             <input type="checkbox" name="kategori[]" value="{{ $kategori->judul }}"/>{{$kategori->judul}}
@@ -45,8 +45,8 @@
                  </div>
                 
                    <!-- Content -->
-                     <div class="title-pages">Description</div>
-                   <textarea id="summernote" name="description">Your Description About The Scholarship</textarea>
+                     <div class="title-pages">Deskripsi</div>
+                   <textarea id="summernote" name="description">Tuliskan deskripsi anda disini</textarea>
         </div>
         <div class="header-create">
             <span class="number">2</span>
@@ -56,42 +56,42 @@
             <div class="switch-control">
                 <p>Berkas data diri (ex : KTP, KTM, KHS dan/atau KRS)</p>
                 <label class="switch">
-                     <input type="checkbox" name="status" >
+                     <input type="checkbox" name="berkas[]" value="berkas_diri" >
                      <span class="slider round"></span>
                </label>
             </div>
             <div class="switch-control">
                 <p>Ijazah dan Transkip NIlai terakhir</p>
                 <label class="switch">
-                     <input type="checkbox" name="status" >
+                     <input type="checkbox" name="berkas[]" value="ijazah">
                      <span class="slider round"></span>
                </label>
             </div>
             <div class="switch-control">
                 <p>Surat Keterangan AKtif Organisasi / sertifikat prestasi</p>
                 <label class="switch">
-                     <input type="checkbox" name="status" >
+                     <input type="checkbox" name="berkas[]" value="organisasi" >
                      <span class="slider round"></span>
                </label>
             </div>
             <div class="switch-control">
                 <p>Surat pernyataan sedang tidak menerima beasiswa dari tempat lain </p>
                 <label class="switch">
-                     <input type="checkbox" name="status" >
+                     <input type="checkbox" name="berkas[]" value="sp_beasiswa">
                      <span class="slider round"></span>
                </label>
             </div>
             <div class="switch-control">
                 <p>Berkas keluarga (Foto-copy orang tua, kk, pbb) </p>
                 <label class="switch">
-                     <input type="checkbox" name="status" >
+                     <input type="checkbox" name="berkas[]" value="berkas_keluarga" >
                      <span class="slider round"></span>
                </label>
             </div>
             <div class="switch-control">
                 <p>Berkas Lain nya sebagai pendukung</p>
                 <label class="switch">
-                     <input type="checkbox" name="status" >
+                     <input type="checkbox" name="berkas[]" value="berkas_lain" placeholder="Deskripsi berkas yang dibutuhkan" style="width:75%" >
                      <span class="slider round"></span>
                </label>
             </div>

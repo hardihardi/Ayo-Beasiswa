@@ -23,7 +23,7 @@
 					<div class="post-meta-single">
 						<div class="author-wrap spacer10">
 							<div class="author-avata spacer10">
-								<img src='{{$beasiswa->facilitator->user->img_url}}'  class='avatar avatar-96 photo img-user' height='96' width='96' /> 
+								<img src='{{Storage::url($beasiswa->facilitator->img_url)}}'  class='avatar avatar-96 photo img-user' height='96' width='96' /> 
 							</div><!-- end of .author-wrap -->
 							<div class="author-info spacer10">
 								<h3 >{{$beasiswa->facilitator->nama_instansi}}</h3>
@@ -53,12 +53,12 @@
 							<h5> Silahkan Masuk Terlebih Dahulu </h5><br>
 							<a href="{{route('login')}}" class="btn btn-login">Masuk / Daftar</a>
 						@else
-							@if(!(Auth::user()->facilitator() == $beasiswa->facilitator()))
+							@if(!(Auth::user()->facilitator == $beasiswa->facilitator))
 							<h5> Daftar Beasiswa </h5><br>
-								<a href="{{route('daftar', ['id' => $beasiswa->id])}}" class="btn btn-daftar">Daftar</a>
+								<a data-toggle="modal" data-target="#myModal" class="btn btn-daftar">Daftar</a>
 							@else 
 							<h5> Hey {{$beasiswa->facilitator->user->username}} , Mau Update Beasiswa ? </h5><br>
-								<a href="{{route('singleList', ['id' => $beasiswa->id])}}" class="btn btn-edit">Edit</a>
+								<a href="{{route('editList', ['id' => $beasiswa->id])}}" class="btn btn-edit">Edit</a>
 							@endif
 						@endif
 				</div>
@@ -66,6 +66,46 @@
         </div><!--tutup col lg 4-->
 
 	</div>
+</div>
+
+<style>
+	.modal-register > .modal-content > .modal-header{
+		height: 300px;
+    	overflow: hidden;
+    	padding :0;
+	}
+
+	.modal-register > .modal-content > .modal-header > img{
+		height: 100%;
+	}
+
+	.modal-register > .modal-content > .modal-header > button{
+		position: absolute;
+	    right: 10px;
+	    top: 10px;
+	    opacity: .9;
+	    background: transparent;
+	}
+</style>
+<div id="myModal" class="modal fade" role="dialog">
+    <form action="{{route('updatePass')}}" method="POST">
+        <input type="hidden" name="_method" value="PUT">
+           {{ csrf_field() }}
+        <div class="modal-dialog modal-register">
+            <div class="modal-content">
+                <div class="modal-header" >
+                <img  src="{{Storage::url($beasiswa->alamat_gambar)}}" class="img-single-post " alt=""/>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" style="padding: 20px 40px">
+                 
+                </div>
+                <div class="modal-footer " style="padding :20px 40px">
+                    <input type="submit" class="bg-green-color form-control" style="border:0;color:#fff;" value="Daftar">
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 @endsection
 

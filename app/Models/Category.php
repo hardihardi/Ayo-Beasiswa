@@ -7,7 +7,7 @@ use App\Models\Facilitator;
 class Category extends Model
 {
      public function scholarships(){
-        return $this->belongsToMany('App\Models\Scholarship', 'beasiswa_kategori', 'category_id','scholarship_id');
+        return $this->belongsToMany('App\Models\Scholarship', 'category_scholarships', 'category_id','scholarship_id');
     }
 
     // public function facilitators(){

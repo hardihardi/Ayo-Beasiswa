@@ -133,16 +133,15 @@ class profileController extends Controller
       //  return view('admin.profile', ["user" => $user, "facilitator" => $facilitator]);   
     }
 
-    public function verify_facilitator($token, $id)
-    {
-    $user = User::find($id);
+    public function verify_facilitator($token, $id){
+      $user = User::find($id);
+      if ($user->facilitator->token_facilitator != $token) {
+          return redirect('user/'.$user->username)->with('warning', 'token not match');
+      }
 
-    if ($user->facilitator->token_facilitator != $token) {
-        return redirect('user/'.$user->username)->with('warning', 'token not match');
-    }
-
-    $user->role = 2;
-    $user->save();
-    return redirect('setting/dashboard');
+      $user->role = 2;
+      $user->save();
+      return redirect('setting/dashboard');
      }
+
 }

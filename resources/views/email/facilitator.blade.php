@@ -272,7 +272,7 @@
                                                             <td> <div class="container">
                                                                       <center>
                                                                      <h1>Menjadi SuperHero AyoBeasiswa</h1>
-                                                                 <a href="ayobeasiswa.me/verify/{{$user->token_facilitator}}/{{$user->user->id}}"> Klik untuk menjadi SuperHero</a>
+                                                                 <a href="ayobeasiswa.me/verify_facilitator/{{$user->token_facilitator}}/{{$user->user->id}}"> Klik untuk menjadi SuperHero</a>
                                                                   <p>Semoga kebagikan Anda dapat menjadi pahala bagi diri anda dan keluarga! <br> Terimakasih telah terhubung dengan kami!</p></center>
                                                                 </div>
                                                             </td>

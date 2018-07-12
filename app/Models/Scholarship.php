@@ -24,7 +24,13 @@ class Scholarship extends Model
 	'masa_berlaku',
 	'user_id',
 	'status',
-	'views'
+	'views',
+	'berkas_diri',
+	'ijazah',
+	'organisasi',
+	'sp_beasiswa',
+	'berkas_keluarga',
+	'quotas'
 ];
 
 	public function facilitator(){
@@ -32,10 +38,10 @@ class Scholarship extends Model
 	}
 
 	public function user(){
-        return $this->belongsToMany('App\Models\User', 'user_scholarship','scholarship_id', 'user_id');
+        return $this->belongsToMany('App\Models\User', 'user_scholarship','scholarship_id', 'user_id')->withPivot('status');
     }
 
     public function categories(){
-        return $this->belongsToMany('App\Models\Category', 'beasiswa_kategori','scholarship_id' ,'category_id');
+        return $this->belongsToMany('App\Models\Category', 'category_scholarships','scholarship_id' ,'category_id');
     }
 }

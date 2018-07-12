@@ -51,7 +51,7 @@
             <ul class="navbar-nav nav">
                 <li><a href="{{ route('dashboard') }}" class="item"><i class="fa fa-home"></i> Dashboard</a></li>
     <!--             <li><a href="messages.html" class="item"><i class="fa fa-inbox"></i> Messages</a></li> -->
-                <li><a href="" class="item"><i class="fa fa-bell-o"></i> Notifications</a></li>
+                <li><a href="" class="item"><i class="fa fa-ebll-o"></i> Notifications</a></li>
                 <li><a href="{{ route('home') }}" class="item"><i class="fa fa-search"></i> Browse Scholarship</a></li>
     <!--             <li><a href="https://github.com/muhibbudins/wonderful" class="item"><i class="fa fa-github"></i> Github</a></li> -->
             </ul>
@@ -81,7 +81,7 @@
                                             </a>
                                             @endif
                                         </li>
-                                    <li>
+                                    <li>                                                                                                     
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();" class="item">
@@ -148,7 +148,11 @@
     <!-- Your Own Script -->
     <script type="text/javascript" src="/js/load.js"></script>
     <script type="text/javascript" src="/js/default.js"></script>
-
+    <script>
+    	$('body, .content').niceScroll({
+				cursorwidth: '2px'
+            });
+            </script>
     @yield('your_js')
 </body>
 </html>

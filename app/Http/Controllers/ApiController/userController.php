@@ -27,17 +27,57 @@ class userController extends Controller
 
     public function update(Request $request){         
         $updated =$request->user();
+
+        $validator = Validator::make(request()->all(), [
+        'nama_depan' => 'required|string|max:50',
+        'nama_belakang' => 'required|string|max:50',
+        'nama_panggilan' => 'required|string|max:50',
+        'pendidikan' => 'required|string|max:15',
+        'telp' => 'required|string|max:20',
+        'telp_hp' => 'required|string|max:20',
+        'jk' => 'required|string|max:10',
+        'Provinsi' => 'required|string|max:20',
+        'kota' => 'required|string|max:20',
+        'Alamat1' => 'required|string|max:200',
+        'Alamat2' => 'required|string|max:200',
+         ]);
+      
+        if($validator->fails()) {
+        redirect()
+            ->back()
+            ->withErrors($validator->errors());
+        }
+
         // kalo mkodel dan table user
         // $updated =JWTAuth::parseToken()->authenticate();
         //kalo bukan user nama table dan modelnya pake yang ini
         $updated->update([
-            'nama' => $request->nama,
-            'alamat' => $request->alamat,
-            'pendidikan' => $request->pendidikan, 
-            'telp' => $request->telp, 
-            'role' => $request->role
+            'nama_depan' => $request->nama_depan;
+            'nama_belakang' => $request->nama_belakang;
+            'nama_panggilan' => $request->nama_panggilan;
+            'pendidikan' => $request->pendidikan;
+            'telp' => $request->telp;
+            'telp_hp' => $request->telp_hp;
+            'jk' => $request->jk;
+            'Provinsi' => $request->Provinsi;
+            'kota' => $request->kota;
+            'Alamat1' => $request->Alamat1;
+            'Alamat2' => $request->Alamat2;
         ]);
         return $updated;
+
+        // $target =  Upload::create_dir('data-users/facilitators', trim($facilitator->nama_instansi)); 
+        // Sebelumnya dipakai untuk bantuan dalam membuat direktori, tapi rupanya kalo pake filesystem laravel sudaha ada fungsinya 
+         // if($file !== null){
+         //    $name = "profile.". $file->getClientOriginalExtension();
+         //    $path = $file->storeAS('public/facilitators/'.$facilitator->token_facilitator , $name);
+         //    $facilitator->berkas_pendukung =  $path;
+         //  }
+        
+        return redirect()
+        ->back()
+        ->withSuccess(sprintf('File %s has been uploaded.', $request->nama_instansi));
+      //  return view('admin.profile', ["user" => $user, "facilitator" => $facilitator]);   
     }
 
     public function createFacilitator(Request $request){
@@ -131,8 +171,7 @@ class userController extends Controller
             }
         }
 
-     public function logout(Request $request)
-    {
+    public function logout(Request $request){
        JWTAuth::invalidate($request->token);
        return response()->json(['message' => 'Successfully logged out']);
     }
@@ -142,8 +181,7 @@ class userController extends Controller
     *
     * @return \Illuminate\Http\JsonResponse
     */
-    public function refresh()
-    {
+    public function refresh(){
       return $this->respondWithToken(auth()->refresh());
     }
 
@@ -154,8 +192,7 @@ class userController extends Controller
     *
     * @return \Illuminate\Http\JsonResponse
     */
-    protected function respondWithToken($token)
-    {
+    protected function respondWithToken($token){
       return response()->json([
           'access_token' => $token,
           'token_type' => 'bearer',

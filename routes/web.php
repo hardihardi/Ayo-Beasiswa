@@ -43,6 +43,7 @@ Route::prefix('setting')->group(function () {
 				Route::put('/list/update/{id}', 'AdminController\scholarshipController@update')->name('updateList');
 				Route::get('/create', 'AdminController\scholarshipController@create')->name('scholarshipCreate');
 				Route::post('/create', 'AdminController\scholarshipController@store')->name('createScholarship');
+				Route::get('/user/{id}', 'AdminController\scholarshipController@approve')->name('adminApprove');
 			});
 		});		
 });

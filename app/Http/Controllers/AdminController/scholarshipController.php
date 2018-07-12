@@ -147,4 +147,14 @@ class scholarshipController extends Controller
         return redirect('setting/list');
     }
 
+
+    public function approve($id){
+        // $beasiswa = Scholarship::with(['user', 'facilitator', 'categories'])->where('str_slug', $id)->first();
+      
+
+        // dd($beasiswa);
+        
+        return view('admin.approveScholarship');
+    }
+
 }

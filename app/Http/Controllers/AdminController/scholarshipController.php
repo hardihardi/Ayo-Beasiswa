@@ -148,13 +148,45 @@ class scholarshipController extends Controller
     }
 
 
-    public function approve($id){
-        // $beasiswa = Scholarship::with(['user', 'facilitator', 'categories'])->where('str_slug', $id)->first();
-      
+    public function approve(request $request){
+        $beasiswas = Scholarship::where('id', $request->id_beasiswa)->first();
+        $beasiswa = $beasiswas->user()->where('user_id', $request->id_user)->first();
 
-        // dd($beasiswa);
+      $data=  response()->json([
+            'username' => $beasiswa->username,
+            'email' => $beasiswa->email,
+            'nama' => $beasiswa->nama_depan . " " . $beasiswa->nama_belakang,
+            'pendidikan' => $beasiswa->pendidikan,
+            'berkas_diri' => $beasiswa->pivot->berkas_diri,
+            'ijazah' => $beasiswa->pivot->ijazah,
+            'organisasi' => $beasiswa->pivot->organisasi,
+            'sp_beasiswa' => $beasiswa->pivot->sp_beasiswa,
+            'berkas_keluarga' => $beasiswa->pivot->berkas_keluarga,
+            'berkas_lain' => $beasiswa->pivot->berkas_lain,
+            'id_beasiswa' => $beasiswa->id,
+            'id_user' => $beasiswas->id,
+            'nama_beasiswa' => $beasiswas->nama_beasiswa,
+            'status' => $beasiswa->pivot->status
+        ]);
+        echo json_encode($data);
         
-        return view('admin.approveScholarship');
     }
-
+     public function approveGet($id,$id_user,$status){
+        //ini belum aman ya 
+         $beasiswas = Scholarship::where('id', $id)->first();
+            if($beasiswas != null){
+                  if($beasiswas->facilitator->id == Auth::user()->facilitator->id){
+                   $success = $beasiswas->user()->updateExistingPivot($id_user,["status" =>  $status]);
+                      return redirect()
+                          ->back()
+                          ->withSuccess(sprintf('File %s has been uploaded.', "success"));
+                   }
+                   // dd("boleh");
+               }else {
+                  dd("adasd");
+                    redirect()
+                    ->back()
+                    ->withErrors(sprintf('File %s has been uploaded.', "Anda Sudah mendaftar"));
+              }
+    }
 }

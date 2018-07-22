@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-
+use Alert;
 use App\Models\User;
 use App\Models\Facilitator;
 use Carbon\Carbon;

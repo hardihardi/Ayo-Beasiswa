@@ -24,6 +24,8 @@ class userMiddleware
             }
         }
 
-        return redirect('home');
+        return redirect()
+                ->back()
+                ->withErrors("Silahkan Login Terlebih Dahulu");
     }
 }

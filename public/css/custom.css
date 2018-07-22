@@ -422,3 +422,19 @@ input:checked+.slider:before {
 .navbar-default .navbar-nav>li>a:focus {
     /*  background-color: #fff;*/
 }
+
+.rounded-small {
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    border: 2px solid #fff;
+}
+
+.container-map {
+    height: 500px;
+}
+
+.container-map > #map {
+    height: 500px;
+    width: 100%;
+}

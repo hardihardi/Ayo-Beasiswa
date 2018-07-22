@@ -1,5 +1,16 @@
 @extends('layouts.web')
 
+@section('profile')
+@if(Auth::user()) 
+    @if(Auth::user()->img_url != null)
+     <img src="{{Storage::url(Auth::user()->img_url)}}" class="rounded-small"> 
+     @else  
+     <img src="/img/img_ss/malo.png" class="rounded-small"> 
+     @endif
+@endif
+@endsection
+
+
 @section('content')
     <section class="content-home">
         <div class="wrap">
@@ -10,18 +21,19 @@
                         <div class="col-xs-1 visible-xs "></div>                      
                         <div class="col-md-3 col-sm-8 col-xs-10 col-md-offset-2 col-sm-offset-2 postri ">
                             <h4> Cari Beasiswa <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Sesuai Keinginanmu!!! </h4>
-                            <form action="" method="post">
+                            <form action="{{route('cari')}}" method="post">
+                                   {{ csrf_field() }}
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-lg" id="search" name="search" placeholder="Nama Beasiswa" style="margin-top : 15px">
+                                    <input type="text" class="form-control form-control-lg" id="search" name="kata_kunci" placeholder="Nama Beasiswa" style="margin-top : 15px">
                                     <div class="input-group date form_date" data-date="2017-09-16T05:25:07Z" data-link-field="dtp_input1" style="margin-top : 15px;width : 49%;display:inline-table;">
                                           <input class="form-control form-control-lg"
-                                            style="margin-top:0" size="16" type="text" value="" readonly name="date"  placeholder="Date End" ><span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                                            style="margin-top:0" size="16" type="text" value="" name="tanggal"  placeholder="Date End" ><span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                                     </div>
                                      <select class="form-control" id="kategori" name="kategori" style="width:49%;display: inline;">
-                                        <option>Luar Negeri</option>
-                                        <option>Komputer</option>
-                                        <option>Dalam Negeri</option>
-                                        <option>Yayasan</option>
+                                        <option value="semua">Semua</option>
+                                       @foreach($kategori as $kategori_s)
+                                         <option value="{{$kategori_s->judul}}">{{$kategori_s->judul}}</option>
+                                       @endforeach
                                       </select>
                                       <input type="submit" class="btn btn-default submit-form light-blue" value="Cari" name="cari">
                                 </div>
@@ -136,9 +148,9 @@
                                             </div>
                                             <div class="card-block">
                                                
-                                                <figure class="profile-img">
+                                              <!--   <figure class="profile-img">
                                                     <img src="{{$beasiswa->facilitator->user->img_url}}" class="profile-avatar" alt="">
-                                                </figure>
+                                                </figure> -->
                                                 <div class="meta">
                                                     <a></a>
                                                 </div>
@@ -160,7 +172,7 @@
                                     </div>
                                 @endforeach
                             </div>
-                            <button class="etc" href="#">Lainnya</button>
+                            <a class="etc" href="{{route('beasiswa')}}">Lainnya</a>
                         </div>
                     </div>
                 </div>

@@ -13,7 +13,8 @@
         "laravel/scout": "^3.0",
         "laravel/tinker": "~1.0",
         "spatie/laravel-fractal": "^4.5",
-        "tymon/jwt-auth": "^0.5.12"
+        "tymon/jwt-auth": "^0.5.12",
+        "uxweb/sweet-alert": "^1.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

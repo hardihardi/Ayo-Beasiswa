@@ -188,6 +188,9 @@ return [
         //Intervention
         Intervention\Image\ImageServiceProvider::class,
 
+        //sweetalert
+        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+
 
     ],
 
@@ -245,7 +248,10 @@ return [
 
 
         //Intervention
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+
+        //sweetalert
+        'Alert' => UxWeb\SweetAlert\SweetAlert::class,
     ],
 
 ];

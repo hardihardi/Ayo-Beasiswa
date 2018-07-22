@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@section('your_css')
+
+    <link rel="stylesheet" href="/wysiwyg/summernote.css">
+
+@endsection
+
 @section('content')
 <section class="content content-stretch">
     <div class="hero">
@@ -9,8 +15,9 @@
                 <div class="hero-title">{{$beasiswas->nama_beasiswa}}</div>
                 <!--                         <div class="hero-description">{{$beasiswas->konten}} </div> -->
                 <div class="toolbar-menu">
-                    <a href="{{ route('editList', ['id' => $beasiswas->id])}}" class="btn btn-success btn-outline btn-rounded"><i class="fa fa-edit"></i> Edit</a>
-                    <a href="{{ route('deleteList', ['id' => $beasiswas->id])}}" class="btn btn-danger btn-outline btn-rounded"><i class="fa fa-trash"></i> Delete</a>
+                    <a href="{{ route('editList', ['id' => $beasiswas->id])}}" class="btn btn-success btn-outline btn-rounded"><i class="fa fa-edit"></i> Ubah</a>
+                    <a href="{{ route('deleteList', ['id' => $beasiswas->id])}}" class="btn btn-danger btn-outline btn-rounded"><i class="fa fa-trash"></i> Hapus</a>
+                    <a style="margin-top : 10px;" data-toggle="modal" data-target="#email" class="btn btn-info btn-outline btn-rounded"><i class="fa fa-envelope"></i> Kirim email</a>
                 </div>
             </div>
             <div class="right-side">
@@ -30,7 +37,8 @@
                     <th>Email</th>
                     <th>Nama</th>
                     <th>Pendidikan </th>
-                    <th>Approved </th>
+                    <th>Status </th>
+                    <th>Ubah Status </th>
                 </tr>
             </thead>
             <tbody>
@@ -48,8 +56,20 @@
                     <td>{{$user->email}}</td>
                     <td>{{$user->nama_depan  . " ". $user->nama_belakang}}</td>
                     <td>{{$user->pendidikan}}</td>
+                    
+                    @if($user->pivot->status == "Menunggu")
+                            <td><p style="border-radius: 8px;padding: 8px 16px;" class=" btn-info">Menunggu</p></td>
+                    @elseif($user->pivot->status == "Terima")
+                            <td><p style="    border-radius: 8px;padding: 8px 16px;" class=" btn-success">Diterima</p></td>
+                    @elseif($user->pivot->status == "Tolak")
+                           <td> <p style="    border-radius: 8px;padding: 8px 16px;" class=" btn-danger">Ditolak</p></td>
+                    @elseif($user->pivot->status == "Pertimbangkan")
+                            <td><p style="    border-radius: 8px;padding: 8px 16px;" class=" btn-info">Dipertimbangkan</p></td>
+                    @else
+                         <td><p style="    border-radius: 8px;padding: 8px 16px;" class=" btn-info">Menunggu</p></td>
+                    @endif
                     <td>
-                        <button id="approve" data-toggle="modal" data-target="#myFac" data-beasiswa="{{$beasiswas->id}}"  data-id="{{$user->id}}" class="btn btn-info approve">Approve</button>
+                        <button id="approve" data-toggle="modal" data-target="#myFac" data-beasiswa="{{$beasiswas->id}}"  data-id="{{$user->id}}" class="btn btn-info approve">Ubah</button>
 
                     </tr>
                     @endforeach
@@ -60,12 +80,37 @@
                     <th>Email</th>
                     <th>Nama</th>
                     <th>Pendidikan </th>
-                    <th>Approved </th>
+                    <th>Status </th>
+                    <th>Ubah Status </th>
                 </tr>
                 </tfoot>
             </table>
         </div>
     </section>
+      <div id="email" class="modal fade" role="dialog">
+        <form action="{{route('sendEmail')}}" method="post">
+       {{ csrf_field() }}
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="padding :19px 40px">
+                    <center><h1>Kirim Email Kepada Pendaftar</h1></center>
+                </div>
+                <div class="modal-body" style="padding: 20px 40px">
+                     <input type="hidden" readonly class="form-control form-control-lg" id="scholarship_id" name="scholarship_id" value="{{$beasiswas->id}}" >
+                    <input type="text" class="form-control form-control-lg" id="beasiswa" name="subject" placeholder="Subject">
+                    <select name="status_user" class="form-control form-control-lg readonly" id="status_user" readonly  >
+                        <option value="all">Seluruh</option>         
+                        <option value="Terima">Diterima</option>         
+                        <option value="Tolak">Ditolak</option>         
+                        <option value="Pertimbangkan">Dipertimbangkan</option>         
+                    </select>
+                    <textarea id="summernote" name="description">Tuliskan Isi Email Anda</textarea>
+                    <input type="submit" name="kirim" class="form-control form-control-lg btn-success" value="kirim">
+                </div>
+            </div>
+        </div>  
+         </form>               
+     </div>
      <div id="myFac" class="modal fade" role="dialog">
          
                 {{ csrf_field() }}
@@ -78,23 +123,23 @@
                         <div class="modal-body" style="padding: 20px 40px">
                             <div class="form-group">
                                 <label for="nama_instansi">Nama</label></label>
-                                <input type="text" readonly class="form-control form-control-lg" id="nama" placeholder="Nama Instansi" name="nama_instansi" >
+                                <input type="text" readonly class="form-control form-control-lg" id="nama" placeholder="Nama " name="nama_instansi" >
                             </div>
                             <div class="form-group">
                                 <label for="deskripsi">Pendikan Terakhir</label></label>
-                                <input type="text" readonly class="form-control form-control-lg" id="pendidikan" placeholder="Agency Description" name="deskripsi_instansi" >
+                                <input type="text" readonly class="form-control form-control-lg" id="pendidikan" placeholder="Pendidikan Terakhir" name="deskripsi_instansi" >
                             </div>
                              <div class="form-group">
                                 <label for="deskripsi">username</label></label>
-                                <input type="text" readonly class="form-control form-control-lg" id="username" placeholder="Agency Description" name="deskripsi_instansi" >
+                                <input type="text" readonly class="form-control form-control-lg" id="username" placeholder="Username" name="deskripsi_instansi" >
                             </div>
                              <div class="form-group">
                                 <label for="deskripsi">Email</label></label>
-                                <input type="text" readonly class="form-control form-control-lg" id="email" placeholder="Agency Description" name="deskripsi_instansi" >
+                                <input type="text" readonly class="form-control form-control-lg" id="email" placeholder="Email" name="deskripsi_instansi" >
                             </div>
                              <div class="form-group">
                                 <label for="deskripsi">Mendaftar Pada Beasiswa</label></label>
-                                <input type="text" readonly class="form-control form-control-lg" id="nama_beasiswa" placeholder="Agency Description" name="deskripsi_instansi" >
+                                <input type="text" readonly class="form-control form-control-lg" id="nama_beasiswa" placeholder="beasiswa" name="deskripsi_instansi" >
                             </div>
                            <table class="table">
                 
@@ -132,7 +177,7 @@
                                 <td><p>Surat pernyataan Organisasi</p></td>
                                 <td>
  
-                             <a href="#" id="sp_beasiswa" class="btn btn-info">download</a>
+                             <a href="#" id="organisasi" class="btn btn-info">download</a>
                                   
                                 
                                 </td>
@@ -160,7 +205,29 @@
                               </tr>
                        
                              <tr>
+                                 <tr>
+                                <td><p>Berkas Pendukung Yang Disediakan Pendaftar</p></td>
+                                <td>
+                                          
+                                  <a href="#" id="berkas_pendukung" class="btn btn-info">download</a>
+                            
+                                </td>
+                           
+                              </tr>
+                       
+                             <tr>
 
+                             <tr>
+                                <td><p id="text-berkas"></p></td>
+                                <td>
+                                          
+                                  <a href="#" id="berkas_lain" class="btn btn-info">download</a>
+                            
+                                </td>
+                           
+                              </tr>
+                       
+                             <tr>
                                
 
                                
@@ -180,14 +247,19 @@
                     </div>
                 </div>
            <!--  </form> -->
-        </div>
+     </div>
 @endsection
-
 @section('your_js')
+<script type="text/javascript" src="/js/editor.js"></script>
+<script type="text/javascript" src="/wysiwyg/summernote.min.js"></script>
 <script >
 
+    function ganti($string){
+        return $string.replace("public", "/storage");
+    }
         $('.approve').on('click', function(){
             $(this).each(function(){
+
                 var id_beasiswa = $(this).data("beasiswa")
                 var id_user = $(this).data("id")
                
@@ -208,6 +280,7 @@
                         $('#email').val($single.email)
                         $('#pendidikan').val($single.pendidikan)
                         $('#username').val($single.username)
+                        $('#nama_beasiswa').val($single.nama_beasiswa)
                         if($single.status == "Terima"){
                               $('#status').text($single.status)
                               $('#status').addClass("btn-success")
@@ -224,16 +297,31 @@
                             $('#status').text("tidak Valid")
                              $('#status').addClass("btn-danger")
                         }
-                        $('#nama_beasiswa').val($single.nama_beasiswa)
-                        $('#berkas_diri').attr({"href" : $single.berkas_diri})
-                        $('#ijazah').attr({"href" :$single.ijazah})
-                        $('#organisasi').attr({"href" :$single.organisasi})
-                        $('#sp_beasiswa').attr({"href" :$single.sp_beasiswa})
-                        $('#berkas_keluarga').attr({"href" :$single.berkas_keluarga})
+                        var $_array = ["berkas_diri", "ijazah" ,"organisasi", "sp_beasiswa", "berkas_keluarga",  "berkas_pendukung" , "berkas_lain"]
+                        for($i in $_array){
+                            if($single[$_array[$i]] != null){
+                                if($_array[$i] == "berkas_lain"){
+                                    if($single[$_array[$i]][1] !=  null){
+                                        $('#text-berkas').text($single[$_array[$i]][0]);
+                                        $('#'+$_array[$i]).attr({"href" : ganti($single[$_array[$i]][1])})
+                                    }else{
+                                       $('#'+$_array[$i]).closest("tr").css("display", "none")
+                                    }
+                                }else{
+                                    $('#'+$_array[$i]).attr({"href" : ganti($single[$_array[$i]])})
+                                }
+                            }else{
+                                $('#'+$_array[$i]).closest("tr").css("display", "none")
+                            }
+                        }                       
+                        // $('#ijazah').attr({"href" :$single.ijazah})
+                        // $('#organisasi').attr({"href" :$single.organisasi})
+                        // $('#sp_beasiswa').attr({"href" :$single.sp_beasiswa})
+                        // $('#berkas_keluarga').attr({"href" :$single.berkas_keluarga})
+
                         $('#terima').attr({"href" : "/setting/approve/" + $single.id_user + "/" + $single.id_beasiswa + "/" + "Terima" })
                         $('#tolak').attr({"href" : "/setting/approve/" + $single.id_user + "/" + $single.id_beasiswa + "/" + "Tolak" })
                         $('#menunggu').attr({"href" : "/setting/approve/" + $single.id_user + "/" + $single.id_beasiswa + "/" + "Pertimbangkan" })
-                        console.log(data.original);
                     },
                     error : function(error){
                         console.log(error)

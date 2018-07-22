@@ -28,6 +28,10 @@ Route::get('/beasiswa/{name}', 'HomeController@single')->name('single');
 Route::get('/kategori/{kategori}', 'HomeController@kategori')->name('kategori');
 Route::get('/beasiswa/', 'HomeController@getAll')->name('beasiswa');
 Route::get('/daftar/{id}', 'HomeController@daftar')->name('daftar');
+Route::post('cari', 'HomeController@cari')->name('cari');
+Route::get('/maps', function(){
+	return view('maps');
+});
 
 Route::prefix('setting')->group(function () {
 		Route::group(["middleware" => "admin"], function(){
@@ -47,6 +51,7 @@ Route::prefix('setting')->group(function () {
 				// sementara ini di bikin post karena butuh buat bikin modal pake ajax
 				Route::post('/approve', 'AdminController\scholarshipController@approve')->name('adminApprove');
 				Route::get('/approve/{id_beasiswa}/{id_user}/{status}', 'AdminController\scholarshipController@approveGet')->name('adminApproveGet');
+				Route::post('/sendEmail', 'AdminController\scholarshipController@sendEmail')->name('sendEmail');
 			});
 		});		
 });
@@ -54,13 +59,17 @@ Route::prefix('setting')->group(function () {
 Route::group(["middleware" => "user"], function(){
 	Route::get('/user/{username}', 'UserController\userProfileController@index')->name('single-user');
 	Route::put('/user/update', 'UserController\userProfileController@update')->name('update-user');
-	Route::get('/user/status/{id}', 'UserController\userProfileController@status')->name('user-status');
-	Route::get('/user/cancel/{id}', 'UserController\userProfileController@cancelSchola')->name('cancel-schola');
-	Route::put('/user/updatepass', 'UserController\userProfileController@updatepass')->name('updatePass');
-	Route::put('/user/{id}/updateScholar', 'UserController\userProfileController@updateScholar')->name('updateScholar');
-	Route::put('/user/upload_file/{file}', 'UserController\userProfileController@updatefile')->name('upload_file');
 	Route::post('/profile/create', 'AdminController\profileController@create')->name('profile_create');
 	Route::post('/user/update', 'AdminController\profileController@update')->name('user_update');
-	Route::post('/user/{id}/addscholar', 'AdminController\profileController@addScholar')->name('addScholar');
+	Route::put('/user/updatepass', 'UserController\userProfileController@updatepass')->name('updatePass');
 
-});
+	Route::get('/user/status/{id}', 'UserController\userProfileController@status')->name('user-status');
+	Route::get('/user/cancel/{id}', 'UserController\userProfileController@cancelSchola')->name('cancel-schola');
+	Route::post('/user/{id}/addscholar', 'UserController\userProfileController@addScholar')->name('addScholar');
+	Route::put('/user/{id}/updateScholar', 'UserController\userProfileController@updateScholar')->name('updateScholar');
+
+	Route::post('/user/upload_photo/', 'UserController\userProfileController@updatePhoto')->name('updatePhoto');
+	Route::put('/user/upload_file/{file}', 'UserController\userProfileController@updatefile')->name('upload_file');
+	Route::get('/user/delete_file/{id}/{kategori?}/{scholarship_id?}', 'UserController\userProfileController@deleteFile')->name('deleteFile');
+
+});	

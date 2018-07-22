@@ -1,5 +1,13 @@
 @extends('layouts.web')
-
+@section('profile')
+@if(Auth::user()) 
+    @if(Auth::user()->img_url != null)
+     <img src="{{Storage::url(Auth::user()->img_url)}}" class="rounded-small"> 
+     @else  
+     <img src="/img/img_ss/malo.png" class="rounded-small"> 
+     @endif
+@endif
+@endsection
 @section('content')
 <style>
 	.container-fluid > header {
@@ -98,18 +106,19 @@
 		</div>
 		</div>
 		  <div class="col-md-7 col-sm-7 col-xs-10 search_box" style="z-index:1000;background: #fff; ">
-            <form action="" method="post">
+            <form action="{{route('cari')}}" method="post">
                 <div class="form-group">
-                    <input type="text" class="form-control form-control-lg" id="search" name="search" placeholder="Nama Beasiswa" style="margin-top : 15px">
+                	 {{ csrf_field() }}
+                    <input type="text" class="form-control form-control-lg" id="search" name="kata_kunci" placeholder="Nama Beasiswa" style="margin-top : 15px">
                     <div class="input-group date form_date" data-date="2017-09-16T05:25:07Z" data-link-field="dtp_input1" style="margin-top : 15px;width : calc(100%/3);display:inline-table;">
                           <input class="form-control form-control-lg"
-                            style="margin-top:0" size="16" type="text" value="" readonly name="date"  placeholder="Date End" ><span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            style="margin-top:0" size="16" type="text" value="" readonly name="tanggal"  placeholder="Date End" ><span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                     </div>
                      <select class="form-control" id="kategori" name="kategori" style="width:calc(100%/3);display: inline;">
-                        <option>Luar Negeri</option>
-                        <option>Komputer</option>
-                        <option>Dalam Negeri</option>
-                        <option>Yayasan</option>
+                     		<option value="semua">Semua</option>
+                         	@foreach($kategori as $kategori_s)
+	                         <option value="{{$kategori_s->judul}}">{{$kategori_s->judul}}</option>
+	                       @endforeach
                       </select>
                       <input type="submit" class="btn btn-default submit-form light-blue" value="Cari" name="cari" style="width:calc(100%/3.2);margin-top:0px;display: inline;">
                 </div>
@@ -130,7 +139,11 @@
 	                            </div>
 	                            <div class="card">
 	                                 <figure class="name"><p>
-	                                        {{$beasiswa->facilitator->nama_instansi}}
+	                                        @if (isset($beasiswa->nama_instansi))
+	                                        	{{$beasiswa->nama_instansi}}
+	                                        @else 
+	                                        	{{$beasiswa->facilitator->nama_instansi}}
+	                                        @endif
 	                                    </p>
 	                                    </figure>   
 	                                <div class="card-header">

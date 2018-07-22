@@ -31,12 +31,19 @@ class Upload {
         public static function changeBase64($base, $dir, $name){
             $convert = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base));
             $img = Image::make($convert);
-            // $path = $img->StoreAs($dir, $name);
-            $path_tmb = public_path().'/img/thumbnails/'.Upload::generateRandomString(10).".png";
-            $img->save($path_tmb);
-            $path = Storage::putFileAs($dir, new File($path_tmb), $name);
-            unlink($path_tmb);
-            return $path;
+            $size = strlen((string) $img->encode($img->mime));
+            if($size <= 20000000) {
+                       // $path = $img->StoreAs($dir, $name);
+                $path_tmb = public_path().'/img/thumbnails/'.Upload::generateRandomString(10).".png";
+                $img->save($path_tmb);
+                $path = Storage::putFileAs($dir, new File($path_tmb), $name);
+                unlink($path_tmb);
+                return $path;
+            }else {
+                redirect()
+                ->back()
+                ->withErrors(sprintf('Gagal Upload , file terlalu besar : %s.', "errors"));
+            }
         }
 
         // public static function upload 
@@ -70,4 +77,35 @@ class Upload {
             }
             return $randomString;
         }
+
+        public static function changeDate($hari){
+        $hari_tmp= "";
+        switch ($hari) {
+            case 'Sunday':
+                $hari_tmp = "Minggu";
+                break;
+            case 'Monday':
+                $hari_tmp = "Senin";
+                break;
+            case 'Tuesday':
+                $hari_tmp = "Selasa";
+                break;
+            case 'Wednesday':
+                $hari_tmp = "Rabu";
+                break;
+            case 'Thursday':
+                $hari_tmp = "Kamis";
+                break;
+            case 'Friday':
+                $hari_tmp = "Jumat";
+                break;
+            case 'Saturday':
+                $hari_tmp = "Sabtu";
+                break;
+            default:
+                 $hari_tmp = "Minggu";
+                break;
+        }
+        return $hari_tmp;
+    }
 }

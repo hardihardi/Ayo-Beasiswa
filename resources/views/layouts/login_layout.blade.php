@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="/css/default.css">
     <link rel="stylesheet" href="/css/custom.css">
     <link rel="stylesheet" href="/css/auth.css">
+     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+
 
    
    <!--  <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
@@ -41,5 +43,7 @@
     
     <!-- Your Own Script -->
     <script type="text/javascript" src="/js/default.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+@include('sweet::alert')
 </body>
 </html>

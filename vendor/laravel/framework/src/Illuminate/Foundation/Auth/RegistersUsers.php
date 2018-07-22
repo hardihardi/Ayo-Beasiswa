@@ -31,11 +31,11 @@ trait RegistersUsers
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
+        return redirect('/login')->with('warning', 'Please Check Your Email Address');
+        // $this->guard()->login($user);
 
-        $this->guard()->login($user);
-
-        return $this->registered($request, $user)
-                        ?: redirect($this->redirectPath());
+        // return $this->registered($request, $user)
+        //                 ?: redirect($this->redirectPath());
     }
 
     /**

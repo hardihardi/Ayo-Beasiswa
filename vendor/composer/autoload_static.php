@@ -20,6 +20,7 @@ class ComposerStaticInit28ca5a09b8dbd1ac78303bcf8e652ccb
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
         'ab9b68c5b1def6f80e89be13eb0a4be3' => __DIR__ . '/..' . '/spatie/laravel-fractal/src/helpers.php',
+        'a806c12c6e24e7e4e900847766218dba' => __DIR__ . '/..' . '/uxweb/sweet-alert/src/SweetAlert/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -34,6 +35,10 @@ class ComposerStaticInit28ca5a09b8dbd1ac78303bcf8e652ccb
         'W' => 
         array (
             'Webmozart\\Assert\\' => 17,
+        ),
+        'U' => 
+        array (
+            'UxWeb\\SweetAlert\\' => 17,
         ),
         'T' => 
         array (
@@ -135,6 +140,10 @@ class ComposerStaticInit28ca5a09b8dbd1ac78303bcf8e652ccb
         'Webmozart\\Assert\\' => 
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
+        ),
+        'UxWeb\\SweetAlert\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/uxweb/sweet-alert/src/SweetAlert',
         ),
         'Tymon\\JWTAuth\\' => 
         array (
@@ -409,7 +418,7 @@ class ComposerStaticInit28ca5a09b8dbd1ac78303bcf8e652ccb
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
-        'App\\Http\\Controllers\\singleUserController\\singleUserController' => __DIR__ . '/../..' . '/app/Http/Controllers/singleUserController/singleUserController.php',
+        'App\\Http\\Controllers\\UserController\\userProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController/userProfileController.php',
         'App\\Http\\Helper\\Upload' => __DIR__ . '/../..' . '/app/Http/Helper/Upload.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
@@ -419,6 +428,7 @@ class ComposerStaticInit28ca5a09b8dbd1ac78303bcf8e652ccb
         'App\\Http\\Middleware\\adminMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/adminMiddleware.php',
         'App\\Http\\Middleware\\facilitatorMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/facilitatorMiddleware.php',
         'App\\Http\\Middleware\\userMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/userMiddleware.php',
+        'App\\Mail\\mailFacilitator' => __DIR__ . '/../..' . '/app/Mail/mailFacilitator.php',
         'App\\Mail\\mailRegis' => __DIR__ . '/../..' . '/app/Mail/mailRegis.php',
         'App\\Models\\Category' => __DIR__ . '/../..' . '/app/Models/Category.php',
         'App\\Models\\Facilitator' => __DIR__ . '/../..' . '/app/Models/Facilitator.php',
@@ -4101,6 +4111,12 @@ class ComposerStaticInit28ca5a09b8dbd1ac78303bcf8e652ccb
         'UpdateMigrationTableScholarship' => __DIR__ . '/../..' . '/database/2018_03_22_041304_update_migration_table_scholarship.php',
         'UpdateSlugUser' => __DIR__ . '/../..' . '/database/migrations/2018_05_15_071016_update_slug_user.php',
         'UpdateUserAddress' => __DIR__ . '/../..' . '/database/migrations/2018_05_16_092847_updateUserAddress.php',
+        'UxWeb\\SweetAlert\\ConvertMessagesIntoSweetAlert' => __DIR__ . '/..' . '/uxweb/sweet-alert/src/SweetAlert/ConvertMessagesIntoSweetAlert.php',
+        'UxWeb\\SweetAlert\\LaravelSessionStore' => __DIR__ . '/..' . '/uxweb/sweet-alert/src/SweetAlert/LaravelSessionStore.php',
+        'UxWeb\\SweetAlert\\SessionStore' => __DIR__ . '/..' . '/uxweb/sweet-alert/src/SweetAlert/SessionStore.php',
+        'UxWeb\\SweetAlert\\SweetAlert' => __DIR__ . '/..' . '/uxweb/sweet-alert/src/SweetAlert/SweetAlert.php',
+        'UxWeb\\SweetAlert\\SweetAlertNotifier' => __DIR__ . '/..' . '/uxweb/sweet-alert/src/SweetAlert/SweetAlertNotifier.php',
+        'UxWeb\\SweetAlert\\SweetAlertServiceProvider' => __DIR__ . '/..' . '/uxweb/sweet-alert/src/SweetAlert/SweetAlertServiceProvider.php',
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'XdgBaseDir\\Xdg' => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src/Xdg.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',

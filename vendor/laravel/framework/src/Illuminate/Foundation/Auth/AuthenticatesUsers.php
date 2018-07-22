@@ -132,7 +132,7 @@ trait AuthenticatesUsers
 
         return redirect()->back()
             ->withInput($request->only($this->username(), 'remember'))
-            ->withErrors($errors);
+            ->withErrors("Email dan Password anda tidak cocok, Silahkan coba lagi !");
     }
 
     /**

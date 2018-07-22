@@ -54,7 +54,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        $validator =  Validator::make($data, [
+       return  $validator =  Validator::make($data, [
             'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
@@ -69,22 +69,22 @@ class RegisterController extends Controller
      * @return \App\User
      */
 
-    public function register(Request $request)
-    {
-        $this->validator($request->all());
-        event(new Registered($user = $this->create($request->all())));
-        return redirect('/login')->with('warning', 'Please Check Your Email Address');
-    }
+    // public function register(Request $request)
+    // {
+    //     $this->validator($request->all())->validate();
+    //     event(new Registered($user = $this->create($request->all())));
+    //     return redirect('/login')->with('warning', 'Please Check Your Email Address');
+    // }
 
 
     protected function create(array $data)
     {
         $user =  User::create([
-            'username' => $data['name'],
+            'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'token'   => str_random(20),
-            'str_slug' =>  str_slug($data['name'], '-')
+            'str_slug' =>  str_slug($data['username'], '-')
         ]);
          //mengirim email
         Mail::to($user->email)->send(new mailRegis($user));

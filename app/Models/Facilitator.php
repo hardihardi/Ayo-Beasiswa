@@ -13,7 +13,17 @@ class Facilitator extends Model
         "token_facilitator",
         "img_url",
         "berkas_pendukung",
-        "kategori"
+        "kategori",
+        "alamat",
+        "no_tempat",
+        "nama_jalan",
+        "kecamatan",
+        "kelurahan",
+        "kota",
+        "provinsi",
+        "kode_pos",
+        "lat",
+        "lng"
     ];
 
 

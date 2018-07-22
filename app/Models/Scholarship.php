@@ -38,7 +38,7 @@ class Scholarship extends Model
 	}
 
 	public function user(){
-        return $this->belongsToMany('App\Models\User', 'user_scholarship','scholarship_id', 'user_id')->withPivot('status');
+        return $this->belongsToMany('App\Models\User', 'user_scholarship','scholarship_id', 'user_id')->withPivot('status', 'berkas_diri', 'ijazah', 'organisasi', 'sp_beasiswa', 'berkas_keluarga', 'berkas_lain', 'berkas_pendukung');
     }
 
     public function categories(){

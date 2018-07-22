@@ -1,5 +1,15 @@
 @extends('layouts.web')
 
+@section('profile')
+@if(Auth::user()) 
+    @if(Auth::user()->img_url != null)
+     <img src="{{Storage::url(Auth::user()->img_url)}}" class="rounded-small"> 
+     @else  
+     <img src="/img/img_ss/malo.png" class="rounded-small"> 
+     @endif
+@endif
+@endsection
+
 @section('content')
 <style>
 
@@ -137,7 +147,7 @@
                           @endif
                             @if($user->organisasi != 0)
                              <tr>
-                                <td><p>Surat pernyataan sedang tidak menerima beasiswa dari tempat lain</p></td>
+                                <td><p>Surat Aktif Organisasi</p></td>
                                 <td>
 
                                         @if(Auth::user()->organisasi != null)
@@ -193,28 +203,43 @@
                            
                               </tr>
                           @endif
-                            @if($user->berkas_lain != "0")
+                          <tr>
+                            <td><p>Berkas Pendukung (sertifikat juara, sertifikat keikutsertaan, sertifikasi kompetensi dll)</p></td>
+                            <td>
+                                @if(Auth::user()->berkas_pendukung != null)
+                               <div class="switch-control">
+                                    <label class="switch">
+                                         <input type="checkbox" name="berkas[]" value="berkas_pendukung" {{ ($user->pivot->berkas_pendukung != null) ? "checked" : ""}}>
+                                         <span class="slider round"></span>
+                                   </label>
+                                </div>
+                                @else
+                                <p>Anda Belum Memiliki berkas ini dalam profil anda<p>
+                                @endif
+                        
+                            </td>
+                       
+                          </tr>
+                            @if($user->berkas_lain != null || $user->berkas_lain != 0 )
                              <tr>
-
-                                @php
-
-                                    $data = json_decode($user->berkas_lain);
-                                      foreach($data as $key => $val) {
-                                           $kunci=  $key;
-                                           $isi = $val;
-                                        }
-                                @endphp
-
-                                <td><p>{{$kunci}} <b>*ungga berkas dalam format Kompress (ZIP/RAR/GTZ)</b></p>
+                                <td><p>{{$user->berkas_lain}} <b>*ungga berkas dalam format Kompress (ZIP/RAR/GTZ)</b></p>
                                         <input type="file" name="file" id="berkas_lain">
+                                        <p>File Anda  : {{$user->pivot->berkas_lain}}
+                                </td>
+                                <td>
+                                        <a href="{{Storage::url($user->pivot->berkas_lain)}}"  data-toggle="tooltip" data-placement="top" title="Unduh Berkas!"> <span class="glyphicon glyphicon-cloud-download iconic green-color"></span></a>
+                                        
+                                        <a href="{{route('deleteFile', ['berkas_lain', 'facilitator', $user->pivot->scholarship_id])}}"  data-toggle="tooltip" data-placement="top" title="Hapus Berkas!" class="hapusBerkas"> <span class="glyphicon glyphicon-trash iconic red-color"></span></a>
                                 </td>
                               </tr>
                           @endif
+                            
                         </tbody>
                        
                 </table>
                 </div>
                 <input type="submit" class="bg-green-color form-control" style="border:0;color:#fff;" value="Ubah">
+
               </br>
                 <a href="{{route('cancel-schola',[$user->id])}}" class="btn btn-danger form-control" style="border:0;color:#fff;" >Batalkan Mendaftar</a>
                  </form>
@@ -227,6 +252,7 @@
 
 @section('js')
 <script type="text/javascript">
+   $('[data-toggle="tooltip"]').tooltip(); 
     $(document).ready(function() {
         $('body').css("background-color", "#fff");
         $('.navbar-fixed-top').removeClass('navbar-scroll');

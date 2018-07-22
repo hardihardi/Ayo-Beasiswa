@@ -26,6 +26,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700" rel="stylesheet">
+     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
     @yield('your_css')
 
 
@@ -43,7 +44,7 @@
             <!-- Left Navbar Menu -->
             <div class="navbar-header">
                 <a href="#" class="navbar-brand visible-xs trigger-sidebar"><i class="fa fa-bars"></i></a>
-                <a href="{{ route('dashboard') }}" class="navbar-brand"><img src="/img/logo.png" alt=""></a>
+                <a href="{{ route('home') }}" class="navbar-brand"><img src="/img/logo.png" alt=""></a>
                 <a href="#" class="navbar-brand visible-xs trigger-navbar"><i class="fa fa-ellipsis-v"></i></a>
             </div>
 
@@ -51,15 +52,21 @@
             <ul class="navbar-nav nav">
                 <li><a href="{{ route('dashboard') }}" class="item"><i class="fa fa-home"></i> Dashboard</a></li>
     <!--             <li><a href="messages.html" class="item"><i class="fa fa-inbox"></i> Messages</a></li> -->
-                <li><a href="" class="item"><i class="fa fa-ebll-o"></i> Notifications</a></li>
-                <li><a href="{{ route('home') }}" class="item"><i class="fa fa-search"></i> Browse Scholarship</a></li>
     <!--             <li><a href="https://github.com/muhibbudins/wonderful" class="item"><i class="fa fa-github"></i> Github</a></li> -->
             </ul>
               @if (Auth::guest())
                             <li><a href="{{ route('login') }}">Login / Register</a></li>
                         @else
                          <ul class="navbar-nav navbar-right nav">
-                              <li><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" class="item btn btn-info item"><i class="fa fa-user"></i> Profile</a>
+                             <li class="dropdown"><a class="dropdown-toggle profile item-scroll" data-toggle="dropdown" role="button" aria-expanded="false" class="item btn btn-info item">
+                                  @if(Auth::user()->img_url != null)
+                                 <img src="{{Storage::url(Auth::user()->img_url)}}" class="rounded-small"> 
+                                 @else  
+                                 <img src="/img/img_ss/malo.png" class="rounded-small"> 
+                                 @endif
+
+                                 
+                             </a>
 
                             <ul class="dropdown-menu" role="menu">
                                     <li>
@@ -154,5 +161,7 @@
             });
             </script>
     @yield('your_js')
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+@include('sweet::alert')
 </body>
 </html>

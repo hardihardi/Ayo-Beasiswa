@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Storage;
 
 
 
@@ -22,7 +22,9 @@ class userProfileController extends Controller
     	Carbon::setLocale('id');
         $allows = User::with('scholarship')->where('str_slug', $user)->first();
        	if($allows == null){
-             return redirect('/');
+              return redirect()
+            ->back()
+            ->withErrors($validator->errors());
         }else {
             $beasiswa = Scholarship::with(['user', 'facilitator', 'categories', 'facilitator.User'])->where('status', 1)->orderby('created_at', 'desc')->take(3)->get();
             $pendidikan = ["Sekolah Dasar", "Sekolah Menegah Pertama", "Sekolah Menengah Atas", "Sekolah Menengah Kejuruan", "Kuliah", "Sedang Tidak Bersekolah"]; 
@@ -44,20 +46,22 @@ class userProfileController extends Controller
          ]);
 
         if($validator->fails()) {
-		return redirect()
-		    ->back()
-		    ->withErrors($validator->errors());
-		}
+    		return redirect()
+    		    ->back()
+    		    ->withErrors($validator->errors());
+    		}
         if(Hash::check($request->old_password, Auth::user()->password)){
         	Auth::user()->update([
         		"password" => bcrypt($request->password)
         	]);
     	    return redirect()
 	        ->back()
-	        ->withSuccess(sprintf('File %s has been uploaded.', $updated->username));
+	        ->withSuccess(sprintf('Password anda telah berhasil diubah.'));
 
         }
-        dd("gagal");
+         return redirect()
+            ->back()
+            ->withErrors(sprintf('Telah terjadi kesalah saat merubah password, silahkan coba kembali.'));
     }
 
      public function update(Request $request){          
@@ -101,7 +105,7 @@ class userProfileController extends Controller
        
                  return redirect()
                 ->back()
-                ->withSuccess(sprintf('File %s has been uploaded.', Auth::user()->username));
+                ->withSuccess(sprintf('Hi %s Anda Telah melakukan perubahan pada halaman profil anda .', Auth::user()->username));
     }
     
 
@@ -118,7 +122,7 @@ class userProfileController extends Controller
         // dd($request->file('file'));
         $uploadedFile = $request->file('file');        
         $path = $uploadedFile->storeAs(
-            'public/users/'.Auth::user()->token."/files", $id . "." . $request->file('file')->getClientOriginalExtension()
+            'public/users/'.Auth::user()->token."/files", $id . "_".Upload::generateRandomString(10) . "." . $request->file('file')->getClientOriginalExtension()
         );
         $file = Auth::user()->update([
             $id => $path
@@ -136,66 +140,210 @@ class userProfileController extends Controller
     }
 
 
+    public function deleteFile($berkas, $kategori = "user", $id_scholarship = 0 ){
+        try {
+          $user = Auth::user();
+          // $user_beasiswa = $user->scholarship->where('id', $id_scholarship)->first();
+          
+          if($user && $user->$berkas != null ){
+            if($kategori == "user"){
+               $hapus = Storage::delete($user->$berkas);
+               if($hapus){
+                   $user->$berkas = null;
+                   $user->save();
+                    foreach($user->scholarship as $beasiswa){
+                       $update = $user->scholarship()->updateExistingPivot($beasiswa->id,[$berkas => null]);
+                   }
+                    // dd($user);
+                   return redirect()
+                    ->back()
+                    ->withSuccess(sprintf('Berkas '.$berkas. ' Berhasil Dihapus', "success"));
+               }else {
+                   return redirect()
+                    ->back()
+                    ->withSuccess(sprintf('Berkas '.$berkas. ' Berhasil Dihapus', "success"));
+               }  
+            }else if($kategori = "facilitator"){
+
+                  $hapus = Storage::delete($user_beasiswa->pivot->$berkas);
+                  if($hapus){
+                     $success = $user->scholarship()->updateExistingPivot($id_scholarship,[$berkas => null]);
+                     return redirect()
+                      ->back()
+                      ->withSuccess(sprintf('Berkas '.$berkas. ' Berhasil Dihapus', "success"));
+                 }else {
+                     return redirect()
+                      ->back()
+                      ->withSuccess(sprintf('Berkas '.$berkas. ' Berhasil Dihapus', "success"));
+                 }  
+            }
+            else {
+              dd("gagal");
+            }
+          }else {
+               return redirect()
+                    ->back()
+                    ->withErrors(sprintf('Tidak ada data yang terhapus', "success"));
+          }
+        }catch(Exception $ex){
+            dd($ex);
+        }
+    }
+
     public function status($id, request $request){
         Carbon::setLocale('id');
         $allows = Auth::user()->scholarship()->where('scholarship_id', $id)->first();
         if($allows == null){
              return redirect('/');
         }else {
+          // dd($allows);
             return view('status', ["user" => $allows]);
         }
     }
 
       public function updateScholar($id, request $request){
-        $berkas_array = ["berkas_diri", "ijazah", "organisasi","sp_beasiswa","berkas_keluarga","berkas_lain"];
+         $validator = Validator::make(request()->all(), [
+        'file' => 'nullable|file|max:1000000',
+         ]);
+      
+        if($validator->fails()) {
+        redirect()
+            ->back()
+            ->withErrors($validator->errors());
+        }
+        $berkas_array = ["berkas_diri", "ijazah", "organisasi","sp_beasiswa","berkas_keluarga","berkas_lain", "berkas_pendukung"];
         $array = [];
         $user = Auth::user();
         $array['updated_at'] = Carbon::now();
        if(isset($request->berkas)){
+
             foreach ($berkas_array as $berkas) {
                 if(in_array($berkas, $request->berkas)){
-                    if( $berkas == "berkas_lain"){
-                        $data_lain[$request->berkas_lain] = 1;
-                        $beasiswa->$berkas = json_encode($data_lain);
-                    }else
                        $array[$berkas] = $user->$berkas;
                 }else 
                      $array[$berkas] = null;
               }
-
+                $uploadedFile = $request->file('file');        
+                if($uploadedFile){
+                   $path = $uploadedFile->storeAs(
+                    'public/facilitators/'.Scholarship::where('id', $id)->first()->facilitator->token_facilitator."/files/".$user->id, $id . "_".Upload::generateRandomString(10) . "." . $request->file('file')->getClientOriginalExtension()
+                    );
+                    $array["berkas_lain"] = $path;  
+                }
               $array['updated_at'] = Carbon::now();
               if($user->scholarship->where('id_scholarship', $id)->first() == null){
                   $success = $user->scholarship()->updateExistingPivot($id,$array);
                   return redirect()
                       ->back()
-                      ->withSuccess(sprintf('File %s has been uploaded.', "success"));
+                      ->withSuccess(sprintf('Berkas Anda Telah Di Update.', "success"));
               }else {
-                  dd("adasd");
-                    redirect()
+                    return redirect()
                     ->back()
-                    ->withErrors(sprintf('File %s has been uploaded.', "Anda Sudah mendaftar"));
+                    ->withErrors(sprintf('Maaf %s.', "Anda Sudah mendaftar"));
               }
         }
         else {
+           foreach ($berkas_array as $berkas) {
+                     $array[$berkas] = null;
+              }
           $success = $user->scholarship()->updateExistingPivot($id,$array);
            return redirect()
                     ->back()
-                    ->withSuccess(sprintf('File %s has been uploaded.', "success"));  
+                    ->withSuccess(sprintf('Berkas Anda Telah Di Update %s.', "Success"));  
         }
      }
 
 
+      public function addScholar($id, request $request){
+        $validator = Validator::make(request()->all(), [
+        'file' => 'nullable|file|max:1000000',
+         ]);
+      
+        if($validator->fails()) {
+        redirect()
+            ->back()
+            ->withErrors($validator->errors());
+        }
+        Carbon::setLocale('id');
+        $user = Auth::user();
+        $array = [];
+        $array['created_at'] = Carbon::now();
+        $array['updated_at'] = Carbon::now();
+        if(isset($request->berkas)){
+            foreach($request->berkas as $berkas){
+              $array[$berkas] = $user->$berkas;
+            }
+            $array['created_at'] = Carbon::now();
+            $array['updated_at'] = Carbon::now();
+            $uploadedFile = $request->file('file');        
+              if($uploadedFile){
+                 $path = $uploadedFile->storeAs(
+                  'public/facilitators/'.Scholarship::where('id', $id)->first()->facilitator->token_facilitator."/files/".$user->id, $id . "_".Upload::generateRandomString(10) . "." . $request->file('file')->getClientOriginalExtension()
+                  );
+                  $array["berkas_lain"] = $path;  
+              }
+            if($user->scholarship->where('id_scholarship', $id)->first() == null){
+                $success = $user->scholarship()->attach($id,$array);
+                return redirect()
+                    ->back()
+                    ->withSuccess(sprintf('Pendaftaran beasiswa berhasil.'));
+            }else {
+                  redirect()
+                  ->back()
+                  ->withErrors(sprintf('Maaf %s.', "Anda Sudah mendaftar"));
+            }
+        }
+        else {
+          $success = $user->scholarship()->attach($id,$array);
+           return redirect()
+                    ->back()
+                    ->withSuccess(sprintf('Terjadi %s silahakan coba beberapa saat lagi.', "Masalah"));  
+        }
+     }
 
     public function cancelSchola($id){
+        $beasiswa = Scholarship::where('id', $id)->first();
         $user=  Auth::user()->scholarship()->detach($id);
         if ($user){
               return redirect()
                 ->back()
-                ->withSuccess(sprintf('File %s has been uploaded.', Auth::user()->username));
+                ->withSuccess(sprintf('Anda telah membatalkan beasiswa %s.', $beasiswa->nama_beasiswa));
             }else {
                 return redirect()
                     ->back()
                     ->withErrors("error");
             }
     }
+
+    public function updatePhoto(Request $request){
+       $validator = Validator::make(request()->all(), [
+        'upload' =>  'mimes:JPEG,jpeg,JPG,jpg,png,PNG|required|max:1000000'
+         ]);
+
+        if($validator->fails()) {
+          return redirect()
+              ->back()
+              ->withErrors(sprintf("Masalah Validasi %s ", ':Coba lagi'));
+          }
+
+        $user = Auth::user();
+        $logo = $request->image_data; 
+        if($logo !== null){
+            $name = "profile.png";
+            $logo = Upload::changeBase64($request->image_data, 'public/users/'. $user->token , $name); 
+            $update = $user->img_url =  $logo;
+            $user->save();
+            if ($update){
+              return redirect()
+                ->back()
+                ->withSuccess(sprintf('Update foto profil berhasil.'));
+            }else {
+                return redirect()
+                    ->back()
+                    ->withErrors("error");
+            }
+        }
+    }
+
+   
 }

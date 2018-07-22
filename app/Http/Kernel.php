@@ -34,6 +34,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \UxWeb\SweetAlert\ConvertMessagesIntoSweetAlert::class,
         ],
 
         'api' => [
@@ -61,5 +62,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\adminMiddleware::class,
         'user' => \App\Http\Middleware\userMiddleware::class,
         'facilitator' => \App\Http\Middleware\facilitatorMiddleware::class,
+        'sweetalert' => \UxWeb\SweetAlert\ConvertMessagesIntoSweetAlert::class,
     ];
 }

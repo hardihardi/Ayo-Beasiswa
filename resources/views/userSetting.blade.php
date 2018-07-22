@@ -1,7 +1,23 @@
 @extends('layouts.web')
-
+@section('profile')
+@if(Auth::user()) 
+    @if(Auth::user()->img_url != null)
+     <img src="{{Storage::url(Auth::user()->img_url)}}" class="rounded-small"> 
+     @else  
+     <img src="/img/img_ss/malo.png" class="rounded-small"> 
+     @endif
+@endif
+@endsection
 @section('css')
 <link rel="stylesheet" href="/css/croppit.css">
+@endsection
+
+@section('profile')
+@if(Auth::user()->img_url != null) 
+ <img src="{{Storage::url(Auth::user()->img_url)}}" class="rounded-small"> 
+ @else  
+ <img src="/img/img_ss/malo.png" class="rounded-small"> 
+ @endif
 @endsection
 
 @section('content')
@@ -17,6 +33,21 @@ input.btn-success {
 position: absolute;
 right: -100px;
 top: 8px
+}
+
+.cropit-preview {
+    width : 400px !important; 
+}
+
+.image-editor {
+    overflow-x : hidden;
+    display:none;
+    width:100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    background: #fff;
+    z-index: 101;
 }
 
 </Style>
@@ -165,7 +196,7 @@ top: 8px
                                     <td>
                                         <label for="berkas1" data-toggle="tooltip" data-placement="top" title="Unggah berkas!"> <span class="glyphicon glyphicon-cloud-upload iconic blue-color"></label>
                                         <a href="{{Storage::url($user->berkas_diri)}}"  data-toggle="tooltip" data-placement="top" title="Unduh Berkas!"> <span class="glyphicon glyphicon-cloud-download iconic green-color"></span></a>
-                                        <a href="#"  data-toggle="tooltip" data-placement="top" title="Hapus Berkas!"> <span class="glyphicon glyphicon-trash iconic red-color"></span></a>
+                                        <a href="{{route('deleteFile', ['berkas_diri'])}}"  data-toggle="tooltip" data-placement="top" title="Hapus Berkas!" class="hapusBerkas"> <span class="glyphicon glyphicon-trash iconic red-color"></span></a>
                                         
                                     </form>
                                 </td>
@@ -192,7 +223,7 @@ top: 8px
                                         <label for="berkas2" data-toggle="tooltip" data-placement="top" title="Unggah berkas!"> <span class="glyphicon glyphicon-cloud-upload iconic blue-color"></label>
                                         <a href="{{Storage::url($user->ijazah)}}"  data-toggle="tooltip" data-placement="top" title="Unduh Berkas!"> <span class="glyphicon glyphicon-cloud-download iconic green-color"></span></a>
                                         
-                                        <a href="#"  data-toggle="tooltip" data-placement="top" title="Hapus Berkas!"> <span class="glyphicon glyphicon-trash iconic red-color"></span></a>
+                                        <a href="{{route('deleteFile', ['ijazah'])}}"  data-toggle="tooltip" data-placement="top" title="Hapus Berkas!" class="hapusBerkas"> <span class="glyphicon glyphicon-trash iconic red-color"></span></a>
                                     </form>
                                 </td>
                             </tr>
@@ -201,7 +232,7 @@ top: 8px
                                     <form action="{{route('upload_file', ["organisasi"])}}" method="POST" enctype="multipart/form-data" >
                                         {{ csrf_field() }}
                                         {{ method_field('put') }}
-                                        <p>Surat Keterangan AKtif Organisasi / sertifikat prestasi</p>
+                                        <p>Surat Keterangan AKtif Organisasi</p>
                                         <div class="input-group">
                                             <input readonly type="file"  name="file"  style="display:none" id="berkas3"  class="berkas" >
                                             <input readonly type="text" class="form-control" style="color:#222;" placeholder="Berkas Belum Diupload" name="foto" readonly value="{{$user->organisasi}}">
@@ -217,7 +248,7 @@ top: 8px
                                     <label for="berkas3" data-toggle="tooltip" data-placement="top" title="Unggah berkas!"> <span class="glyphicon glyphicon-cloud-upload iconic blue-color"></label>
                                     <a href="{{Storage::url($user->organisasi)}}"  data-toggle="tooltip" data-placement="top" title="Unduh Berkas!"> <span class="glyphicon glyphicon-cloud-download iconic green-color"></span></a>
                                     
-                                    <a href="#"  data-toggle="tooltip" data-placement="top" title="Hapus Berkas!"> <span class="glyphicon glyphicon-trash iconic red-color"></span></a>
+                                    <a href="{{route('deleteFile', ['organisasi'])}}"  data-toggle="tooltip" data-placement="top" title="Hapus Berkas!" class="hapusBerkas"> <span class="glyphicon glyphicon-trash iconic red-color"></span></a>
                                 </form>
                             </td>
                         </tr>
@@ -241,7 +272,7 @@ top: 8px
                                         <label for="berkas4" data-toggle="tooltip" data-placement="top" title="Unggah berkas!"> <span class="glyphicon glyphicon-cloud-upload iconic blue-color"></label>
                                         <a href="{{Storage::url($user->sp_beasiswa)}}"  data-toggle="tooltip" data-placement="top" title="Unduh Berkas!"> <span class="glyphicon glyphicon-cloud-download iconic green-color"></span></a>
                                         
-                                        <a href="#"  data-toggle="tooltip" data-placement="top" title="Hapus Berkas!"> <span class="glyphicon glyphicon-trash iconic red-color"></span></a>
+                                        <a href="{{route('deleteFile', ['sp_beasiswa'])}}"  data-toggle="tooltip" data-placement="top" title="Hapus Berkas!"> <span class="glyphicon glyphicon-trash iconic red-color"></span></a>
                                         
                                     </form>
                                 </td>
@@ -265,20 +296,20 @@ top: 8px
                                             <label for="berkas5" data-toggle="tooltip" data-placement="top" title="Unggah berkas!"> <span class="glyphicon glyphicon-cloud-upload iconic blue-color"></label>
                                             <a href="{{Storage::url($user->berkas_keluarga)}}"  data-toggle="tooltip" data-placement="top" title="Unduh Berkas!"> <span class="glyphicon glyphicon-cloud-download iconic green-color"></span></a>
                                             
-                                            <a href="#"  data-toggle="tooltip" data-placement="top" title="Hapus Berkas!"> <span class="glyphicon glyphicon-trash iconic red-color"></span></a>
+                                            <a href="{{route('deleteFile', ['berkas_keluarga'])}}"  data-toggle="tooltip" data-placement="top" title="Hapus Berkas!" class="hapusBerkas"> <span class="glyphicon glyphicon-trash iconic red-color"></span></a>
                                             
                                         </form>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <form action="{{route('upload_file', ["berkas_lain"])}}" method="POST" enctype="multipart/form-data" >
+                                        <form action="{{route('upload_file', ["berkas_pendukung"])}}" method="POST" enctype="multipart/form-data" >
                                             {{ csrf_field() }}
                                             {{ method_field('put') }}
                                             <p>Berkas Lain nya sebagai pendukung</p>
                                             <div class="input-group">
                                                 <input readonly type="file"name="file"  style="display:none" id="berkas6"  class="berkas" >
-                                                <input readonly type="text" class="form-control" style="color:#222;" placeholder="Berkas Belum Diupload" name="foto" readonly value="{{$user->berkas_lain}}">
+                                                <input readonly type="text" class="form-control" style="color:#222;" placeholder="Berkas Belum Diupload" name="foto" readonly value="{{$user->berkas_pendukung}}">
                                                 <input type="submit" style="display:none" class="btn btn-success"  name="" value="simpan">
                                                 <div class="progress">
                                                     <div class="progress-bar" role="progressbar" aria-voluenow="0" aria-volumemin="0" aira-volumemax="100">
@@ -287,9 +318,9 @@ top: 8px
                                             </td>
                                             <td>
                                                 <label for="berkas6" data-toggle="tooltip" data-placement="top" title="Unggah berkas!"> <span class="glyphicon glyphicon-cloud-upload iconic blue-color"></label>
-                                                <a href="{{Storage::url($user->berkas_lain)}}" > <span class="glyphicon glyphicon-cloud-download iconic green-color"></span></a>
+                                                <a href="{{Storage::url($user->berkas_pendukung)}}" > <span class="glyphicon glyphicon-cloud-download iconic green-color"></span></a>
                                                 
-                                                <a href="#"  data-toggle="tooltip" data-placement="top" title="Hapus Berkas!"> <span class="glyphicon glyphicon-trash iconic red-color"></span></a>
+                                                <a href="{{route('deleteFile', ['berkas_pendukung'])}}"  data-toggle="tooltip" data-placement="top" title="Hapus Berkas!" class="hapusBerkas"> <span class="glyphicon glyphicon-trash iconic red-color"></span></a>
                                                 
                                             </form>
                                         </td>
@@ -322,7 +353,11 @@ top: 8px
                         <div class="col-md-12 col-sm-12 col-lg-12" style="margin: 0;padding: 0;margin-top: 10px;">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <img src="/img/img_ss/malo.png" class="logo-sm">
+                                     @if(Auth::user()->img_url != null) 
+                                     <img src="{{Storage::url(Auth::user()->img_url)}}" class="logo-sm"> 
+                                     @else  
+                                     <img src="/img/img_ss/malo.jpg" class="logo-sm"> 
+                                     @endif
                                 </div>
                                 <div class="col-md-9">
                                     <p style="font-weight: 500;margin-bottom:0;">HI! {{$user->username}}</p>
@@ -333,7 +368,7 @@ top: 8px
                         <div class="col-md-12 col-sm-12 col-lg-12" style="margin: 0;padding: 0;margin-top: 10px;">
                             <div class="card-profile">
                                 <div class="card-icon" style="height   :100%;">
-                                    <img src="/img/img_ss/malo.png">
+                                    <img src="{{Storage::url($user->img_url)}}">
                                     <label for="upload_gambar" style="cursor:pointer"><span class="fa fa-edit bg-blue-color" style="font-size:25px"> <p style="font-size:12px">Ganti</p></span></label>
                                     <div class="card-content">
                                         <p style="font-size: 10px;
@@ -342,24 +377,27 @@ top: 8px
                                         </p>
                                     </div>
                                 </div>
-                                <div class="image-editor" style="display:none;width:100%;height: 100%;position: absolute;top: 0;background: #fff;z-index: 101;">
-                                    <input id="upload_gambar" type="file" class="cropit-image-input" style="display:none">
-                                    <div class="cropit-preview" style="width:100%;min-height:200px;"></div>
-                                    <div class="image-size-label">
-                                        Atur ulang ukuran gambar
-                                    </div>
-                                    <input type="range" class="cropit-image-zoom-input">
-                                    <input type="hidden" name="image_data" class="hidden-image-data" />
-                                    <div class="card-content" >
-                                        <p style="font-size: 10px;
-                                            font-weight: 300;">
-                                            Besar file: maksimum 10.000.000 bytes (10 Megabytes) Ekstensi file yang diperbolehkan: .JPG .JPEG .PNG
-                                        </p>
-                                        <button id="cancel-upload" class="btn btn-danger">Cancel</button>
-                                        <button id="upload-image" class="btn btn-success">Upload</button>
-                                    </div>
+                            <form action="{{route('updatePhoto')}}" method="POST" id="form_profile" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <div class="image-editor">
+                                        <input id="upload_gambar" type="file" class="cropit-image-input" name="upload" style="display:none">
+                                        <div class="cropit-preview" style="width:100%;min-height:200px;"></div>
+                                        <div class="image-size-label">
+                                            Atur ulang ukuran gambar
+                                        </div>
+                                        <input type="range" class="cropit-image-zoom-input">
+                                        <input type="hidden" name="image_data" class="hidden-image-data" />
+                                        <div class="card-content" >
+                                            <p style="font-size: 10px;
+                                                font-weight: 300;">
+                                                Besar file: maksimum 10.000.000 bytes (10 Megabytes) Ekstensi file yang diperbolehkan: .JPG .JPEG .PNG
+                                            </p>
+                                            <button id="cancel-upload" class="btn btn-danger">Cancel</button>
+                                            <button id="upload-image" class="btn btn-success" type="submit" >Simpan</button>
+                                        </div>
+                                   
                                 </div>
-                                
+                            </form>     
                             </div>
                             
                             <div class="col-md-12 col-sm-12 col-lg-12" style="margin: 0;padding: 0;margin-top: 10px;">
@@ -446,7 +484,7 @@ top: 8px
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="berkas">Upload Berkas Pendukung <b> *Berkas dengan format kompress file (RAR/ZIP/TAR/GTZ)</b></label>
+                                                        <label for="berkas">Upload Berkas Pendukung (sertifikat juara, sertifikat keikutsertaan, sertifikasi kompetensi dll) <b> *Berkas dengan format kompress file (RAR/ZIP/TAR/GTZ)</b></label>
                                                         <input name="berkas" id="berkas" type="file"  >
                                                     </div>
                                                     <div class="form-group">
@@ -478,13 +516,27 @@ top: 8px
 @endsection
 
 @section('js')
-<script type="text/javascript" src="/js/jquery.cropit.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/hideshowpassword/2.0.8/hideShowPassword.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/js/jquery.cropit.js"></script>
+ <script>
+ $(function() {
+     $('.image-editor').cropit({
+         allowDragNDrop: false
+     });
+ 
+     $('#form_profile').submit(function() {
+         // Move cropped image data to hidden input
+         var imageData = $('.image-editor').cropit('export');
+         $('.hidden-image-data').val(imageData);
+     });
+ });
+ </script>
 <script>
    $(document).ready(function(){
-
-    $('form > .input-group > input[type=file]').change(function(){
+         $('.hapusBerkas').each(function(index, element){
+            })
+        $('form > .input-group > input[type=file]').change(function(){
             var $form = $(this).closest('form');
             console.log($form); 
            $form.find('input.btn-success').css('display','block')
@@ -510,56 +562,39 @@ top: 8px
              });                
         });
       
-   })
+        $('#upload_gambar').change(function(){
+            console.log('berubah')
+            // $(this).next('.cropit-preview').css('width', '100%')
+            $(this).parent().css('display', 'block');
+        })
 
-
-</script>
-<script>
-$(document).ready(function(){
-    $('#upload_gambar').change(function(){
-        console.log('berubah')
-        $(this).next('.cropit-preview').css('width', '100%')
-        $(this).parent().css('display', 'block');
-    })
-
-    $('#cancel-upload').on('click', function(){
-        $('.image-editor').css('display', 'none')
-    })
-    $('[data-toggle="tooltip"]').tooltip();   
-});
-
-
-</script>
-
-
- <script type="text/javascript" src="/js/jquery.cropit.js"></script>
-
-
- <script>
- $(function() {
-     $('.image-editor').cropit({
-         allowDragNDrop: false
-     });
- 
-     $('form').submit(function() {
-         // Move cropped image data to hidden input
-         var imageData = $('.image-editor').cropit('export');
-         $('.hidden-image-data').val(imageData);
-     });
- });
- </script>
-<script type="text/javascript">
-    $(document).ready(function() {
-            $('body').css("background-color", "#f6f7f8");
-            $('.navbar-fixed-top').removeClass('navbar-scroll');
-         $('.profile-toogle').removeClass('item-scroll');
-         $("button").click(function(){
-         $.getJSON("demo_ajax_json.js", function(result){
-             $.each(result, function(i, field){
-                 $("div").append(field + " ");
+        $('#cancel-upload').on('click', function(){
+            $('.image-editor').css('display', 'none')
+        })
+        $('[data-toggle="tooltip"]').tooltip();   
+        $('body').css("background-color", "#f6f7f8");
+        $('.navbar-fixed-top').removeClass('navbar-scroll');
+        $('.profile-toogle').removeClass('item-scroll');
+        $('.berkas').each(function(index, element){
+            $(element).on('change', function() {
+            var input  = $(this),
+                numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                asli = input.val(),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                input.trigger('fileselect', [numFiles, label]);
              });
-         });
-     });
+            $(element).on('fileselect', function(event, numFiles, label) {
+
+                var input = $(this).parents('.input-group').find(':text'),
+                    log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+                if( input.length ) {
+                    input.val(log);
+                } else {
+                    if( log ) alert(log);
+                }
+            });
+        }); 
      });
   
  </script>
@@ -665,35 +700,6 @@ $(document).ready(function(){
         }
 
     }).keypress();
-</script>
-<script>
-    $(document).ready(function(){
-        $('.berkas').each(function(index, element){
-            $(element).on('change', function() {
-            var input  = $(this),
-                numFiles = input.get(0).files ? input.get(0).files.length : 1,
-                asli = input.val(),
-                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-                input.trigger('fileselect', [numFiles, label]);
-        });
-
-    // We can watch for our custom `fileselect` event like this
-
-        $(element).on('fileselect', function(event, numFiles, label) {
-
-            var input = $(this).parents('.input-group').find(':text'),
-                log = numFiles > 1 ? numFiles + ' files selected' : label;
-
-            if( input.length ) {
-                input.val(log);
-            } else {
-                if( log ) alert(log);
-            }
-
-        });
-        }); 
-    });
-
 </script>
 <script>
     var nd,nb,np,pd,tl,tlp,jk,pro,kt,a1,a2;

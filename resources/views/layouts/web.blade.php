@@ -13,7 +13,7 @@ use Carbon\Carbon;
     <title>Ayobeasiswa.me </title>
 
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="120x120" href="img/favicon/apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="/img/icon2.png">
     <link rel="manifest" href="img/favicon/manifest.json">
     <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="theme-color" content="#ffffff">
@@ -28,6 +28,7 @@ use Carbon\Carbon;
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:400git,500,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
     <!--  <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
     @yield('css')
 </head>
@@ -50,7 +51,7 @@ use Carbon\Carbon;
             <ul class="navbar-nav nav">
                 <li><a href="{{ route('root') }}" class="item"><i class="fa fa-home"></i> Beranda</a></li>
                 <li><a href="{{ route('beasiswa') }}" class="item"><i class="fa fa-graduation-cap" aria-hidden="true"></i></i> Beasiswa</a></li>
-                <li><a href="{{ route('home') }}" class="item"><i class="fa fa-search"></i> Cari Beasiswa</a></li>
+                <li><a href="{{ route('home') }}" class="item"><i class="fa fa-search"></i> Tentang Kami</a></li>
                    @if (Auth::guest())
                         <a href="{{ route('login') }}" class="item profile-toogle item-scroll" style="color: #2DD6D9;
                         font-weight: bold;
@@ -60,7 +61,7 @@ use Carbon\Carbon;
                         @else
                          </ul>
                          <ul class="navbar-nav navbar-right nav">
-                              <li class="dropdown"><a class="dropdown-toggle profile item-scroll" data-toggle="dropdown" role="button" aria-expanded="false" class="item btn btn-info item"><img src="/img/img_ss/malo.png" class="rounded-small"></a>
+                              <li class="dropdown"><a class="dropdown-toggle profile item-scroll" data-toggle="dropdown" role="button" aria-expanded="false" class="item btn btn-info item">@yield('profile')</a>
 
                                 <ul class="dropdown-menu" role="menu" >
                                     <li>
@@ -152,6 +153,7 @@ use Carbon\Carbon;
            </div>
     </footer>
  <script type="text/javascript" src="/js/jquery-1.11.3.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <script type="text/javascript" src="/js/jquery.viewportchecker.js"></script>   
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/nicescroll.min.js"></script>
@@ -162,7 +164,9 @@ use Carbon\Carbon;
 <script type="text/javascript" src="/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="/js/bootstrap-datetimepicker.id.js" charset="UTF-8"></script>
 <script type="text/javascript" src="/js/bootstrap3-typeahead.js"></script>
+
 <script type="text/javascript">
+
 $('.form_date').datetimepicker({
     language:  'fr',
     weekStart: 1,
@@ -191,5 +195,6 @@ $('ul.nav li.dropdown').hover(function() {
     <!-- Your Own Script -->
 <script type="text/javascript" src="/js/home.js"></script>
 @yield('js')
+@include('sweet::alert')
 </body>
 </html>

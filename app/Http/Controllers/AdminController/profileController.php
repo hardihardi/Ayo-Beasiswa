@@ -42,36 +42,37 @@ class profileController extends Controller
 
          if (Auth::user()->role == 1) {
             if(Auth::user()->facilitator == null){
-              $logo = $request->image_data;
-              $file = $request->file('berkas');   
-              $token = str_random(20);
-              if($logo !== null){
-                $name = "profile.png";
-                $logo = Upload::changeBase64($request->image_data, 'public/facilitators/'.$token , $name); 
-              }else $logo = "";
-              if($file !== null){
-                $name = "profile.". $file->getClientOriginalExtension();
-                $path = $file->storeAS('public/facilitators/'.$token , $name);
-              }else $path = "";
+                $logo = $request->image_data;
+                $file = $request->file('berkas');   
+                $token = str_random(20);
+                if($logo !== null){
+                  $name = "profile.png";
+                  $logo = Upload::changeBase64($request->image_data, 'public/facilitators/'.$token , $name); 
+                }else $logo = "";
+                if($file !== null){
+                  $name = "profile.". $file->getClientOriginalExtension();
+                  $path = $file->storeAS('public/facilitators/'.$token , $name);
+                }else $path = "";
 
-             
-                 $facilitator = Auth::user()->facilitator()->create([
-                    'nama_instansi' => $request->nama_instansi,
-                    'deskripsi_instansi' => $request->deskripsi_instansi,
-                    'token_facilitator'   => $token,
-                    'kategori' => $request->kategori,
-                    'berkas_pendukung' =>  $path,
-                    'img_url' =>  $logo
-                ]);
-            //mengirim email
-            $data = Mail::to(Auth::user()->email)->send(new mailFacilitator($facilitator));
-            if ($data){
-              return redirect('user/'. Auth::user()->username)
-              ->with('status', 'Silahkan cek E-mail untuk melakukan aktivasi menjadi penyedia ^_^');;
-             }else {
-              return redirect('user/'. Auth::user()->username)
-              ->with('Fail', 'Terjadi Kesalahan Silahkan daftar ulang');;
-             }
+               
+                   $facilitator = Auth::user()->facilitator()->create([
+                      'nama_instansi' => $request->nama_instansi,
+                      'deskripsi_instansi' => $request->deskripsi_instansi,
+                      'token_facilitator'   => $token,
+                      'kategori' => $request->kategori,
+                      'berkas_pendukung' =>  $path,
+                      'img_url' =>  $logo
+                  ]);
+              //mengirim email
+              $data = Mail::to(Auth::user()->email)->send(new mailFacilitator($facilitator));
+              
+              if ($data){
+                return redirect('user/'. Auth::user()->username)
+                ->with('status', 'Silahkan cek E-mail untuk melakukan aktivasi menjadi penyedia ^_^');;
+               }else {
+                return redirect('user/'. Auth::user()->username)
+                ->with('Fail', 'Terjadi Kesalahan Silahkan daftar ulang');;
+              }
             }
           }
     }
@@ -92,6 +93,7 @@ class profileController extends Controller
         'nama_instansi' => 'nullable|max:100',
         'deskripsi_instansi' => 'nullable|max:500',
         'kategori' => 'nullable|max:10',
+        'alamat' => 'required|max:200',
         'logo' => 'nullable|file|max:2000', // max 2MB
         'berkas' => 'nullable|file|max:10000', // max 2MB
       ]);
@@ -126,6 +128,16 @@ class profileController extends Controller
         $facilitator->nama_instansi = $request->nama_instansi;
         $facilitator->deskripsi_instansi = $request->deskripsi_instansi;
         $facilitator->kategori = $request->kategori;
+        $facilitator->alamat = $request->alamat;
+        $facilitator->no_tempat = $request->no_tempat;
+        $facilitator->nama_jalan = $request->nama_jalan;
+        $facilitator->kecamatan = $request->kecamatan;
+        $facilitator->kelurahan = $request->kelurahan;
+        $facilitator->kota = $request->kota;
+        $facilitator->provinsi = $request->provinsi;
+        $facilitator->kode_pos = $request->kode_pos;
+        $facilitator->lat = $request->lat;
+        $facilitator->lng = $request->lng;
       
         $facilitator->save();
         return redirect()
@@ -145,37 +157,5 @@ class profileController extends Controller
       return redirect('setting/dashboard');
      }
 
-     public function addScholar($id, request $request){
-        Carbon::setLocale('id');
-        $user = Auth::user();
-        $array = [];
-        $array['created_at'] = Carbon::now();
-        $array['updated_at'] = Carbon::now();
-        if(isset($request->berkas)){
-            foreach($request->berkas as $berkas){
-              $array[$berkas] = $user->$berkas;
-            }
-            $array['created_at'] = Carbon::now();
-            $array['updated_at'] = Carbon::now();
-            if($user->scholarship->where('id_scholarship', $id)->first() == null){
-                $success = $user->scholarship()->attach($id,$array);
-                return redirect()
-                    ->back()
-                    ->withSuccess(sprintf('File %s has been uploaded.', "success"));
-            }else {
-                  redirect()
-                  ->back()
-                  ->withErrors(sprintf('File %s has been uploaded.', "Anda Sudah mendaftar"));
-            }
-        }
-        else {
-          $success = $user->scholarship()->attach($id,$array);
-           return redirect()
-                    ->back()
-                    ->withSuccess(sprintf('File %s has been uploaded.', "success"));  
-        }
-     }
-
-   
-
+    
 }

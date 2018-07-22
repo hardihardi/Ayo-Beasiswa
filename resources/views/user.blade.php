@@ -1,5 +1,13 @@
 @extends('layouts.web')
-
+@section('profile')
+@if(Auth::user()) 
+    @if(Auth::user()->img_url != null)
+     <img src="{{Storage::url(Auth::user()->img_url)}}" class="rounded-small"> 
+     @else  
+     <img src="/img/img_ss/malo.png" class="rounded-small"> 
+     @endif
+@endif
+@endsection
 @section('content')
     <div class="wrap single-profile" style="margin-bottom:20px;">
         <div class="container" >

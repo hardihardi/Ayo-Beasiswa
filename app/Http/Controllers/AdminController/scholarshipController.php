@@ -8,6 +8,7 @@ use App\Models\Scholarship;
 use App\Models\Facilitator;
 use App\Http\Requests;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Helper\Upload;
 use Validator;
@@ -41,7 +42,7 @@ class scholarshipController extends Controller
         //2. melakukan validasi apakah ada data dari hasil encode
         //3. memanggil fungsi changeBae64 dengan parameter -> data encode -> direktori folder tujuan -> nama file  
           if($logo !== null){
-            $name = $request->beasiswa;
+                $name = str_slug($request->beasiswa).".jpg";
             $logo = Upload::changeBase64($request->image_data, 'public/facilitators/'.$facilitator->token_facilitator. "/beasiswa" , $name); 
             $beasiswa->alamat_gambar  =  $logo;
           }
@@ -50,8 +51,8 @@ class scholarshipController extends Controller
         if($request->berkas != [] ){
             foreach ($request->berkas as $berkas) {
                 if( $berkas == "berkas_lain"){
-                        $data_lain[$request->berkas_lain] = 1;
-                        $beasiswa->$berkas = json_encode($data_lain);
+                        // $data_lain[$request->berkas_lain] = 1;
+                        $beasiswa->$berkas = $request->berkas_lain;
                     }else
                         $beasiswa->$berkas = 1;
             }
@@ -77,7 +78,6 @@ class scholarshipController extends Controller
 
     public function show($id){
     	$beasiswa = Scholarship::with(['user', 'facilitator', 'categories'])->where('str_slug', $id)->first();
-      
 
     	// dd($beasiswa);
     	
@@ -108,6 +108,7 @@ class scholarshipController extends Controller
         if($logo !== null){
           $name = str_slug($request->beasiswa).".jpg";
           $logo = Upload::changeBase64($request->image_data, 'public/facilitators/'.$beasiswa->facilitator->token_facilitator.'/beasiswa', $name); 
+           $beasiswa->alamat_gambar  =  $logo;
         }
         $data_lain = [];
         $beasiswa->status = ($request->status == "on")? 1 : 0;
@@ -115,14 +116,18 @@ class scholarshipController extends Controller
          if($request->berkas != [] ){
             foreach ($berkas_array as $berkas) {
                 if(in_array($berkas, $request->berkas)){
-                    if( $berkas == "berkas_lain"){
-                        $data_lain[$request->berkas_lain] = 1;
-                        $beasiswa->$berkas = json_encode($data_lain);
+                    if($berkas == "berkas_lain"){
+                        // $data_lain[$request->berkas_lain] = 1;
+                        $beasiswa->$berkas = $request->berkas_lain;
                     }else
                         $beasiswa->$berkas = 1;
                 }else 
                     $beasiswa->$berkas = 0;
             }
+        }else {
+           foreach ($berkas_array as $berkas) {
+                $beasiswa->$berkas = 0;
+           }
         }
         $beasiswa->save();
         $beasiswa->categories()->detach();
@@ -138,7 +143,9 @@ class scholarshipController extends Controller
                 $beasiswa->categories()->attach($kategori);
             }
         }
-        return redirect('setting/list');
+       return redirect()
+            ->back()
+            ->withSuccess(sprintf("Update Beasiswa Berhasil"));
     }
 
     public function delete($id){
@@ -157,16 +164,17 @@ class scholarshipController extends Controller
             'email' => $beasiswa->email,
             'nama' => $beasiswa->nama_depan . " " . $beasiswa->nama_belakang,
             'pendidikan' => $beasiswa->pendidikan,
-            'berkas_diri' => $beasiswa->pivot->berkas_diri,
+            'berkas_diri' => $beasiswa->berkas_diri,
             'ijazah' => $beasiswa->pivot->ijazah,
             'organisasi' => $beasiswa->pivot->organisasi,
             'sp_beasiswa' => $beasiswa->pivot->sp_beasiswa,
             'berkas_keluarga' => $beasiswa->pivot->berkas_keluarga,
-            'berkas_lain' => $beasiswa->pivot->berkas_lain,
+            'berkas_lain' => [$beasiswas->berkas_lain,$beasiswa->pivot->berkas_lain],
             'id_beasiswa' => $beasiswa->id,
             'id_user' => $beasiswas->id,
             'nama_beasiswa' => $beasiswas->nama_beasiswa,
-            'status' => $beasiswa->pivot->status
+            'status' => $beasiswa->pivot->status,
+            'berkas_pendukung' => $beasiswa->pivot->berkas_pendukung,
         ]);
         echo json_encode($data);
         
@@ -179,14 +187,32 @@ class scholarshipController extends Controller
                    $success = $beasiswas->user()->updateExistingPivot($id_user,["status" =>  $status]);
                       return redirect()
                           ->back()
-                          ->withSuccess(sprintf('File %s has been uploaded.', "success"));
+                          ->withSuccess(sprintf('Anda Telah Mengubah Status User ', "success"));
                    }
                    // dd("boleh");
                }else {
-                  dd("adasd");
                     redirect()
                     ->back()
-                    ->withErrors(sprintf('File %s has been uploaded.', "Anda Sudah mendaftar"));
+                    ->withErrors(sprintf("Masalah Dalam Mengubah Statsu"));
               }
+    }
+
+    public function sendEmail(Request $request){
+      $status = $request->status_user;
+      $scholarship_id = $request->scholarship_id;
+      $user = User::whereHas('scholarship', function($q) use ($scholarship_id, $status){
+        $q->where('user_scholarship.scholarship_id', $scholarship_id)->where('user_scholarship.status', $status);
+      })->get();
+      $beasiswa = Auth::user()->facilitator->scholarships()->where('id',  $scholarship_id)->first();
+      $beasiswa->subject = $request->subject;
+      $beasiswa->message = $request->description;
+      $email_array = [];
+      foreach($user as $status){
+        array_push($email_array,$status->email);
+      }
+      $beasiswa->email_array = $email_array;
+      $beasiswa->status_user = $request->status;
+
+      dd($beasiswa);
     }
 }

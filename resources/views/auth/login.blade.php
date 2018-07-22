@@ -59,18 +59,18 @@
                          <form class="" role="form" method="POST" action="{{ route('register') }}">
                              {{ csrf_field() }}
                            <div class="form-group {{ $errors->has('username') ? ' has-error' : '' }}">
-                                <input type="text" class="form-control" placeholder="Username" value="{{ old('username') }}" id="username" name="name" id="username">
+                                <input type="text" class="form-control" placeholder="Username" value="{{ old('username') }}" id="username" name="username" id="username">
                                   @if ($errors->has('username'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('username') }}</strong>
                                     </span>
                                 @endif
                             </div>
-                           <div class="form-group {{ $errors->has('email-registration') ? ' has-error' : '' }}">
-                                <input type="text" class="form-control" placeholder="E-mail" value="{{ old('email-registration') }}" id="email" required autofocus name="email" type="email">
-                                 @if ($errors->has('email-registration'))
+                           <div class="form-group {{ $errors->has('email2') ? ' has-error' : '' }}">
+                                <input type="text" class="form-control" placeholder="E-mail" value="{{ old('email') }}" id="email" required autofocus name="email" type="email">
+                                 @if ($errors->has('email2'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email-registration') }}</strong>
+                                        <strong>{{ $errors->first('email2') }}</strong>
                                     </span>
                                 @endif
                             </div>

@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class adminMiddleware
+class superAdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -19,11 +19,13 @@ class adminMiddleware
         $user = $request->user();
 
         if($user){
-            if($user->isAdmin() || $user->isSuperAdmin()){
+            if($user->isSuperAdmin()){
                 return $next($request);
             }
         }
 
-        return redirect('home');
+       return redirect()
+                    ->back()
+                    ->withErrors(sprintf("Anda Tidak Memiliki Akses"));
     }
 }

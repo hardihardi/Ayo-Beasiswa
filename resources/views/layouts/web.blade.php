@@ -76,6 +76,13 @@ use Carbon\Carbon;
                                         <a class="item" href="{{route('single-user' , ["user" => Auth::user()->str_slug])}}">
                                             Pengaturan
                                         </a>
+                                         @elseif(Auth::user()->isSuperAdmin())
+                                             <a class="item" href="{{route('superadmin')}}">
+                                                System
+                                            </a>
+                                            <a class="item" href="{{route('single-user' , ["user" => Auth::user()->str_slug])}}">
+                                                Pengaturan
+                                            </a>
                                         @elseif(Auth::user()->isUser())
                                     
                                         <a class="item" href="{{route('single-user' , ["user" => Auth::user()->str_slug])}}">

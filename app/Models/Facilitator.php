@@ -12,6 +12,7 @@ class Facilitator extends Model
         "user_id",
         "token_facilitator",
         "img_url",
+        "str_slug",
         "berkas_pendukung",
         "kategori",
         "alamat",

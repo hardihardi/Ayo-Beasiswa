@@ -41,6 +41,7 @@ Route::prefix('setting')->group(function () {
 			Route::get('/organizer', 'AdminController\profileController@organizer')->name('organizer');
 			Route::group(["middleware" => "facilitator"], function(){
 				Route::get('/list', 'AdminController\scholarshipController@index')->name('scholarshipList');
+				Route::get('/list/facilitator', 'AdminController\scholarshipController@facilitator')->name('facilitatorList');
 				Route::get('/list/{id}', 'AdminController\scholarshipController@show')->name('singleList');
 				Route::get('/list/update/{id}', 'AdminController\scholarshipController@edit')->name('editList');
 				Route::get('/list/delete/{id}', 'AdminController\scholarshipController@delete')->name('deleteList');
@@ -53,11 +54,18 @@ Route::prefix('setting')->group(function () {
 				Route::get('/approve/{id_beasiswa}/{id_user}/{status}', 'AdminController\scholarshipController@approveGet')->name('adminApproveGet');
 				Route::post('/sendEmail', 'AdminController\scholarshipController@sendEmail')->name('sendEmail');
 			});
-		});		
+		});	
+
+		Route::group(["middleware" => "superAdmin"], function(){
+			Route::get('/superadmin', 'SuperAdminController\superAdminController@index')->name('superadmin');
+			Route::get('/activateFacilitator/{id}/{status}', 'SuperAdminController\superAdminController@activate')->name('activateFacilitator');
+			Route::get('/deleteFacilitator/{id}', 'SuperAdminController\superAdminController@delete')->name('deleteFacilitator');
+		});
 });
 
 Route::group(["middleware" => "user"], function(){
 	Route::get('/user/{username}', 'UserController\userProfileController@index')->name('single-user');
+	Route::get('/facilitator/{str_slug}', 'UserController\userProfileController@facilitator')->name('single-facilitator');
 	Route::put('/user/update', 'UserController\userProfileController@update')->name('update-user');
 	Route::post('/profile/create', 'AdminController\profileController@create')->name('profile_create');
 	Route::post('/user/update', 'AdminController\profileController@update')->name('user_update');

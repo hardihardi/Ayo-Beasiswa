@@ -61,6 +61,7 @@ class Kernel extends HttpKernel
         'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class,
         'admin' => \App\Http\Middleware\adminMiddleware::class,
         'user' => \App\Http\Middleware\userMiddleware::class,
+        'superAdmin' => \App\Http\Middleware\superAdminMiddleware::class,
         'facilitator' => \App\Http\Middleware\facilitatorMiddleware::class,
         'sweetalert' => \UxWeb\SweetAlert\ConvertMessagesIntoSweetAlert::class,
     ];

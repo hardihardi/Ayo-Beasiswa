@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Http\Helper\Upload;
 use App\Models\Scholarship;
+use App\Models\Facilitator;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -37,6 +38,13 @@ class userProfileController extends Controller
             }
             return view('user', ["user" => $allows, "beasiswas"=> $beasiswa]);
         }
+    }
+
+    public function facilitator($user){
+        Carbon::setLocale('id');
+        $allows = Facilitator::with('scholarships')->where('str_slug', $user)->first();
+        // dd($allows->scholarships[0]->user);
+        return view('facilitator', ["data" => $allows]);
     }
 
     public function updatepass(Request $request){
@@ -143,9 +151,9 @@ class userProfileController extends Controller
     public function deleteFile($berkas, $kategori = "user", $id_scholarship = 0 ){
         try {
           $user = Auth::user();
-          // $user_beasiswa = $user->scholarship->where('id', $id_scholarship)->first();
           
-          if($user && $user->$berkas != null ){
+          // dd( $user->scholarships->$berkas);
+          if($user){
             if($kategori == "user"){
                $hapus = Storage::delete($user->$berkas);
                if($hapus){
@@ -164,7 +172,7 @@ class userProfileController extends Controller
                     ->withSuccess(sprintf('Berkas '.$berkas. ' Berhasil Dihapus', "success"));
                }  
             }else if($kategori = "facilitator"){
-
+                $user_beasiswa = $user->scholarship->where('id', $id_scholarship)->first();
                   $hapus = Storage::delete($user_beasiswa->pivot->$berkas);
                   if($hapus){
                      $success = $user->scholarship()->updateExistingPivot($id_scholarship,[$berkas => null]);
@@ -342,7 +350,10 @@ class userProfileController extends Controller
                     ->back()
                     ->withErrors("error");
             }
-        }
+        }else   return redirect()
+              ->back()
+              ->withErrors(sprintf("Masalah Upload %s ", ':Coba lagi'));
+         
     }
 
    

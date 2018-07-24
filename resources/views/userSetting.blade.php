@@ -487,9 +487,9 @@ top: 8px
                                                         <label for="berkas">Upload Berkas Pendukung (sertifikat juara, sertifikat keikutsertaan, sertifikasi kompetensi dll) <b> *Berkas dengan format kompress file (RAR/ZIP/TAR/GTZ)</b></label>
                                                         <input name="berkas" id="berkas" type="file"  >
                                                     </div>
-                                                    <div class="form-group">
+                                                   <!--  <div class="form-group">
                                                         <label for="preview_image">Upload Foto Profil</label></label>
-                                                        <div class="image-editor">
+                                                        <div class="image-editor data-image-editor">
                                                             <input type="file" class="cropit-image-input">
                                                             <div class="cropit-preview"></div>
                                                             {{-- <div id="image_preview" class="img_preview"><img src="{{Storage::url($facilitator->img_url)}}"></div> --}}
@@ -499,7 +499,7 @@ top: 8px
                                                             <input type="range" class="cropit-image-zoom-input">
                                                             <input type="hidden" name="image_data" class="hidden-image-data" />
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                                 <div class="modal-footer " style="padding :20px 40px">
                                                     <input type="submit" class="bg-green-color form-control" style="border:0;color:#fff;" value="Daftar">
@@ -524,12 +524,14 @@ top: 8px
      $('.image-editor').cropit({
          allowDragNDrop: false
      });
- 
+
      $('#form_profile').submit(function() {
          // Move cropped image data to hidden input
          var imageData = $('.image-editor').cropit('export');
          $('.hidden-image-data').val(imageData);
      });
+
+
  });
  </script>
 <script>

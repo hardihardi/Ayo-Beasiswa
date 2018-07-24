@@ -16,10 +16,22 @@ use Validator;
 class scholarshipController extends Controller
 {
     public function index(){
-        $beasiswa = Auth::user()->facilitator->Scholarships()->with(['user', 'facilitator', 'categories'])->get();
-    	// dd($beasiswa);
+        
+        if(Auth::user()->isSuperAdmin()){
+           $beasiswa = Scholarship::with(['user', 'facilitator', 'categories'])->get();
+            return view('SU.listScholarship', ["beasiswas" => $beasiswa]);
+        }else{
+            $beasiswa = Auth::user()->facilitator->Scholarships()->with(['user', 'facilitator', 'categories'])->get();
+    	     }
+      // dd($beasiswa);
     	// return view('admin.list', ["beasiswas" => $beasiswa]);
-         return view('admin.listScholarship', ["beasiswas" => $beasiswa]);
+      return view('admin.listScholarship', ["beasiswas" => $beasiswa]);
+    }
+
+    public function facilitator(){
+        $facilitator = Facilitator::with(['user', 'Scholarships'])->get();
+        // dd($facilitator);
+        return view('SU.listFacilitator', ["facilitator" => $facilitator]);
     }
 
     public function create(){

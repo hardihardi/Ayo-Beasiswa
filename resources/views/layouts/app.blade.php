@@ -50,7 +50,7 @@
 
             <!-- Middle Navbar Menu -->
             <ul class="navbar-nav nav">
-                <li><a href="{{ route('dashboard') }}" class="item"><i class="fa fa-home"></i> Dashboard</a></li>
+                <li><a href="{{ route('dashboard') }}" class="item"><i class="fa fa-home"></i> Beranda</a></li>
     <!--             <li><a href="messages.html" class="item"><i class="fa fa-inbox"></i> Messages</a></li> -->
     <!--             <li><a href="https://github.com/muhibbudins/wonderful" class="item"><i class="fa fa-github"></i> Github</a></li> -->
             </ul>
@@ -71,7 +71,7 @@
                             <ul class="dropdown-menu" role="menu">
                                     <li>
                                             <p>Profil</p>
-                                            <p>Aria Samudera Elhamidy</p>
+                                            <p>{{ Auth::user()->nama_depan . " " .Auth::user()->nama_belakang}}</p>
                                         </li>
                                     <li>
                                             @if (Auth::user()->isAdmin())
@@ -81,8 +81,14 @@
                                             <a class="item" href="{{route('single-user' , ["user" => Auth::user()->str_slug])}}">
                                                 Pengaturan
                                             </a>
+                                            @elseif(Auth::user()->isSuperAdmin())
+                                             <a class="item" href="{{route('superadmin')}}">
+                                                System
+                                            </a>
+                                            <a class="item" href="{{route('single-user' , ["user" => Auth::user()->str_slug])}}">
+                                                Pengaturan
+                                            </a>
                                             @elseif(Auth::user()->isUser())
-                                       
                                             <a class="item" href="{{route('single-user' , ["user" => Auth::user()->str_slug])}}">
                                                 Pengaturan
                                             </a>
@@ -92,7 +98,7 @@
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();" class="item">
-                                            Logout
+                                            Keluar
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -127,15 +133,16 @@
     <div class="sidebar-menu">
         <ul id="first-menu" class="nav nav-pills nav-stacked active">
             <li><a href="#" class="item item-head">Dashboard</a></li>
-             <li><a href="{{ route('scholarshipList') }}" class="item item-side">List Scholarship</a></li>
-             <li><a href="{{ route('scholarshipCreate') }}" class="item item-side">Create Scholarship</a></li>
-
+             <li><a href="{{ route('scholarshipList') }}" class="item item-side">Daftar Beasiswa</a></li>
+             <li><a href="{{ route('scholarshipCreate') }}" class="item item-side">Tambah Beasiswa</a></li>
+             @if(Auth::user()->isSuperAdmin())
+              <li><a href="{{ route('facilitatorList') }}" class="item item-side">Daftar Fasilitator</a></li>
+             @endif
         </ul>
 
         <ul id="second-menu" class="nav nav-pills nav-stacked">
-            <li><a href="#" class="item item-head">User Setting</a></li>
-            <li><a href="{{ route('profile') }}" class="item item-side">Profile</a></li>
-            <li><a href="{{ route('organizer') }}" class="item item-side">Organizer Profile</a></li>
+            <li><a href="#" class="item item-head">Pengaturan User</a></li>
+            <li><a href="{{ route('profile') }}" class="item item-side">Profil</a></li>
         </ul>
     </div>
 
@@ -145,6 +152,7 @@
 
     <!-- Vendor Script -->
     <script type="text/javascript" src="/js/jquery.min.js"></script>
+
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/loading-bar.js"></script>
     <script type="text/javascript" src="/js/nicescroll.min.js"></script>

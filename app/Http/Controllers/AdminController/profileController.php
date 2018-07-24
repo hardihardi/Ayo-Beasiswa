@@ -40,28 +40,32 @@ class profileController extends Controller
             ->withErrors($validator->errors());
       }
 
+
          if (Auth::user()->role == 1) {
             if(Auth::user()->facilitator == null){
                 $logo = $request->image_data;
                 $file = $request->file('berkas');   
                 $token = str_random(20);
+
                 if($logo !== null){
                   $name = "profile.png";
                   $logo = Upload::changeBase64($request->image_data, 'public/facilitators/'.$token , $name); 
                 }else $logo = "";
+
                 if($file !== null){
                   $name = "profile.". $file->getClientOriginalExtension();
                   $path = $file->storeAS('public/facilitators/'.$token , $name);
                 }else $path = "";
 
-               
+                $slug = str_slug($request->nama_instansi, '-');
                    $facilitator = Auth::user()->facilitator()->create([
                       'nama_instansi' => $request->nama_instansi,
                       'deskripsi_instansi' => $request->deskripsi_instansi,
                       'token_facilitator'   => $token,
                       'kategori' => $request->kategori,
                       'berkas_pendukung' =>  $path,
-                      'img_url' =>  $logo
+                      'img_url' =>  $logo,
+                      'str_slug' =>  $slug
                   ]);
               //mengirim email
               $data = Mail::to(Auth::user()->email)->send(new mailFacilitator($facilitator));
@@ -136,6 +140,7 @@ class profileController extends Controller
         $facilitator->kota = $request->kota;
         $facilitator->provinsi = $request->provinsi;
         $facilitator->kode_pos = $request->kode_pos;
+        $facilitator->str_slug = str_slug($request->nama_instansi, '-');
         $facilitator->lat = $request->lat;
         $facilitator->lng = $request->lng;
       

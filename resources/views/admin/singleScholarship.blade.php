@@ -88,11 +88,12 @@
         </div>
     </section>
       <div id="email" class="modal fade" role="dialog">
-        <form action="{{route('sendEmail')}}" method="post">
+        <form action="{{route('addEmail')}}" method="post">
        {{ csrf_field() }}
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header" style="padding :19px 40px">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <center><h1>Kirim Email Kepada Pendaftar</h1></center>
                 </div>
                 <div class="modal-body" style="padding: 20px 40px">

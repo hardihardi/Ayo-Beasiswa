@@ -209,22 +209,4 @@ class scholarshipController extends Controller
               }
     }
 
-    public function sendEmail(Request $request){
-      $status = $request->status_user;
-      $scholarship_id = $request->scholarship_id;
-      $user = User::whereHas('scholarship', function($q) use ($scholarship_id, $status){
-        $q->where('user_scholarship.scholarship_id', $scholarship_id)->where('user_scholarship.status', $status);
-      })->get();
-      $beasiswa = Auth::user()->facilitator->scholarships()->where('id',  $scholarship_id)->first();
-      $beasiswa->subject = $request->subject;
-      $beasiswa->message = $request->description;
-      $email_array = [];
-      foreach($user as $status){
-        array_push($email_array,$status->email);
-      }
-      $beasiswa->email_array = $email_array;
-      $beasiswa->status_user = $request->status;
-
-      dd($beasiswa);
-    }
 }

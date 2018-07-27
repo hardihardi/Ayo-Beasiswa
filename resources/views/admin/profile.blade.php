@@ -36,7 +36,7 @@
                 <input type="text" class="form-control form-control-lg" id="deskripsi" placeholder="Agency Description" name="deskripsi_instansi" value="{{$facilitator->deskripsi_instansi}}">                      
             </div> 
             <div class="form-group">                                
-                <label for="kategori">Deskripsi</label></label>   
+                <label for="kategori">Kategori</label></label>   
                 <select name="kategori" class="form-control form-control-lg " id="kategori" >
                         <option value="1">Perorangan</option>    
                         <option value="2">Kelompok</option>    
@@ -125,8 +125,9 @@
 @section('your_js')
 
 <script type="text/javascript" src="/js/jquery.cropit.js"></script>
- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxXjojezssyxk1TQLrl-8Qp4ZJUPz0hlw&libraries=places&&callback=initAutocomplete" async defer"></script>
 <script src="{{asset('js/maps.js')}}"></script>
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxXjojezssyxk1TQLrl-8Qp4ZJUPz0hlw&libraries=places&&callback=initAutocomplete" async defer"></script>
+
 <script>
 
     var $mylat = $('#lat').val();

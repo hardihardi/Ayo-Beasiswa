@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\SuperAdminController;
 
-
+use App\Models\Email;
 use App\Models\Facilitator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -47,6 +47,26 @@ class superAdminController extends Controller
 		            ->withErrors(sprintf("Gagal Menghapus"));
     		} 
 		    		
-    	}
+    	}else {
+            return redirect()
+                    ->back()
+                    ->withErrors(sprintf("Gagal Menghapus"));
+        }
     }
+
+       public function deleteEmail($id){
+        $email = Email::where('id', $id)->first();
+          if($email){
+                $email->delete();
+                return redirect()
+                    ->back()
+                    ->withSuccess(sprintf("Berhasil Menghapus"));
+            }else{
+                return redirect()
+                    ->back()
+                    ->withErrors(sprintf("Gagal Menghapus"));
+            } 
+    }
+
+   
 }

@@ -19,6 +19,7 @@ class CreateEmailsTable extends Migration
             $table->string('subject',20);
             $table->text('email');
             $table->text('konten');
+            $table->integer('status');
             $table->timestamps();
 
             $table->foreign('facilitator_id')->references('id')->on('facilitators')->onDelete('cascade')->onUpdate('cascade');

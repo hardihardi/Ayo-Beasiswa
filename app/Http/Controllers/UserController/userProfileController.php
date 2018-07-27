@@ -23,9 +23,9 @@ class userProfileController extends Controller
     	Carbon::setLocale('id');
         $allows = User::with('scholarship')->where('str_slug', $user)->first();
        	if($allows == null){
-              return redirect()
+             return redirect()
             ->back()
-            ->withErrors($validator->errors());
+            ->withErrors("Tidak Terdapat Data");
         }else {
             $beasiswa = Scholarship::with(['user', 'facilitator', 'categories', 'facilitator.User'])->where('status', 1)->orderby('created_at', 'desc')->take(3)->get();
             $pendidikan = ["Sekolah Dasar", "Sekolah Menegah Pertama", "Sekolah Menengah Atas", "Sekolah Menengah Kejuruan", "Kuliah", "Sedang Tidak Bersekolah"]; 
@@ -79,7 +79,7 @@ class userProfileController extends Controller
         'nama_depan' => 'required|string|max:50',
         'nama_belakang' => 'required|string|max:50',
         'nama_panggilan' => 'required|string|max:50',
-        'pendidikan' => 'required|string|max:15',
+        'pendidikan' => 'required|string|max:30',
         'telp' => 'nullable|string|max:20',
         'telp_hp' => 'required|string|max:20',
         'jk' => 'required|string|max:10',
@@ -91,7 +91,7 @@ class userProfileController extends Controller
          ]);
       
         if($validator->fails()) {
-        redirect()
+        return redirect()
             ->back()
             ->withErrors($validator->errors());
         }
@@ -111,9 +111,9 @@ class userProfileController extends Controller
             'alamat_2' => $request->alamat_2
         ]);
        
-                 return redirect()
-                ->back()
-                ->withSuccess(sprintf('Hi %s Anda Telah melakukan perubahan pada halaman profil anda .', Auth::user()->username));
+         return redirect()
+        ->back()
+        ->withSuccess(sprintf('Hi %s Anda Telah melakukan perubahan pada halaman profil anda .', Auth::user()->username));
     }
     
 

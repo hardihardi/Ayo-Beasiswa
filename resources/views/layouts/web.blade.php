@@ -51,7 +51,7 @@ use Carbon\Carbon;
             <ul class="navbar-nav nav">
                 <li><a href="{{ route('root') }}" class="item"><i class="fa fa-home"></i> Beranda</a></li>
                 <li><a href="{{ route('beasiswa') }}" class="item"><i class="fa fa-graduation-cap" aria-hidden="true"></i></i> Beasiswa</a></li>
-                <li><a href="{{ route('home') }}" class="item"><i class="fa fa-search"></i> Tentang Kami</a></li>
+             <!--    <li><a href="{{ route('home') }}" class="item"><i class="fa fa-search"></i> Tentang Kami</a></li> -->
                    @if (Auth::guest())
                         <a href="{{ route('login') }}" class="item profile-toogle item-scroll" style="color: #2DD6D9;
                         font-weight: bold;

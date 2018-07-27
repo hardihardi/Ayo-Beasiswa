@@ -52,7 +52,10 @@ Route::prefix('setting')->group(function () {
 				// sementara ini di bikin post karena butuh buat bikin modal pake ajax
 				Route::post('/approve', 'AdminController\scholarshipController@approve')->name('adminApprove');
 				Route::get('/approve/{id_beasiswa}/{id_user}/{status}', 'AdminController\scholarshipController@approveGet')->name('adminApproveGet');
-				Route::post('/sendEmail', 'AdminController\scholarshipController@sendEmail')->name('sendEmail');
+				Route::get('/email/list', 'AdminController\adminController@email')->name('emailList');
+				Route::post('/addEmail', 'AdminController\adminController@addEmail')->name('addEmail');
+				Route::post('/sendEmail', 'AdminController\adminController@sendEmail')->name('sendEmail');
+				Route::post('/getMessages', 'AdminController\adminController@getMessages')->name('getMessages');
 			});
 		});	
 
@@ -60,6 +63,8 @@ Route::prefix('setting')->group(function () {
 			Route::get('/superadmin', 'SuperAdminController\superAdminController@index')->name('superadmin');
 			Route::get('/activateFacilitator/{id}/{status}', 'SuperAdminController\superAdminController@activate')->name('activateFacilitator');
 			Route::get('/deleteFacilitator/{id}', 'SuperAdminController\superAdminController@delete')->name('deleteFacilitator');
+			Route::get('/deleteEmail/{id}', 'SuperAdminController\superAdminController@deleteEmail')->name('deleteEmail');
+			Route::get('/emailFacilitator', 'SuperAdminController\superAdminController@email')->name('emailFacilitator');
 		});
 });
 

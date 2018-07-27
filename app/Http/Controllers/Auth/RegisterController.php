@@ -34,7 +34,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'admin/dashboard';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -106,7 +106,7 @@ class RegisterController extends Controller
         $user->save();
         Upload::create_dir('public/users/'.$user->token);
         $this->guard()->login($user);
-        return redirect('user/'. $user->username);
+        return redirect('user/'. $user->str_slug);
          }
 
 }

@@ -356,7 +356,7 @@ top: 8px
                                      @if(Auth::user()->img_url != null) 
                                      <img src="{{Storage::url(Auth::user()->img_url)}}" class="logo-sm"> 
                                      @else  
-                                     <img src="/img/img_ss/malo.jpg" class="logo-sm"> 
+                                     <img src="/img/img_ss/malo.png" class="logo-sm"> 
                                      @endif
                                 </div>
                                 <div class="col-md-9">
@@ -368,7 +368,11 @@ top: 8px
                         <div class="col-md-12 col-sm-12 col-lg-12" style="margin: 0;padding: 0;margin-top: 10px;">
                             <div class="card-profile">
                                 <div class="card-icon" style="height   :100%;">
-                                    <img src="{{Storage::url($user->img_url)}}">
+                                     @if(Auth::user()->img_url != null) 
+                                     <img src="{{Storage::url(Auth::user()->img_url)}}" > 
+                                     @else  
+                                     <img src="/img/img_ss/malo.png" class="logo-sm"> 
+                                     @endif
                                     <label for="upload_gambar" style="cursor:pointer"><span class="fa fa-edit bg-blue-color" style="font-size:25px"> <p style="font-size:12px">Ganti</p></span></label>
                                     <div class="card-content">
                                         <p style="font-size: 10px;

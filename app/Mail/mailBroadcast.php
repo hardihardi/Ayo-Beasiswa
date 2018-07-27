@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Models\User;
+use App\Models\Email;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -12,16 +12,17 @@ class mailBroadcast extends Mailable
 {
     use Queueable, SerializesModels;
     public $user;
-    public $status;
+    public $email_bcc;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(Email $user)
     {
+        $this->email_bcc = json_decode($user->email);
         $this->user = $user;
-        $this->subject('Informasi Penerimaan Beasiswa');
+        $this->subject($user->subject);
     }
 
     /**
@@ -31,6 +32,8 @@ class mailBroadcast extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->view('email.mail')->with([
+       'konten' => $this->user->konten
+        ])->bcc($this->email_bcc);
     }
 }

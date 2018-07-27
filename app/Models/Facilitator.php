@@ -35,6 +35,10 @@ class Facilitator extends Model
         return $this->hasMany('App\Models\Scholarship');
     }
 
+    public function Emails(){
+        return $this->hasMany('App\Models\Email');
+    }
+
     public function statusF(){
         if($this->status) return true;
         return false;

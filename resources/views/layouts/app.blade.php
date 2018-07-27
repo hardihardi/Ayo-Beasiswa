@@ -137,6 +137,7 @@
              <li><a href="{{ route('scholarshipCreate') }}" class="item item-side">Tambah Beasiswa</a></li>
              @if(Auth::user()->isSuperAdmin())
               <li><a href="{{ route('facilitatorList') }}" class="item item-side">Daftar Fasilitator</a></li>
+              <li><a href="{{ route('emailList') }}" class="item item-side">Daftar Permintaan Email</a></li>
              @endif
         </ul>
 

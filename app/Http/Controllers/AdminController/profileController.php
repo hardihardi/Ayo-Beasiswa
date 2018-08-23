@@ -25,17 +25,15 @@ class profileController extends Controller
 
 
     public function create(Request $request){
-
-      $validator = Validator::make(request()->all(), [
-        'nama_instansi' => 'nullable|max:100',
-        'deskripsi_instansi' => 'nullable|max:500',
-        'kategori' => 'nullable|max:10',
-        'logo' => 'nullable|file|max:2000', // max 2MB
-        'berkas' => 'nullable|file|max:10000', // max 2MB
+     $validator = Validator::make(request()->all(), [
+        'nama_instansi' => 'required|max:100',
+        'deskripsi_instansi' => 'required|max:500',
+        'kategori' => 'required|max:10',
+        'berkas' => 'required|file|max:10000', // max 2MB
       ]);
 
       if($validator->fails()) {
-        redirect()
+        return redirect()
             ->back()
             ->withErrors($validator->errors());
       }
@@ -69,14 +67,10 @@ class profileController extends Controller
                   ]);
               //mengirim email
               $data = Mail::to(Auth::user()->email)->send(new mailFacilitator($facilitator));
-              
-              if ($data){
-                return redirect('user/'. Auth::user()->username)
-                ->with('status', 'Silahkan cek E-mail untuk melakukan aktivasi menjadi penyedia ^_^');;
-               }else {
-                return redirect('user/'. Auth::user()->username)
-                ->with('Fail', 'Terjadi Kesalahan Silahkan daftar ulang');;
-              }
+              return redirect()
+                ->back()
+                ->withSuccess('Silahkan cek E-mail untuk melakukan aktifasi menjadi penyedia');;
+      
             }
           }
     }
@@ -98,12 +92,11 @@ class profileController extends Controller
         'deskripsi_instansi' => 'nullable|max:500',
         'kategori' => 'nullable|max:10',
         'alamat' => 'required|max:200',
-        'logo' => 'nullable|file|max:2000', // max 2MB
         'berkas' => 'nullable|file|max:10000', // max 2MB
       ]);
       
       if($validator->fails()) {
-        redirect()
+      return   redirect()
             ->back()
             ->withErrors($validator->errors());
       }

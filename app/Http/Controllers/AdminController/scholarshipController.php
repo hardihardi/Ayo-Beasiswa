@@ -40,6 +40,21 @@ class scholarshipController extends Controller
     }
 
      public function store(Request $request){
+
+        $validator = Validator::make(request()->all(), [
+        'beasiswa' => 'required|string',
+        'quota' => 'required|integer',
+        'date' => 'required|string',
+        'description' => 'required|string',
+        'image_data' => 'required|string',
+         ]);
+      
+        if($validator->fails()) {
+       return redirect()
+            ->back()
+            ->withErrors($validator->errors());
+        }
+
      	$facilitator  = Facilitator::where('user_id', $request->user()->id)->first();
      	// dd($facilitator->id);
     	$beasiswa = new Scholarship;
@@ -203,7 +218,7 @@ class scholarshipController extends Controller
                    }
                    // dd("boleh");
                }else {
-                    redirect()
+                  return  redirect()
                     ->back()
                     ->withErrors(sprintf("Masalah Dalam Mengubah Statsu"));
               }

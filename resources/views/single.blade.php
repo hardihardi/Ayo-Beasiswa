@@ -99,11 +99,11 @@
 			@foreach($beasiswa->user as $user)
 				@php 
 					$nama = substr($user->nama_depan . " " . $user->nama_belakang, 0,9);
-					$foto = ($user->img_url != null)?$user->img_url:"/img/img_url/malo.png"
+					$foto = ($user->img_url != null)?Storage::url($user->img_url):"/img/img_ss/malo.png"
 				@endphp
 				<div class="col-lg-2 col-sm-6 col-md-2">
 					<a href="{{route('single-user', [$user->str_slug])}}" class="clickarea"></a>
-					<img src="{{Storage::url($foto)}}" class="rounded-md">
+					<img src="{{$foto}}" class="rounded-md">
 					<p> {{$nama . " ..."}}</p>
 				</div>		
 			@endforeach	

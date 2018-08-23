@@ -11,6 +11,10 @@
 @endsection
 
 
+@section('css')
+    <link href="/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+@endsection
+
 @section('content')
     <section class="content-home">
         <div class="wrap">
@@ -20,12 +24,12 @@
                       
                         <div class="col-xs-1 visible-xs "></div>                      
                         <div class="col-md-3 col-sm-8 col-xs-10 col-md-offset-2 col-sm-offset-2 postri ">
-                            <h4> Cari Beasiswa <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Sesuai Keinginanmu!!! </h4>
+                            <h4> Cari Beasiswa <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Sesuai Keinginanmu </h4>
                             <form action="{{route('cari')}}" method="post">
                                    {{ csrf_field() }}
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-lg" id="search" name="kata_kunci" placeholder="Nama Beasiswa" style="margin-top : 15px">
-                                    <div class="input-group date form_date" data-date="2017-09-16T05:25:07Z" data-link-field="dtp_input1" style="margin-top : 15px;width : 49%;display:inline-table;">
+                                    <div class="input-group date form_date" data-date="2017-09-16T05:25:07Z" data-link-field="dtp_input1" style="margin-top : 15px;width : 49%;display:inline-table;" id="date_form">
                                           <input class="form-control form-control-lg"
                                             style="margin-top:0" size="16" type="text" value="" name="tanggal"  placeholder="Date End" ><span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                                     </div>
@@ -41,7 +45,7 @@
                         </div>
 
                         <div class="col-md-6 col-sm-4  col-md-offset-1  header-title postup">            
-                            <h1 > JANGAN RAGU <BR> &nbsp&nbsp&nbsp UNTUK SEKOLAH ! </h1>
+                            <h1 > JANGAN RAGU <BR> &nbsp&nbsp&nbsp UNTUK SEKOLAH  </h1>
                             <h4 > Kemudahan Mencari Beasiswa Ada Di Tangan Anda </h4>
                        </div>
                     </div>
@@ -116,8 +120,7 @@
                     </div>
                 </div>
             </div>
-
-              <div class="content-new">
+            <div class="content-new">
                 <div class="container-fluid data-post">
                     <div class="container">
                         <div class="header-create postdw ">
@@ -182,7 +185,8 @@
                             <div class="col s12 m12 l12 transparent center-align huhu ">
                                 <div class="col-md-4 col-sm-4 col-xs-12 postup">
                                     <img src="/img/scholar.png" class="counter-img">
-                                    <h3 class="counter-font"><span class="counter">100</span>&nbsp&nbspBeasiswa</h3>
+                                    <h3 class="counter-font"><span class="
+                                        ">100</span>&nbsp&nbspBeasiswa</h3>
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12 postle">
                                     <img src="/img/apply.png" class="counter-img">
@@ -242,18 +246,16 @@
                         </div>
                 </div>
                 </div> 
-              </div>
+            </div>
         </div>
     </section>
-
-
     <section id="partial-component"></section>
     </div>
-
-
 @endsection
 
 @section('js')
+ <script type="text/javascript" src="/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="/js/bootstrap-datetimepicker.id.js" charset="UTF-8"></script>
 <script type="text/javascript">
    $(document).ready(function() {
         $('.counter').countUp({
@@ -271,6 +273,9 @@
                 $('.profile-toogle').removeClass('item-scroll');
              }
         });
+          $('#date_form').datetimepicker({
+            });
+
     });
 </script>
 @endsection

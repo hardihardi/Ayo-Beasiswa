@@ -15,10 +15,6 @@ Route::get('/', 'HomeController@index')->name('root');
 
 Auth::routes();
 
-Route::get('hh', function(){
-	return BHelper::create_dir("asda");
-});
-
 Route::get('/verify/{token}/{id}', 'Auth\RegisterController@verify_register');
 Route::get('/verify_facilitator/{token}/{id}', 'AdminController\profileController@verify_facilitator');
 

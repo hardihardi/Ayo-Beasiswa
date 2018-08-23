@@ -220,9 +220,9 @@
                             </td>
                        
                           </tr>
-                            @if($user->berkas_lain != null || $user->berkas_lain != 0 )
+                            @if( $user->berkas_lain !== "0" or  $user->berkas_lain !== "0" )
                              <tr>
-                                <td><p>{{$user->berkas_lain}} <b>*ungga berkas dalam format Kompress (ZIP/RAR/GTZ)</b></p>
+                                <td><p>{{$user->berkas_lain}} <b>*ungga berkas dalam format Kompress (ZIP/RAR/GTZ) Berkas ini dapat diunggah setelah melakukan upload berkas wajib minimal 1</b></p>
                                         <input type="file" name="file" id="berkas_lain">
                                         <p>File Anda  : {{$user->pivot->berkas_lain}}
                                 </td>

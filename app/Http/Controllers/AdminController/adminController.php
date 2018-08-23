@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\mailBroadcast;
+use Validator;
 
 
 class adminController extends Controller
@@ -46,6 +47,18 @@ class adminController extends Controller
     }
 
     public function addEmail(Request $request){
+
+        $validator = Validator::make(request()->all(), [
+        'status_user' => 'required|string',
+        'subject' => 'required|string',
+        'description' => 'required|string',
+         ]);
+      
+        if($validator->fails()) {
+       return redirect()
+            ->back()
+            ->withErrors($validator->errors());
+        }
       $status = $request->status_user;
       $scholarship_id = $request->scholarship_id;
       if ($request->status_user != 'all'){

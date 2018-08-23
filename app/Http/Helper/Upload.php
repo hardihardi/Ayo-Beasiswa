@@ -4,6 +4,7 @@ namespace App\Http\Helper;
 use Image;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
+// use Illuminate\Support\Facades\File;
 class Upload {
     /**
      * 
@@ -34,7 +35,9 @@ class Upload {
             $size = strlen((string) $img->encode($img->mime));
             if($size <= 20000000) {
                        // $path = $img->StoreAs($dir, $name);
+                // dd(public_path());
                 $path_tmb = public_path().'/img/thumbnails/'.Upload::generateRandomString(10).".png";
+                
                 $img->save($path_tmb);
                 $path = Storage::putFileAs($dir, new File($path_tmb), $name);
                 unlink($path_tmb);

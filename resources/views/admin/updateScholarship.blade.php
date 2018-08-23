@@ -37,21 +37,21 @@
                  {{ csrf_field() }}
                 <input type="hidden" name="_method" value="PUT">
                 <div class="form-group">                                
-                    <label for="beasiswa">Nama Beasiswa</label></label>   
+                    <label for="beasiswa">Nama Beasiswa *wajib diisi</label>  
                     <input type="text" class="form-control form-control-lg" id="beasiswa" name="beasiswa" placeholder="Nama Beasiswa" value="{{$beasiswas->nama_beasiswa}}">
                  </div>   
                 <div class="form-group">                                
-                    <label for="quote">Quota</label></label>   
+                    <label for="quote">Quota *wajib diisi</label>
                     <input type="text" class="form-control form-control-lg" id="quote" name="quota" placeholder="Kuota"  value="{{$beasiswas->quota}}">
                     </div>   
                 <div class="form-group">
-                        <label for="">Jangka Waktu </label></label>   
+                        <label for="">Jangka Waktu *wajib diisi </label> 
                         <div class="input-group date form_date " data-date="2017-09-16T05:25:07Z" data-link-field="dtp_input1" style="margin-top : 20px" >
                         <input class="form-control form-control-lg" style="margin-top:0" size="16" type="text" readonly name="date"  placeholder="Masa akhir pendaftaran"   value="{{$beasiswas->masa_berlaku}}">
                         <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                 </div>
                 <div class="form-group">                                
-                        <label for="preview_image">Upload Foto Basiswa</label></label>  
+                        <label for="preview_image">Unggah Foto Basiswa *wajib diisi</label>
                         <div class="image-editor" class="width:780px;height:500px">
                             <input type="file" class="cropit-image-input">
                             <div class="cropit-preview"></div>
@@ -75,7 +75,7 @@
             </div>
                 
         <!-- Content -->
-        <div class="title-pages">Description</div>
+        <div class="title-pages">Deskripsi *wajib diisi</div>
         <textarea id="summernote" name="Description">{{$beasiswas->konten}}</textarea>
         <div class="header-create">
             <span class="number">2</span>

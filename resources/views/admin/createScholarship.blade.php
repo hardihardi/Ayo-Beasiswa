@@ -15,16 +15,16 @@
         <div class="body-create">
             <form action="{{ route('createScholarship')}}" method="POST" enctype="multipart/form-data">
                  {{ csrf_field() }}
-                <input type="text" class="form-control form-control-lg" id="beasiswa" name="beasiswa" placeholder="Nama Beasiswa">
-                <input type="hidden" class="form-control form-control-lg" id="instusi" name="instusi" placeholder="Nama Institusi" value="">
-                <input type="text" class="form-control form-control-lg" id="quote" name="quota" placeholder="Kuota">
+                <input type="text" class="form-control form-control-lg" id="beasiswa" name="beasiswa" placeholder="Nama Beasiswa *Wajib diisi">
+                <input type="hidden" class="form-control form-control-lg" id="instusi" name="instusi" placeholder="Nama Institusi *Wajib diisi" value="">
+                <input type="text" class="form-control form-control-lg" id="quote" name="quota" placeholder="Kuota *Wajib diisi">
                    <div class="form-group">
                 <div class="input-group date form_date " data-date="2017-09-16T05:25:07Z" data-link-field="dtp_input1" style="margin-top : 20px">
-                    <input class="form-control form-control-lg"  style="margin-top:0" size="16" type="text" value="" readonly name="date"  placeholder="Tanggal Akhir" >
+                    <input class="form-control form-control-lg"  style="margin-top:0" size="16" type="text" value="" readonly name="date"  placeholder="Tanggal Akhir *Wajib diisi" >
                     <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                 </div>
                 <div class="form-group">                                
-                    <label for="preview_image">Unggah Foto Profil</label></label>  
+                    <label for="preview_image">Unggah Foto Profil <b>*Wajib diisi</b></label></label>  
                     <div class="image-editor">
                         <input type="file" class="cropit-image-input">
                         <div class="cropit-preview"></div>
@@ -45,7 +45,7 @@
                  </div>
                 
                    <!-- Content -->
-                     <div class="title-pages">Deskripsi</div>
+                     <div class="title-pages">Deskripsi <b> *Wajib diisi</b></div>
                    <textarea id="summernote" name="description">Tuliskan deskripsi anda disini</textarea>
         </div>
         <div class="header-create">

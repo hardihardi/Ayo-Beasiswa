@@ -163,7 +163,7 @@ use Carbon\Carbon;
  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <script type="text/javascript" src="/js/jquery.viewportchecker.js"></script>   
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/js/nicescroll.min.js"></script>
+<!-- <script type="text/javascript" src="/js/nicescroll.min.js"></script> -->
 <script type="text/javascript" src="/js/loading-bar.js"></script>
 <script type="text/javascript" src="/js/prism.js"></script>
 <script type="text/javascript" src="/js/waypoints.min.js"></script>
@@ -174,17 +174,6 @@ use Carbon\Carbon;
 
 <script type="text/javascript">
 
-$('.form_date').datetimepicker({
-    language:  'fr',
-    weekStart: 1,
-    todayBtn:  1,
-    autoclose: 1,
-    todayHighlight: 1,
-    startView: 2,
-    minView: 2,
-    forceParse: 0
-
-});
 
 $('ul.nav li.dropdown').hover(function() {
   $(this).find('.dropdown-menu').stop(true, true).delay(10).fadeIn(500);
@@ -193,11 +182,11 @@ $('ul.nav li.dropdown').hover(function() {
 });
 </script>
     <!-- Component Script -->
-  <script>
-        $('body, .content').niceScroll({
-                cursorwidth: '2px'
-            });
-            </script>
+<!-- <script>
+    $('body, .content').niceScroll({
+    cursorwidth: '2px'
+    });
+</script> -->
 
     <!-- Your Own Script -->
 <script type="text/javascript" src="/js/home.js"></script>

@@ -7,6 +7,7 @@ use App\Models\Facilitator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
 
 class superAdminController extends Controller
 {
@@ -34,9 +35,9 @@ class superAdminController extends Controller
     public function delete($id){
     	$facilitator = Facilitator::where('id', $id)->first();
     	if($facilitator){
-    		$delete  = Storage::deleteDirectory('public/facilitators/'.$facilitator->token_facilitator . "/");
-    		if ($delete){
-    			$facilitator->user()->delete();
+    		if ($facilitator){
+                $delete  = Storage::deleteDirectory('public/facilitators/'.$facilitator->token_facilitator . "/");
+        			$facilitator->user()->update(['role' => "1"]);
     			$facilitator->delete();
     			return redirect()
 		            ->back()

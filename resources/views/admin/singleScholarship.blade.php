@@ -98,13 +98,16 @@
                 </div>
                 <div class="modal-body" style="padding: 20px 40px">
                      <input type="hidden" readonly class="form-control form-control-lg" id="scholarship_id" name="scholarship_id" value="{{$beasiswas->id}}" >
-                    <input type="text" class="form-control form-control-lg" id="beasiswa" name="subject" placeholder="Subject">
+                    Subject <label for=""> *wajib diisi </label> 
+                    <input type="text" class="form-control form-control-lg" id="beasiswa" name="subject" placeholder="Subject ">
+                  Status User <label for="">*wajib diisi </label> 
                     <select name="status_user" class="form-control form-control-lg readonly" id="status_user" readonly  >
                         <option value="all">Seluruh</option>         
                         <option value="Terima">Diterima</option>         
                         <option value="Tolak">Ditolak</option>         
                         <option value="Pertimbangkan">Dipertimbangkan</option>         
                     </select>
+                      Deskripsi <label for=""> *wajib diisi </label> 
                     <textarea id="summernote" name="description">Tuliskan Isi Email Anda</textarea>
                     <input type="submit" name="kirim" class="form-control form-control-lg btn-success" value="kirim">
                 </div>
@@ -136,7 +139,7 @@
                             </div>
                              <div class="form-group">
                                 <label for="deskripsi">Email</label></label>
-                                <input type="text" readonly class="form-control form-control-lg" id="email" placeholder="Email" name="deskripsi_instansi" >
+                                <input type="text" readonly class="form-control form-control-lg" id="email_data" placeholder="Email" name="deskripsi_instansi" >
                             </div>
                              <div class="form-group">
                                 <label for="deskripsi">Mendaftar Pada Beasiswa</label></label>
@@ -277,8 +280,9 @@
                     success : function(res){
                         var data = JSON.parse(res);
                         var $single =data.original
+                        console.log($single)
                         $('#nama').val($single.nama)
-                        $('#email').val($single.email)
+                        $('#email_data').val($single.email)
                         $('#pendidikan').val($single.pendidikan)
                         $('#username').val($single.username)
                         $('#nama_beasiswa').val($single.nama_beasiswa)

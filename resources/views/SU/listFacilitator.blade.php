@@ -45,17 +45,17 @@
                     @endif
 
                     @if($user->status == 1)
-                        <td><a class="btn btn-success">Aktif</a></td>
+                        <td><a class="btn btn-success" style="width:140px;">Aktif</a></td>
                     @else
-                         <td><a class="btn btn-danger">Tidak Atktif</a></td>
+                         <td><a class="btn btn-danger" style="width:140px;">Tidak Atktif</a></td>
                     @endif
                     <td>
                     @if($user->status == 1)
-                     <a href="{{route('activateFacilitator', [$user->id, $user->status])}}" class="btn btn-danger"><span class="glyphicon glyphicon-edit iconic green-color"></span> Non Aktifkan</a>
+                     <a style="width:140px;" href="{{route('activateFacilitator', [$user->id, $user->status])}}" class="btn btn-danger"><span class="glyphicon glyphicon-edit iconic green-color"></span> Non Aktifkan</a>
                     @else
-                     <a href="{{route('activateFacilitator', [$user->id, $user->status])}}" class="btn btn-success"><span class="glyphicon glyphicon-edit iconic green-color"></span>Aktifkan</a>
+                     <a  style="width:140px;" href="{{route('activateFacilitator', [$user->id, $user->status])}}" class="btn btn-success"><span class="glyphicon glyphicon-edit iconic green-color"></span>Aktifkan</a>
                     @endif
-                    <a href="{{route('deleteFacilitator', [$user->id])}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash iconic red-color"></span> Hapus</a></td>
+                    <a  style="width:140px;" href="{{route('deleteFacilitator', [$user->id])}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash iconic red-color"></span> Hapus</a></td>
                 </tr>
 
                 @endforeach

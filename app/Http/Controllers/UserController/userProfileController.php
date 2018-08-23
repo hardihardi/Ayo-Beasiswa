@@ -237,18 +237,16 @@ class userProfileController extends Controller
                     'public/facilitators/'.Scholarship::where('id', $id)->first()->facilitator->token_facilitator."/files/".$user->id, $id . "_".Upload::generateRandomString(10) . "." . $request->file('file')->getClientOriginalExtension()
                     );
                     $array["berkas_lain"] = $path;  
+                }else {
+                  $scholarship = $user->scholarship->where('id', $id)->first();
+                  $array["berkas_lain"] = $scholarship->pivot->berkas_lain;  
                 }
               $array['updated_at'] = Carbon::now();
-              if($user->scholarship->where('id_scholarship', $id)->first() == null){
+            
                   $success = $user->scholarship()->updateExistingPivot($id,$array);
                   return redirect()
                       ->back()
-                      ->withSuccess(sprintf('Berkas Anda Telah Di Update.', "success"));
-              }else {
-                    return redirect()
-                    ->back()
-                    ->withErrors(sprintf('Maaf %s.', "Anda Sudah mendaftar"));
-              }
+                      ->withSuccess(sprintf('Berkas Anda Telah Di Ubah.', "success"));
         }
         else {
            foreach ($berkas_array as $berkas) {
@@ -305,7 +303,7 @@ class userProfileController extends Controller
           $success = $user->scholarship()->attach($id,$array);
            return redirect()
                     ->back()
-                    ->withSuccess(sprintf('Terjadi %s silahakan coba beberapa saat lagi.', "Masalah"));  
+                    ->withSuccess(sprintf('Pendaftaran beasiswa berhasil. harap Lengkapi berkas anda!'));  
         }
      }
 

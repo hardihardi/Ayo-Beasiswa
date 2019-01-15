@@ -35,7 +35,7 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Scholarship','user_scholarship', 'user_id','scholarship_id')->withPivot('berkas_diri', 'ijazah','organisasi','sp_beasiswa','berkas_keluarga','berkas_lain','status','berkas_pendukung');
     }
 
-     public function isAdmin(){
+    public function isAdmin(){
         if($this->role == 2) return true;
 
         return false;

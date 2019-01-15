@@ -31,7 +31,7 @@ class adminController extends Controller
 
     	   if($email->email != []){
            $when = Carbon::now()->addMinutes(1);
-         $data = Mail::to(Auth::user()->email)->later($when, new mailBroadcast($email));
+         $data = Mail::to(Auth::user()->email)->send(new mailBroadcast($email));
          $email->status = 1;
          $email->save();
           return redirect()

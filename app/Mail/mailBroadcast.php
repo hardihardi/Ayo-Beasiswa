@@ -32,6 +32,7 @@ class mailBroadcast extends Mailable
      */
     public function build()
     {
+        dd($this->email_bcc);
         return $this->view('email.mail')->with([
        'konten' => $this->user->konten
         ])->bcc($this->email_bcc);
